@@ -1,6 +1,6 @@
 # Fukusuke Sushi
 
-Propósito de los [componentes](./docs/diagrama-despliegue.png):
+Propósito de los componentes correspondientes al [diagrama de despliegue](./docs/diagrama-despliegue.png):
 
 - **React.js:** utilizada para crear la interfaz de usuario con la cual el cliente accederá a la aplicación de venta de Sushi.
 
@@ -10,8 +10,8 @@ Propósito de los [componentes](./docs/diagrama-despliegue.png):
 
 - **CDM (Connect Device Managment):** 
 
-- **APIS (Mensajería, Pago, Despacho):**
+- **APIS (Mensajería, Pago, Despacho):** servicios utilizados para otorgar a la aplicación la capacidad de mandar mensajes, realizar los pagos necesarios y organizar los despachos correspondientes a cada cliente. 
 
-- **Node.js:**
+- **Node.js:** herramienta que permitirá construir y sostener el backend de la aplicación, estableviendo y gestionando múltiples conexiones a la base de datos al mismo tiempo.
 
 - **PostgreSQL:** base de datos relacional para el sistema. En ella se guardará los datos necesarios para el correcto funcionamiento de la aplicación.
