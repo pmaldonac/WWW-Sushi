@@ -6,12 +6,12 @@ body {
 }
 .v333_1322 {
   width: 100%;
-  height: 982px;
-  background: url("../images/v333_1322.png");
+  height: 100%;
+  background: #E5E5E5;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  opacity: 1;
+  opacity: 3;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -19,7 +19,7 @@ body {
 }
 .v333_1323 {
   width: 100%;
-  height: 982px;
+  height: 100%;
   background: url("../images/v333_1323.png");
   background-repeat: no-repeat;
   background-position: center center;
@@ -30,30 +30,42 @@ body {
   left: 0px;
   overflow: hidden;
 }
+
+ /* HEADER */
 .v333_1324 {
   width: 100%;
-  height: 123px;
+  height: 13%;
   background: url("../images/v333_1324.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0%;
+  left: 0%;
+  bottom: 87%;
   overflow: hidden;
 }
+
+ /* HEADER */ 
 .v333_1325 {
   width: 100%;
-  height: 118px;
+  height: 13%;
   background: rgba(7,168,158,1);
   opacity: 1;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: space-between;
+  padding: 3%;
+  top: 0%;
+  left: 0%;
+  bottom: 87%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4000000059604645);
   overflow: hidden;
 }
+
+ /* LOGO */ 
 .v333_1326 {
   width: 341px;
   height: 108px;
@@ -62,114 +74,183 @@ body {
   background-position: center center;
   background-size: cover;
   opacity: 1;
-  position: absolute;
-  top: 15px;
-  left: 7px;
+  /* position: absolute; */
+  /* top: 15px;
+  left: 7px; */
   overflow: hidden;
 }
+
+ /* CIRCULO AVATAR */ 
 .v333_1327 {
-  width: 71px;
-  height: 75px;
+  /* width: auto; */
+  /* height: auto; */
   background: rgba(102,102,102,1);
   opacity: 1;
-  position: absolute;
-  top: 21px;
-  left: 1399px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
   border-radius: 50%;
+  overflow: hidden;
+
 }
+
+ /* ICONO AVATAR */ 
 .v333_1328 {
   width: 100px;
   height: 95px;
   background: url("../images/v333_1328.png");
   opacity: 1;
-  position: absolute;
-  top: 11px;
-  left: 1385px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  /* position: absolute; */
+  /* top: 11px;
+  left: 1385px; */
   border-radius: 50%;
 }
+
+ /* FOOTER */
 .v333_1329 {
   width: 100%;
-  height: 80px;
+  height: auto;
   background: url("../images/v333_1329.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
-  position: absolute;
-  top: 902px;
-  left: 0px;
+  top: 92%;
+  left: 0%;
+  bottom: 0%;
   overflow: hidden;
 }
+
+/* FOOTER */
 .v333_1330 {
   width: 100%;
-  height: 80px;
-  background: rgba(8,168,158,1);
+  height: auto;
+  background: rgba(7,168,158,1);
   opacity: 1;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: flex-end;
+  padding: 3%;
+  top: 92%;
+  left: 0%;
+  bottom: 0%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4000000059604645);
   overflow: hidden;
 }
+
+/* MI CUENTA BOX */
+.v333_1330_2 {
+    /* width: auto; */
+  /* height: auto; */
+  /* background: rgba(102,102,102,1); */
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  /* border-radius: 50%; */
+  overflow: hidden;
+
+}
+
+  /* USERNAME */
 .v333_1331 {
   width: 90px;
   color: rgba(255,255,255,1);
-  position: absolute;
-  top: 47px;
-  left: 1353px;
+  /* position: absolute; */
+  /* top: 47px;
+  left: 1353px; */
   font-family: Manrope;
   font-weight: SemiBold;
   font-size: 16px;
   opacity: 1;
   text-align: center;
 }
+
+ /* MI CUENTA */
 .v333_1332 {
   width: 120px;
   color: rgba(255,255,255,1);
-  position: absolute;
+  /* position: absolute;
   top: 14px;
-  left: 1330px;
+  left: 1330px; */
   font-family: Manrope;
   font-weight: ExtraBold;
   font-size: 24px;
   opacity: 1;
   text-align: center;
 }
+
+/* FRANJA MEDIA */
+.v333_1343 {
+  width: 100%;
+  height: auto;
+  /* opacity: 1; */
+  position: absolute;
+  top: 13%;
+  left: 0%;
+  bottom: 8%;
+  overflow: hidden;
+}
+
+/* DRAWER */
 .v333_1333 {
-  width: 356px;
-  height: 784px;
+  width: 25%;
+  height: auto;
   background: url("../images/v333_1333.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 118px;
-  left: 0px;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
   overflow: hidden;
 }
+
+/* DRAWER */
 .v333_1334 {
-  width: 356px;
-  height: 784px;
+  width: 100%;
+  height: 100%;
   background: rgba(8,168,158,0.6200000047683716);
   opacity: 1;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
   border: 1.5px solid rgba(0,0,0,0.2800000011920929);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   overflow: hidden;
 }
+
+/* DRAWER */
 .v333_1341 {
-  width: 356px;
-  height: 784px;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.5799999833106995);
   opacity: 1;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
   overflow: hidden;
 }
+
+/* REPORTES */
 .v333_1342 {
   width: 88px;
   color: rgba(255,255,255,1);
@@ -185,105 +266,209 @@ body {
 .name {
   color: #fff;
 }
+
+/* DASHBOARD */
+.v333_1344 {
+  width: 75%;
+  height: auto;
+  background: url("../images/v333_1333.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  display: flex;
+  /* flex-direction: row; */
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
+  align-content: center;
+  position: absolute;
+  top: 0%;
+  left: 25%;
+  bottom: 0%;
+  padding: 2%;
+  overflow: hidden;
+}
+
+/* BOX GRAFICO */
+.v333_1397_1 {
+  width: 50%;
+  height: 50%;
+  background: url("../images/v333_1333.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  padding: 2%;
+}
+
+/* BOX RANGO FECHAS */
+.v333_1397_2 {
+  width: auto;
+  height: 50%;
+  background: url("../images/v333_1333.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  padding: 2%;
+}
+
+/* BOX MAS VENDIDOS */
+.v333_1397_3 {
+  width: auto;
+  height: 50%;
+  background: url("../images/v333_1333.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  padding: 2%;
+}
+
+/* GRAFICO */
 .v333_1398 {
-  width: 705px;
-  height: 331px;
+  width: 100%;
+  height: 100%;
   background: url("../images/v333_1398.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
-  position: absolute;
-  top: 193px;
-  left: 383px;
   border-top-left-radius: 9px;
   border-top-right-radius: 9px;
   border-bottom-left-radius: 9px;
   border-bottom-right-radius: 9px;
   overflow: hidden;
+
 }
+
+/* VENTAS TEXT */
 .v333_1399 {
-  width: 80px;
+  width: auto;
   color: rgba(8,168,158,1);
-  position: absolute;
-  top: 150px;
-  left: 383px;
+
   font-family: Manrope;
   font-weight: SemiBold;
   font-size: 24px;
   opacity: 1;
-  text-align: center;
+  text-align: left;
 }
+
 .v333_1400 {
-  width: 130px;
+  width: auto;
   color: rgba(8,168,158,1);
-  position: absolute;
+  /* position: absolute;
   top: 572px;
-  left: 398px;
+  left: 398px; */
   font-family: Manrope;
   font-weight: SemiBold;
   font-size: 20px;
   opacity: 1;
   text-align: center;
 }
+
 .v333_1401 {
-  width: 323px;
-  height: 143px;
+  width: 100%;
+  height: 100%;
   background: rgba(255,255,255,1);
   opacity: 1;
-  position: absolute;
-  top: 609px;
-  left: 383px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-top-left-radius: 9px;
   border-top-right-radius: 9px;
   border-bottom-left-radius: 9px;
   border-bottom-right-radius: 9px;
   overflow: hidden;
 }
+
 .v333_1404 {
-  width: 331px;
-  height: 331px;
+  width: 100%;
+  height: 100%;
   background: rgba(255,255,255,1);
   opacity: 1;
-  position: absolute;
-  top: 193px;
-  left: 1154px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   border-top-left-radius: 9px;
   border-top-right-radius: 9px;
   border-bottom-left-radius: 9px;
   border-bottom-right-radius: 9px;
   overflow: hidden;
+  padding: 10%;
 }
 .v333_1408 {
-  width: 68px;
+  /* width: 100%; */
   color: rgba(8,168,158,1);
-  position: absolute;
-  top: 295px;
-  left: 1206px;
+  /* position: absolute; */
+  /* top: 295px;
+  left: 1206px; */
   font-family: Manrope;
   font-weight: SemiBold;
   font-size: 20px;
   opacity: 1;
   text-align: center;
 }
+
+.v333_1408_2 {
+  width: 60%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  align-content: space-around;
+  overflow: hidden;
+}
+
 .v333_1410 {
-  width: 63px;
+  /* width: 100%; */
   color: rgba(8,168,158,1);
-  position: absolute;
-  top: 378px;
-  left: 1209px;
+  /* position: absolute; */
+  /* top: 378px;
+  left: 1209px; */
   font-family: Manrope;
   font-weight: SemiBold;
   font-size: 20px;
   opacity: 1;
   text-align: center;
 }
+
+.v333_1410_2 {
+  width: 60%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+
 .v333_1405 {
-  width: 290px;
+  /* width: 100%; */
   color: rgba(8,168,158,1);
-  position: absolute;
-  top: 219px;
-  left: 1172px;
+  /* position: absolute; */
+  /* top: 219px;
+  left: 1172px; */
   font-family: Manrope;
   font-weight: SemiBold;
   font-size: 20px;
@@ -291,13 +476,13 @@ body {
   text-align: center;
 }
 .v333_1406 {
-  width: 185px;
-  height: 29px;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.12999999523162842);
   opacity: 1;
-  position: absolute;
-  top: 325px;
-  left: 1200px;
+  /* position: absolute; */
+  /* top: 325px;
+  left: 1200px; */
   border: 1px solid rgba(52,252,96,0.41999998688697815);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -306,13 +491,13 @@ body {
   overflow: hidden;
 }
 .v333_1407 {
-  width: 185px;
-  height: 29px;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.12999999523162842);
   opacity: 1;
-  position: absolute;
-  top: 408px;
-  left: 1200px;
+  /* position: absolute; */
+  /* top: 408px;
+  left: 1200px; */
   border: 1px solid rgba(52,252,96,0.41999998688697815);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -321,11 +506,8 @@ body {
   overflow: hidden;
 }
 .v333_1412 {
-  width: 262px;
+  /* width: 100%; */
   color: rgba(8,168,158,1);
-  position: absolute;
-  top: 599px;
-  left: 398px;
   font-family: Manrope;
   font-weight: SemiBold;
   font-size: 24px;
@@ -333,22 +515,16 @@ body {
   text-align: left;
 }
 .v333_1413 {
-  width: 27px;
-  height: 26px;
-  background: rgba(217,217,217,1);
+  width: 20%;
+  height: 100%;
+  background: rgba(0,0,0,0.12999999523162842);
   opacity: 1;
-  position: absolute;
-  top: 325px;
-  left: 1408px;
   overflow: hidden;
 }
 .v333_1414 {
-  width: 27px;
-  height: 26px;
-  background: rgba(217,217,217,1);
+  width: 20%;
+  height: 100%;
+  background: rgba(0,0,0,0.12999999523162842);
   opacity: 1;
-  position: absolute;
-  top: 408px;
-  left: 1408px;
   overflow: hidden;
 }
