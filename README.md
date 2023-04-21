@@ -8,7 +8,7 @@ Propósito de los componentes correspondientes al [diagrama de despliegue](./doc
 
 - **AWS Elastic Load Balance:** servicio utilziado para distribuir el tráfico entrante de usuarios a la aplicación a través de instancias, containers, etc. Permitirá evitar el colapso del sistema debido a múltiples usuarios que estén utilizando la aplicación.
 
-- **CDM (Connect Device Managment):** 
+- **CDM (Connect Device Managment):** permite gestionar y asegurar la calidad de los equipos en los cuales está levantado el sistema.
 
 - **APIS (Mensajería, Pago, Despacho):** servicios utilizados para otorgar a la aplicación la capacidad de mandar mensajes, realizar los pagos necesarios y organizar los despachos correspondientes a cada cliente. 
 
