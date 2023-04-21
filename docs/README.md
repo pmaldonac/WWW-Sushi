@@ -1,6 +1,6 @@
 # Diagrama de despliegue
 
-Propósito de los componentes:
+Propósito de los [componentes](./diagrama-despliegue.png):
 
 - React.js: 
 
