@@ -1,3 +1,3 @@
-# WWW-Sushi      Cancel changes
+# Fukusuke Sushi      Cancel changes
 
 [Diagrama de componentes](./docs/diagrama-despliegue.png)
