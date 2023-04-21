@@ -75,14 +75,17 @@ body {
   border-radius: 50%;
 }
 .v305_18 {
-  width: 100px;
-  height: 95px;
+  width: 90px;
+  height: 80px;
   background: url("../images/v305_18.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 11px;
-  left: 1385px;
-  border-radius: 50%;
+  top: 20px;
+  left: 1390px;
+  overflow: hidden;
 }
 .v302_205 {
   width: 100%;
@@ -174,7 +177,7 @@ body {
   width: 125px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 5px;
+  top: 15px;
   left: 10px;
   font-family: Manrope;
   font-weight: ExtraBold;
@@ -186,10 +189,10 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 63px;
+  top: 70px;
   left: 29px;
   font-family: Manrope;
-  font-weight: SemiBold;
+  font-weight: Bold;
   font-size: 20px;
   opacity: 1;
   text-align: left;
@@ -299,7 +302,7 @@ body {
   text-align: center;
 }
 .v333_298 {
-  width: 178px;
+  width: 180px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;
@@ -365,7 +368,7 @@ body {
   color: #fff;
 }
 .v333_308 {
-  width: 118px;
+  width: 120px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 110px;
@@ -397,8 +400,8 @@ body {
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 52px;
-  left: 73px;
+  top: 15px;
+  left: 50px;
   overflow: hidden;
 }
 .v333_304 {
@@ -496,7 +499,7 @@ body {
   text-align: center;
 }
 .v333_316 {
-  width: 98px;
+  width: 100px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;
@@ -520,7 +523,7 @@ body {
   text-align: center;
 }
 .v333_318 {
-  width: 178px;
+  width: 180px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;
@@ -555,7 +558,7 @@ body {
   overflow: hidden;
 }
 .v333_321 {
-  width: 112px;
+  width: 115px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 5px;
@@ -666,7 +669,7 @@ body {
   text-align: center;
 }
 .v333_327 {
-  width: 178px;
+  width: 180px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;
@@ -812,7 +815,7 @@ body {
   text-align: center;
 }
 .v333_336 {
-  width: 178px;
+  width: 180px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;

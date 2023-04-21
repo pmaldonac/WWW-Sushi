@@ -85,14 +85,18 @@ body {
   border-radius: 50%;
 }
 .v333_144 {
-  width: 100px;
-  height: 95px;
+  width: 90px;
+  height: 80px;
   background: url("../images/v333_144.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 11px;
-  left: 1385px;
-  border-radius: 50%;
+  top: 20px;
+  left: 1390px;
+  overflow: hidden;
+  
 }
 .v333_145 {
   width: 100%;
@@ -193,7 +197,7 @@ body {
   width: 125px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 5px;
+  top: 10px;
   left: 10px;
   font-family: Manrope;
   font-weight: ExtraBold;
@@ -239,11 +243,12 @@ body {
   width: 149px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 137px;
+  top: 123px;
   left: 40px;
   font-family: Manrope;
-  font-weight: ExtraBold;
+  font-weight: Bold;
   font-size: 24px;
+  text-decoration: underline rgb(255, 255, 255); 
   opacity: 1;
   text-align: center;
 }

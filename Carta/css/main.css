@@ -85,14 +85,17 @@ body {
   border-radius: 50%;
 }
 .v304_10 {
-  width: 100px;
-  height: 95px;
+  width: 90px;
+  height: 80px;
   background: url("../images/v304_10.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 11px;
-  left: 1385px;
-  border-radius: 50%;
+  top: 20px;
+  left: 1390px;
+  overflow: hidden;
 }
 .v302_46 {
   width: 100%;
@@ -212,7 +215,7 @@ body {
   width: 189px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 431px;
+  top: 440px;
   left: 20px;
   font-family: Manrope;
   font-weight: ExtraBold;
@@ -240,7 +243,8 @@ body {
   top: 20px;
   left: 5px;
   font-family: Manrope;
-  font-weight: SemiBold;
+  font-weight: Bold;
+  text-decoration: underline rgb(255, 255, 255); 
   font-size: 20px;
   opacity: 1;
   text-align: left;
@@ -261,7 +265,7 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 140px;
+  top: 125px;
   left: 2px;
   font-family: Manrope;
   font-weight: SemiBold;
@@ -273,7 +277,7 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 250px;
+  top: 230px;
   left: 0px;
   font-family: Manrope;
   font-weight: SemiBold;
@@ -285,7 +289,7 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 300px;
+  top: 280px;
   left: 0px;
   font-family: Manrope;
   font-weight: SemiBold;
@@ -297,7 +301,7 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 200px;
+  top: 180px;
   left: 2px;
   font-family: Manrope;
   font-weight: SemiBold;

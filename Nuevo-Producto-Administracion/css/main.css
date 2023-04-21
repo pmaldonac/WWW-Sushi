@@ -78,14 +78,17 @@ body {
   border-radius: 50%;
 }
 .v333_989 {
-  width: 100px;
-  height: 95px;
+  width: 90px;
+  height: 80px;
   background: url("../images/v333_989.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 11px;
-  left: 1385px;
-  border-radius: 50%;
+  top: 20px;
+  left: 1390px;
+  overflow: hidden;
 }
 .v333_990 {
   width: 100%;
@@ -193,7 +196,7 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 63px;
+  top: 70px;
   left: 29px;
   font-family: Manrope;
   font-weight: SemiBold;
@@ -205,10 +208,11 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 109px;
+  top: 115px;
   left: 29px;
   font-family: Manrope;
-  font-weight: SemiBold;
+  font-weight: Bold;
+  text-decoration: underline rgb(255, 255, 255); 
   font-size: 20px;
   opacity: 1;
   text-align: left;
@@ -217,7 +221,7 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 156px;
+  top: 160px;
   left: 29px;
   font-family: Manrope;
   font-weight: SemiBold;
@@ -819,7 +823,7 @@ body {
   overflow: hidden;
 }
 .v333_1056 {
-  width: 290px;
+  width: 300px;
   color: rgba(0,0,0,0.6000000238418579);
   position: absolute;
   top: 13px;
@@ -859,11 +863,11 @@ body {
   overflow: hidden;
 }
 .v333_1058 {
-  width: 137px;
+  width: 150px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 13px;
-  left: 16px;
+  left: 10px;
   font-family: Manrope;
   font-weight: Bold;
   font-size: 16px;

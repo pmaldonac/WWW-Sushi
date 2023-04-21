@@ -85,14 +85,17 @@ body {
   border-radius: 50%;
 }
 .v336_1809 {
-  width: 100px;
-  height: 95px;
+  width: 90px;
+  height: 80px;
   background: url("../images/v336_1809.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 11px;
-  left: 1385px;
-  border-radius: 50%;
+  top: 20px;
+  left: 1390px;
+  overflow: hidden;
 }
 .v336_1810 {
   width: 100%;
@@ -193,7 +196,7 @@ body {
   width: 125px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 5px;
+  top: 15px;
   left: 10px;
   font-family: Manrope;
   font-weight: ExtraBold;
@@ -227,13 +230,14 @@ body {
   width: 189px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 185px;
+  top: 180px;
   left: 15px;
   font-family: Manrope;
-  font-weight: ExtraBold;
+  font-weight: Bold;
   font-size: 24px;
   opacity: 1;
   text-align: center;
+  text-decoration: underline rgb(255, 255, 255); 
 }
 .name {
   color: #fff;
@@ -242,7 +246,7 @@ body {
   width: 149px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 255px;
+  top: 240px;
   left: 40px;
   font-family: Manrope;
   font-weight: ExtraBold;

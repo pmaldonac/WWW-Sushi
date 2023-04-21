@@ -78,14 +78,17 @@ body {
   border-radius: 50%;
 }
 .v333_1206 {
-  width: 100px;
-  height: 95px;
+  width: 90px;
+  height: 80px;
   background: url("../images/v333_1206.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 11px;
-  left: 1385px;
-  border-radius: 50%;
+  top: 20px;
+  left: 1390px;
+  overflow: hidden;
 }
 .v333_1207 {
   width: 100%;
@@ -196,7 +199,7 @@ body {
   top: 18px;
   left: 30px;
   font-family: Manrope;
-  font-weight: Bold;
+  font-weight: SemiBold;
   font-size: 20px;
   opacity: 1;
   text-align: center;
@@ -218,7 +221,8 @@ body {
   top: 75px;
   left: 30px;
   font-family: Manrope;
-  font-weight: SemiBold;
+  text-decoration: underline rgb(255, 255, 255); 
+  font-weight: Bold;
   font-size: 20px;
   opacity: 1;
   text-align: left;
@@ -322,7 +326,7 @@ body {
   text-align: center;
 }
 .v333_1314 {
-  width: 142px;
+  width: 145px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;
@@ -346,7 +350,7 @@ body {
   text-align: center;
 }
 .v333_1316 {
-  width: 178px;
+  width: 180px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;
@@ -468,7 +472,7 @@ body {
   text-align: center;
 }
 .v333_1303 {
-  width: 142px;
+  width: 145px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;
@@ -492,7 +496,7 @@ body {
   text-align: center;
 }
 .v333_1305 {
-  width: 178px;
+  width: 180px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;
@@ -614,7 +618,7 @@ body {
   text-align: center;
 }
 .v333_1292 {
-  width: 142px;
+  width: 145px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;
@@ -638,7 +642,7 @@ body {
   text-align: center;
 }
 .v333_1294 {
-  width: 178px;
+  width: 180px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 21px;
@@ -736,7 +740,7 @@ body {
   text-align: center;
 }
 .v333_1284 {
-  width: 162px;
+  width: 165px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 18px;

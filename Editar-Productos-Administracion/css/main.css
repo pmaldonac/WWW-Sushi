@@ -78,14 +78,17 @@ body {
   border-radius: 50%;
 }
 .v333_908 {
-  width: 100px;
-  height: 95px;
+  width: 90px;
+  height: 80px;
   background: url("../images/v333_908.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 11px;
-  left: 1385px;
-  border-radius: 50%;
+  top: 20px;
+  left: 1390px;
+  overflow: hidden;
 }
 .v333_909 {
   width: 100%;
@@ -193,10 +196,11 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 63px;
+  top: 70px;
   left: 29px;
   font-family: Manrope;
   font-weight: SemiBold;
+  
   font-size: 20px;
   opacity: 1;
   text-align: left;
@@ -205,10 +209,11 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 109px;
+  top: 115px;
+  text-decoration: underline rgb(255, 255, 255); 
   left: 29px;
   font-family: Manrope;
-  font-weight: SemiBold;
+  font-weight: Bold;
   font-size: 20px;
   opacity: 1;
   text-align: left;
@@ -217,7 +222,7 @@ body {
   width: 282px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 156px;
+  top: 160px;
   left: 29px;
   font-family: Manrope;
   font-weight: SemiBold;
@@ -251,7 +256,7 @@ body {
   width: 77px;
   color: rgba(255,255,255,1);
   position: absolute;
-  top: 227px;
+  top: 235px;
   left: 30px;
   font-family: Manrope;
   font-weight: SemiBold;
@@ -423,7 +428,7 @@ body {
   text-align: center;
 }
 .v333_936 {
-  width: 54px;
+  width: 60px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 19px;
@@ -656,7 +661,7 @@ body {
   text-align: center;
 }
 .v333_957 {
-  width: 133px;
+  width: 140px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 19px;
@@ -861,7 +866,7 @@ body {
   overflow: hidden;
 }
 .v333_975 {
-  width: 290px;
+  width: 400px;
   color: rgba(0,0,0,0.6000000238418579);
   position: absolute;
   top: 13px;
@@ -888,11 +893,11 @@ body {
   overflow: hidden;
 }
 .v333_977 {
-  width: 137px;
+  width: 150px;
   color: rgba(255,255,255,1);
   position: absolute;
   top: 810px;
-  left: 1326px;
+  left: 1320px;
   font-family: Manrope;
   font-weight: Bold;
   font-size: 16px;
