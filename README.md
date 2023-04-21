@@ -1,3 +1,3 @@
-# Fukusuke Sushi      Cancel changes
+# Fukusuke Sushi
 
 [Diagrama de componentes](./docs/diagrama-despliegue.png)
