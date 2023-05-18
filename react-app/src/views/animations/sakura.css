@@ -1,9 +1,11 @@
-body {
+.container {
     background:linear-gradient(#A8E0FF, #A2E8F6, #F8EDCC);
     height:100vh;
     width:100vw;
     overflow-y:hidden;
     overflow-x:hidden;
+    z-index: -100;
+    position: absolute;
   }
   .petal {
     width: 1rem;
@@ -12,7 +14,7 @@ body {
     position: absolute;
     top: -10rem;
     bottom:0;
-    z-index: 150;
+    z-index: -99;
   }
   .petal .rotate {
     animation: driftyRotate 1s infinite both ease-in-out;

@@ -50,7 +50,7 @@ export default function AnimatePetals() {
   }, []);
 
   return (
-    <div id="petals-container">
+    <div class="container" id="petals-container">
       {/* <div class="petal"></div>
       <div class="petal"></div>
       <div class="petal"></div>

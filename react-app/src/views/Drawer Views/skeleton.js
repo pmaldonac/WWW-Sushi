@@ -44,7 +44,9 @@ import React, { useState } from "react";
 
 import useWindowSize from "../../controller/windowSize";
 import logo from "../../imgs/logo_text.png";
-import AnimatePetals from '../animations/sakura'
+import tabla from "../../imgs/tabla.png";
+
+import AnimatePetals from "../animations/sakura";
 
 const transition = "500ms";
 var littleSize = false;
@@ -90,6 +92,15 @@ export default function Skeleton() {
     transition: transition,
   };
 
+  const background = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: "-100",
+  };
+
   const appBar = {
     zIndex: 1050,
     // flex: "0 0 20%",
@@ -97,13 +108,13 @@ export default function Skeleton() {
     width: "100%",
     overflow: "hidden",
     transition: transition,
-    borderRadius: '0px',
+    borderRadius: "0px",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#E84855",
-    padding: '0px 1vw'
+    padding: "0px 1vw",
   };
 
   const toolbar = {
@@ -145,11 +156,12 @@ export default function Skeleton() {
 
   const centerDiv = {
     height: "calc(100% -13vh)",
+    width: "100%",
+    display: 'flex'
   };
 
   const drawer = {
-    background: "#E84855",
-    opacity: 0.9,
+    background: "#eb5e69",
     // flex: "0 0 20%",
     // zIndex: 1050,
     display: "flex",
@@ -158,14 +170,14 @@ export default function Skeleton() {
     overflow: "auto",
     width: "20vw",
     transition: transition,
-    gridColumn: "1/span 2",
+    // gridColumn: "1/span 2",
   };
-  
 
   const drawerList = {
     width: "100%",
     height: "100%",
     display: "grid",
+    background: "#ed6f79",
     gridTemplateColumns: "1fr 1fr",
     gridTemplateRows: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 10fr 1fr",
     transition: transition,
@@ -173,14 +185,17 @@ export default function Skeleton() {
 
   const drawerTitle = {
     gridColumn: "1/span 2",
-    background: "#E84855",
-    // opacity: 0.9,
+    background: "#eb5e69",
     width: "100%",
     height: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  }
+    gap: "11px",
+    gridColumn: "1 /span 2",
+    width: "100%",
+    height: "auto",
+  };
 
   const drawerListTile = {
     gridColumn: "1 /span 2",
@@ -197,14 +212,14 @@ export default function Skeleton() {
     gap: "0vh 1.5vw",
     padding: "1vh 2vw",
     transition: transition,
-    color: "#7EB0F2",
+    color: "#ed939a",
     "&:hover": {
-      background: "#7EB0F2",
+      background: "#ed939a",
     },
     "&.Mui-selected": {
-      background: "#7EB0F2",
+      background: "#ed939a",
       "&:hover": {
-        background: "#7EB0F2",
+        background: "#ed939a",
       },
     },
   };
@@ -237,21 +252,9 @@ export default function Skeleton() {
     maxWidth: "100%",
     height: "100%",
     color: "#FCFBFB",
-  };
-
-  const versionTile = {
-    gridRow: 19,
-    padding: "0",
-  };
-
-  const versionText = {
-    fontFamily: "Poppins",
-    fontStyle: "normal",
-    fontWeight: "200",
-    fontSize: "1vh",
-    color: "#FCFBFB",
     display: "flex",
-    justifyContent: "center",
+    // justifyContent: "center",
+    alignItems: "center",
   };
 
   const ladoDerecho = {
@@ -259,49 +262,29 @@ export default function Skeleton() {
     maxHeight: "100vh",
     height: "100%",
     width: "80vw",
-    gridColumn: "3/span 8",
-    // flex: '1 1 auto',
-    // gridColumn: open ? '3' : '2',
+    // gridColumn: "3/span 8",
     overflow: "auto",
-    padding: littleSize ? "1vh 0vw 0vh 1vw" : "1vh 0vw 0vh 0vw",
+    padding: "1vh 0vw 0vh 1vw",
     transition: transition,
   };
-
-  const background = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    zIndex: '-100',
-  }
 
   const contenido = {
     width: "100%",
     height: "100%",
-    padding: "13.53vh 5.55vw 4.117vh 3.8889vw",
+    padding: "12vh 4vw",
     overflow: "auto",
-  };
-
-  const breadCrumbLink = {
-    fontFamily: "Poppins",
-    fontStyle: "normal",
-    fontWeight: 600,
-    color: "#818181",
-  };
-
-  const breadCrumbLinkLast = {
-    fontFamily: "Poppins",
-    fontStyle: "normal",
-    fontWeight: 600,
-    color: "#1876D1",
+    zIndex: "500",
+    
   };
 
   const supportButton = {
     position: "absolute",
-    right: "2vw",
-    bottom: littleSize ? "11vh" : "5vh",
+    right: "5vw",
+    bottom: "8vh",
     backgroundColor: "#FCFCFB",
+    width: 'fit-content',
+    height: 'fit-content',
+    
   };
 
   const supportButtonIcon = {
@@ -351,13 +334,14 @@ export default function Skeleton() {
           <ListItemText
             primary="Carta"
             sx={drawerListTileButtonText}
-            disableTypography
+            // disableTypography
           />
         </ListSubheader>
       }
     >
       {drawerListValues.map((value) => (
-        <ListItem sx={drawerListTile} component={Link} to={`${value.title}`}>
+        // <ListItem sx={drawerListTile} component={Link} to={`${value.title}`}>
+        <ListItem sx={drawerListTile}>
           <ListItemButton
             sx={drawerListTileButton}
             selected={sectionClicked === value.title}
@@ -385,6 +369,9 @@ export default function Skeleton() {
 
   return (
     <Box sx={inicio}>
+      <Box sx={background}>
+        <AnimatePetals />
+      </Box>
       <CssBaseline />
       <Card elevation={3} sx={appBar}>
         <Box component="img" src={logo} alt="Logo" sx={logoStyle} />
@@ -400,10 +387,6 @@ export default function Skeleton() {
       <Box sx={centerDiv}>
         <Box sx={drawer}>{list()}</Box>
         <Box sx={ladoDerecho}>
-          <Box sx={background}>
-          {/* <script src="../animations/sakura.js"></script> */}
-            <AnimatePetals/>
-          </Box>
           <Box sx={contenido}>
             <Outlet />
           </Box>

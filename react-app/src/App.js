@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Skeleton from "./views/Drawer Views/skeleton";
-// import Dashboard from "./views/Drawer Views/Dashboard/dashboard";
+import Carta from "./views/Drawer Views/Carta/carta";
 // import Clientes from "./views/Drawer Views/Clientes/clientes";
 
 import Axios_API from "./controller/axios";
@@ -55,9 +55,10 @@ function App() {
     {
       path: "/",
       element: <Skeleton />,
-    //   children: [
-    //     { index: true, element: <Dashboard /> },
-    //     { path: "Dashboard", element: <Dashboard /> },
+      children: [
+        { index: true, element: <Carta /> },
+        // { path: "Carta", element: <Carta /> },
+      ]
     //     {
     //       path: "Trabajadores",
     //       element: <Trabajadores />,
