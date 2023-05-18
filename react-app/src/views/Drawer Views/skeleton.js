@@ -44,6 +44,7 @@ import React, { useState } from "react";
 
 import useWindowSize from "../../controller/windowSize";
 import logo from "../../imgs/logo_text.png";
+import AnimatePetals from '../animations/sakura'
 
 const transition = "500ms";
 var littleSize = false;
@@ -85,7 +86,7 @@ export default function Skeleton() {
     right: "0%",
     display: "grid",
     gridTemplateColumns: "12fr",
-    backgroundColor: "#FCFBFB",
+    backgroundColor: "transparent",
     transition: transition,
   };
 
@@ -147,9 +148,10 @@ export default function Skeleton() {
   };
 
   const drawer = {
-    backgroundColor: "#FF9393",
-    flex: "0 0 20%",
-    zIndex: 1050,
+    background: "#E84855",
+    opacity: 0.9,
+    // flex: "0 0 20%",
+    // zIndex: 1050,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -165,22 +167,25 @@ export default function Skeleton() {
     height: "100%",
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
-    gridTemplateRows: "3fr 1fr 1fr 1fr 1fr 1fr 10fr 1fr",
+    gridTemplateRows: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 10fr 1fr",
     transition: transition,
   };
 
   const drawerTitle = {
-    gridColumn: "1 /span 2",
+    gridColumn: "1/span 2",
+    background: "#E84855",
+    // opacity: 0.9,
+    width: "100%",
+    height: "100%",
     display: "flex",
-    flexDirection: 'row',
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   }
 
   const drawerListTile = {
     gridColumn: "1 /span 2",
     width: "100%",
-    height: "5.06vh",
+    height: "auto",
     padding: "0vh 0vw",
   };
 
@@ -252,16 +257,24 @@ export default function Skeleton() {
   const ladoDerecho = {
     maxWidth: "100%",
     maxHeight: "100vh",
-    height: "fit-content",
+    height: "100%",
     width: "80vw",
     gridColumn: "3/span 8",
-
     // flex: '1 1 auto',
     // gridColumn: open ? '3' : '2',
     overflow: "auto",
     padding: littleSize ? "1vh 0vw 0vh 1vw" : "1vh 0vw 0vh 0vw",
     transition: transition,
   };
+
+  const background = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: '-100',
+  }
 
   const contenido = {
     width: "100%",
@@ -331,7 +344,7 @@ export default function Skeleton() {
     <List
       sx={drawerList}
       subheader={
-        <ListItem sx={drawerTitle}>
+        <ListSubheader sx={drawerTitle}>
           <ListItemIcon sx={drawerListTileButtonIcon}>
             <MenuBookIcon sx={drawerListTileButtonIconIcon} />
           </ListItemIcon>
@@ -340,7 +353,7 @@ export default function Skeleton() {
             sx={drawerListTileButtonText}
             disableTypography
           />
-        </ListItem>
+        </ListSubheader>
       }
     >
       {drawerListValues.map((value) => (
@@ -387,6 +400,10 @@ export default function Skeleton() {
       <Box sx={centerDiv}>
         <Box sx={drawer}>{list()}</Box>
         <Box sx={ladoDerecho}>
+          <Box sx={background}>
+          {/* <script src="../animations/sakura.js"></script> */}
+            <AnimatePetals/>
+          </Box>
           <Box sx={contenido}>
             <Outlet />
           </Box>
