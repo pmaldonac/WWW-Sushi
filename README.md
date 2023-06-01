@@ -1,6 +1,6 @@
 # Fukusuke Sushi
 
-Propósito de los componentes correspondientes al [diagrama de despliegue](./docs/diagrama-despliegue.png):
+Propósito de los componentes correspondientes al [diagrama de despliegue](./HTML/docs/diagrama-despliegue.png):
 
 - **React.js:** utilizada para crear la interfaz de usuario con la cual el cliente accederá a la aplicación de venta de Sushi.
 
