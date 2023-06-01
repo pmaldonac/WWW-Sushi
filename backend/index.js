@@ -1,23 +1,19 @@
 const express = require("express")
-const {ApolloServer, gql} = require('apollo-server-express')
-const {
-    GraphQLSchema,
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLList,
-    GraphQLInt,
-    GraphQLNonNull
-  } = require('graphql')
+const expressGraphQL = require('express-graphql')
+const UserQueryType = require("./graphql/querys/userQuery")
+const app = express()
+const GraphQLSchema = require('graphql')
 
 require('dotenv').config();
 
 
-const server = new ApolloServer({typeDefs,resolvers})
+const schema = new GraphQLSchema({
+  query: UserQueryType
+})
 
-const app = express()
-server.start().then(res => {
-    server.applyMiddleware({ app, path: '/' });
-    app.listen({ port:process.env.PORT_API}, () => 
-      console.log("Server ready at port 4000")
-    );  
-  });
+app.use('/graphql', expressGraphQL({
+  schema: schema,
+  graphiql: true
+}))
+
+app.listen(process.env.PORT_API, () => console.log('Server Running'))
