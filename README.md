@@ -16,5 +16,5 @@ Propósito de los componentes correspondientes al [diagrama de despliegue](./HTM
 
 - **MongoDB:** base de datos no relacional para el sistema. En ella se guardará los datos necesarios para el correcto funcionamiento de la aplicación.
 
-- **GraphQL:**
+- **GraphQL:** Lenguaje de consultas para el sistema. Utilizado en backend para solicitar datos.
 
