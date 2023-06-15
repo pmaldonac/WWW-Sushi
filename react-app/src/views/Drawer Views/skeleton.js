@@ -42,27 +42,24 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 
 import React, { useState } from "react";
 
-import useWindowSize from "../../controller/windowSize";
+import { littleSizeFunc } from "../../controller/windowSize";
 import logo from "../../imgs/logo_text.png";
 import tabla from "../../imgs/tabla.png";
 
 import AnimatePetals from "../animations/sakura";
+import AuthModal from "./Auth/authModal";
 
 const transition = "500ms";
-var littleSize = false;
 
 export default function Skeleton() {
   const { pathname } = useLocation();
   const path = pathname.replace("%20", " ").split("/");
   path.shift();
   const [open, setOpen] = React.useState(true);
-  const [sectionClicked, setSectionClicked] = React.useState(path[0]);
-  const [openSupp, setOpenSupp] = React.useState(false);
-  const handleOpenSupp = () => setOpenSupp(true);
-  const handleCloseSupp = () => setOpenSupp(false);
+  const [sectionClicked, setSectionClicked] = useState(path[0]);
+  const [openAuthModal, setOpenAuthModal] = useState(false);
 
-  const size = useWindowSize();
-  littleSize = size.width / size.height < 1;
+  const littleSize = littleSizeFunc();
 
   const handleSwitchDrawer = () => {
     setOpen(!open);
@@ -72,10 +69,8 @@ export default function Skeleton() {
     setSectionClicked(section);
   };
 
-  const setLittleSizeDrawer = () => {
-    if (open) {
-      setOpen(false);
-    }
+  const handleAuth = (event) => {
+    setOpenAuthModal(true);
   };
 
   const inicio = {
@@ -91,7 +86,6 @@ export default function Skeleton() {
     backgroundColor: "transparent",
     transition: transition,
   };
-
   const background = {
     position: "absolute",
     top: 0,
@@ -100,7 +94,6 @@ export default function Skeleton() {
     height: "100%",
     zIndex: "-100",
   };
-
   const appBar = {
     zIndex: 1050,
     // flex: "0 0 20%",
@@ -116,7 +109,6 @@ export default function Skeleton() {
     backgroundColor: "#E84855",
     padding: "0px 1vw",
   };
-
   const toolbar = {
     height: "fit-content",
     width: "100%",
@@ -126,7 +118,6 @@ export default function Skeleton() {
     alignItems: "center",
     backgroundColor: "#E84855",
   };
-
   const appBarButtonsBox = {
     display: "flex",
     flexDirection: "row",
@@ -134,32 +125,34 @@ export default function Skeleton() {
     width: "50%",
     gap: "11px",
   };
-
   const appBarButton = {
+    minWidth: "40px",
+    minHeight: "40px",
     height: "fit-content",
     width: "fit-content",
-    backgroundColor: "#FAC5C9",
+    background: "#FAC5C9",
     color: "#FFFFFF",
+    "&:hover": {
+      background: "#FC9FA6",
+    },
   };
-
   const icons = {
+    minWidth: "30px",
+    minHeight: "30px",
     height: "3vmax",
     width: "3vmax",
     padding: "0.2vmax",
   };
-
   const logoStyle = {
-    width: "22vw",
+    width: "15vw",
     height: "auto",
     padding: "1vh 0vw",
   };
-
   const centerDiv = {
     height: "calc(100% -13vh)",
     width: "100%",
-    display: 'flex'
+    display: "flex",
   };
-
   const drawer = {
     background: "#eb5e69",
     // flex: "0 0 20%",
@@ -172,7 +165,6 @@ export default function Skeleton() {
     transition: transition,
     // gridColumn: "1/span 2",
   };
-
   const drawerList = {
     width: "100%",
     height: "100%",
@@ -182,7 +174,6 @@ export default function Skeleton() {
     gridTemplateRows: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 10fr 1fr",
     transition: transition,
   };
-
   const drawerTitle = {
     gridColumn: "1/span 2",
     background: "#eb5e69",
@@ -196,14 +187,12 @@ export default function Skeleton() {
     width: "100%",
     height: "auto",
   };
-
   const drawerListTile = {
     gridColumn: "1 /span 2",
     width: "100%",
     height: "auto",
     padding: "0vh 0vw",
   };
-
   const drawerListTileButton = {
     display: "flex",
     justifyContent: "center",
@@ -223,7 +212,6 @@ export default function Skeleton() {
       },
     },
   };
-
   const drawerListTileButtonIcon = {
     display: "flex",
     justifyContent: "center",
@@ -234,7 +222,6 @@ export default function Skeleton() {
     color: "#FCFBFB",
     transition: transition,
   };
-
   const drawerListTileButtonIconIcon = {
     display: "flex",
     justifyContent: "center",
@@ -242,7 +229,6 @@ export default function Skeleton() {
     width: "auto",
     height: "3vh",
   };
-
   const drawerListTileButtonText = {
     transition: transition, // smooth transition
     fontFamily: "Poppins",
@@ -256,7 +242,6 @@ export default function Skeleton() {
     // justifyContent: "center",
     alignItems: "center",
   };
-
   const ladoDerecho = {
     maxWidth: "100%",
     maxHeight: "100vh",
@@ -267,33 +252,28 @@ export default function Skeleton() {
     padding: "1vh 0vw 0vh 1vw",
     transition: transition,
   };
-
   const contenido = {
     width: "100%",
     height: "100%",
     padding: "12vh 4vw",
     overflow: "auto",
     zIndex: "500",
-    
   };
-
-  const supportButton = {
+  const fabButton = {
     position: "absolute",
     right: "5vw",
     bottom: "8vh",
     backgroundColor: "#FCFCFB",
-    width: 'fit-content',
-    height: 'fit-content',
-    
+    minWidth: "40px",
+    minHeight: "40px",
+    width: "fit-content",
+    height: "fit-content",
   };
-
-  const supportButtonIcon = {
-    color: "#1876D1",
-  };
-
-  const modal = {
-    transition: transition,
-    opacity: openSupp ? 1 : 0,
+  const fabButtonIcon = {
+    minWidth: "30px",
+    minHeight: "30px",
+    height: "3vmax",
+    width: "3vmax",
   };
 
   var drawerListValues = [
@@ -369,17 +349,17 @@ export default function Skeleton() {
 
   return (
     <Box sx={inicio}>
+      <CssBaseline />
       <Box sx={background}>
         <AnimatePetals />
       </Box>
-      <CssBaseline />
       <Card elevation={3} sx={appBar}>
         <Box component="img" src={logo} alt="Logo" sx={logoStyle} />
         <Box sx={appBarButtonsBox}>
           <IconButton sx={appBarButton}>
-            <ShoppingCartIcon sx={icons} onClick={handleOpenSupp} />
+            <ShoppingCartIcon sx={icons} />
           </IconButton>
-          <IconButton sx={appBarButton}>
+          <IconButton sx={appBarButton} onClick={handleAuth}>
             <PersonIcon sx={icons} />
           </IconButton>
         </Box>
@@ -392,9 +372,10 @@ export default function Skeleton() {
           </Box>
         </Box>
       </Box>
-      <Fab sx={supportButton} onClick={handleOpenSupp}>
-        <PersonIcon sx={icons} />
-      </Fab>
+      <AuthModal openModal={openAuthModal} setOpenModal={setOpenAuthModal} />
+      {/* <Fab sx={fabButton} onClick={handleOpenSupp}>
+        <PersonIcon sx={fabButtonIcon} />
+      </Fab> */}
       {/* <Modal open={openSupp} onClose={handleCloseSupp} sx={modal}> */}
       {/* <SupportPopUp setOpenSupp={setOpenSupp} /> */}
       {/* </Modal> */}
