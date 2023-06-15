@@ -6,7 +6,12 @@ const productSchema = new mongoose.Schema({
     disponibilidad: Boolean,
     precio: Number,
     ingredientes: String,
-    descuento: Number
+    descuento: Number,
+    tipo_producto: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "tipo_producto"
+    }
+
 })
 
-module.exports = mongoose.model('cliente', clienteSchema)
+module.exports = mongoose.model('producto', productSchema)

@@ -1,9 +1,19 @@
 const mongoose = require("mongoose")
 
 const orderSchema = new mongoose.Schema({
-    carro: Number,  // ID Carrito
-    estado: Number,  // ID Estado
-    usuario: Number  // ID Usuario
+    carro: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "carro"
+    },  // ID Carrito
+    estado: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "estado_pedido"
+    },  // ID Estado
+    usuario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "usuario"
+    },  // ID Usuario
+    total: Number
 })
 
-module.exports = mongoose.model('cliente', clienteSchema)
+module.exports = mongoose.model('orden', orderSchema)

@@ -1,13 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const {ApolloServer, gql} = require("apollo-server-express")
+const {ApolloServer} = require("apollo-server-express")
 require('dotenv').config();
-const {merge} = require("lodash");
 const mongoose = require("mongoose")
 
-const typeDefs = require("./typeDefs")
-const resolvers  = require("./resolvers")
+const typeDefs = require("./typedefs/TypeDefs")
+const resolvers  = require("./resolvers/resolvers")
 
 mongoose.connect(process.env.URI_BD)
 
