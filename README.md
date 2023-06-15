@@ -14,5 +14,7 @@ Propósito de los componentes correspondientes al [diagrama de despliegue](./HTM
 
 - **Node.js:** herramienta que permitirá construir y sostener el backend de la aplicación, estableviendo y gestionando múltiples conexiones a la base de datos al mismo tiempo.
 
-- **PostgreSQL:** base de datos relacional para el sistema. En ella se guardará los datos necesarios para el correcto funcionamiento de la aplicación.
+- **MongoDB:** base de datos no relacional para el sistema. En ella se guardará los datos necesarios para el correcto funcionamiento de la aplicación.
+
+- **GraphQL:**
 
