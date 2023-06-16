@@ -20,4 +20,4 @@ PORT_API = 8090
 Para iniciar el proyecto
 npm start
 
-Apollo-Server estará corriendo en el siguiente link ** http://localhost:8090/graphq **
+Apollo-Server estará corriendo en el siguiente link http://localhost:8090/graphq 
