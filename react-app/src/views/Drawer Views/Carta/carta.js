@@ -40,22 +40,26 @@ import Slide from "@mui/material/Slide";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import { sushis } from "../../../controller/testData";
+import { littleSizeFunc } from "../../../controller/windowSize";
 
 export default function Carta() {
+  const littleSize = littleSizeFunc();
+
   /* CSS */
   const cartaStyle = {
-    width: '100%',
+    // width: "fit-content",
+    // height: "100%",
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "flex-start",
-    alignItems: "space-around",
-    gap: "33px",
+    justifyContent: littleSize ? "center" : "flex-start",
+    alignItems: "center",
+    gap: "33px 50px",
   };
   const card = {
     background: "#eb5e69",
-    height: "300px",
-    width: "255px",
+    height: littleSize ? "30vh" : "300px",
+    width: littleSize ? "50vw" : "255px",
     borderRadius: "10px",
     display: "flex",
     flexDirection: "column",
@@ -77,13 +81,13 @@ export default function Carta() {
     alignSelf: "center",
   };
   const titleBox = {
+    width: "100%",
     color: "#FFFFFF",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "3px",
-    gap: "150px",
+    padding: "3px 3px 3px 11px",
   };
   const icon = {
     color: "#FFFFFF",

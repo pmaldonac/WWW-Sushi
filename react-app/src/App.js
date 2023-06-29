@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Poppins from "./fonts/Poppins-Regular.ttf";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import AnimatePetals from "./views/animations/sakura";
 
 function App() {
   // var axios = new Axios_API();
@@ -78,6 +79,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <AnimatePetals />
       <RouterProvider router={router} />
     </ThemeProvider>
   );

@@ -48,6 +48,7 @@ import tabla from "../../imgs/tabla.png";
 
 import AnimatePetals from "../animations/sakura";
 import AuthModal from "./Auth/authModal";
+import RegistrarModal from "./Auth/registrarModal";
 
 const transition = "500ms";
 
@@ -58,6 +59,7 @@ export default function Skeleton() {
   const [open, setOpen] = React.useState(true);
   const [sectionClicked, setSectionClicked] = useState(path[0]);
   const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [openRegistrarModal, setOpenRegistrarModal] = useState(false);
 
   const littleSize = littleSizeFunc();
 
@@ -74,7 +76,7 @@ export default function Skeleton() {
   };
 
   const inicio = {
-    position: "relative",
+    // position: "relative",
     height: "100vh",
     width: "100vw",
     top: "0%",
@@ -85,20 +87,13 @@ export default function Skeleton() {
     gridTemplateColumns: "12fr",
     backgroundColor: "transparent",
     transition: transition,
-  };
-  const background = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    zIndex: "-100",
+    overflow: "hidden",
   };
   const appBar = {
     zIndex: 1050,
     // flex: "0 0 20%",
     height: "13vh",
-    width: "100%",
+    width: "100vw",
     overflow: "hidden",
     transition: transition,
     borderRadius: "0px",
@@ -108,6 +103,7 @@ export default function Skeleton() {
     alignItems: "center",
     backgroundColor: "#E84855",
     padding: "0px 1vw",
+    gap: "11px",
   };
   const toolbar = {
     height: "fit-content",
@@ -144,12 +140,14 @@ export default function Skeleton() {
     padding: "0.2vmax",
   };
   const logoStyle = {
-    width: "15vw",
+    width: "auto",
+    minWidth: "150px",
+    maxWidth: "300px",
     height: "auto",
     padding: "1vh 0vw",
   };
   const centerDiv = {
-    height: "calc(100% -13vh)",
+    height: "100%",
     width: "100%",
     display: "flex",
   };
@@ -162,6 +160,7 @@ export default function Skeleton() {
     justifyContent: "center",
     overflow: "auto",
     width: "20vw",
+    minWidth: "115px",
     transition: transition,
     // gridColumn: "1/span 2",
   };
@@ -234,7 +233,7 @@ export default function Skeleton() {
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "500",
-    fontSize: "1vw",
+    fontSize: "14px",
     maxWidth: "100%",
     height: "100%",
     color: "#FCFBFB",
@@ -243,19 +242,18 @@ export default function Skeleton() {
     alignItems: "center",
   };
   const ladoDerecho = {
-    maxWidth: "100%",
-    maxHeight: "100vh",
-    height: "100%",
-    width: "80vw",
-    // gridColumn: "3/span 8",
+    height: "87vh",
+    width: "100%",
+    maxWidth: "80vw",
     overflow: "auto",
-    padding: "1vh 0vw 0vh 1vw",
     transition: transition,
   };
   const contenido = {
+    // display: "flex",
+    // justifyContent: "center",
     width: "100%",
     height: "100%",
-    padding: "12vh 4vw",
+    padding: "5vh 5vw",
     overflow: "auto",
     zIndex: "500",
   };
@@ -311,6 +309,7 @@ export default function Skeleton() {
           <ListItemIcon sx={drawerListTileButtonIcon}>
             <MenuBookIcon sx={drawerListTileButtonIconIcon} />
           </ListItemIcon>
+
           <ListItemText
             primary="Carta"
             sx={drawerListTileButtonText}
@@ -350,9 +349,9 @@ export default function Skeleton() {
   return (
     <Box sx={inicio}>
       <CssBaseline />
-      <Box sx={background}>
+      {/* <Box sx={background}>
         <AnimatePetals />
-      </Box>
+      </Box> */}
       <Card elevation={3} sx={appBar}>
         <Box component="img" src={logo} alt="Logo" sx={logoStyle} />
         <Box sx={appBarButtonsBox}>
@@ -373,6 +372,7 @@ export default function Skeleton() {
         </Box>
       </Box>
       <AuthModal openModal={openAuthModal} setOpenModal={setOpenAuthModal} />
+      {/* <RegistrarModal openModal={openAuthModal} setOpenModal={openAuthModal} /> */}
       {/* <Fab sx={fabButton} onClick={handleOpenSupp}>
         <PersonIcon sx={fabButtonIcon} />
       </Fab> */}
