@@ -14,15 +14,13 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { littleSizeFunc } from "../../../controller/windowSize";
 import logo from "../../../imgs/logo_compacto.png";
-import InfoPerfil from "../common/infoPerfil";
 
 const transition = "500ms";
 
-export default function AuthModal(props) {
+export default function VaciarCarritoModal(props) {
   const { openModal, setOpenModal } = props;
   const [continueValue, setContinueValue] = useState(false);
-  const [currentValueEmail, setCurrentValueEmail] = useState("");
-  const [currentValuePass, setCurrentValuePass] = useState("");
+  const [currentRazon, setCurrentRazon] = useState("");
   const [stepCount, setStepCount] = useState(0);
 
   const littleSize = littleSizeFunc();
@@ -50,7 +48,7 @@ export default function AuthModal(props) {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: stepCount > 0 ? "80vw" : "fit-content",
+    width: "fit-content",
     minWidth: "250px",
     maxWidth: "1500px",
     height: "fit-content",
@@ -72,11 +70,11 @@ export default function AuthModal(props) {
   };
   const logoStyle = {
     transition: transition,
-    minWidth: stepCount > 0 ? "100px" : "150px",
-    maxWidth: stepCount > 0 ? "250px" : "350px",
-    width: stepCount > 0 ? "10vw" : "20vw",
+    minWidth: "100px",
+    maxWidth: "250px",
+    width: "10vw",
     height: "auto",
-    padding: stepCount > 0 ? "4vh 2vw 2vh 2vw" : "4vh 2vw",
+    padding: "4vh 2vw",
   };
   const contenido = {
     width: "fit-content",
@@ -85,41 +83,26 @@ export default function AuthModal(props) {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    gap: "11px",
+    gap: "22px",
   };
-  const textFieldBox = {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    minWidth: "200px",
-    width: "40vw",
-    maxWidth: "450px",
-    gap: "11px",
-  };
-  const textField = {
-    boxSizing: "border-box",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "flex-start",
-    background: "#FCFBFB",
-    borderRadius: "6px",
-    borderRadius: "10px",
-    background: "#FFFFFF",
-    "& .MuiOutlinedInput-root": {
-      borderRadius: "20px",
-    },
-  };
-  const ingresar_contrasena_olvidar_text = {
-    display: "flex",
-    justifyContent: "flex-end",
+  const titleStyle = {
+    transition: transition, // smooth transition
     fontFamily: "Poppins",
     fontStyle: "normal",
-    fontWeight: "600",
-    fontSize: "12px",
-    lineHeight: "150%",
-    color: "#818181",
+    fontWeight: "900",
+    fontSize: "18px",
+    maxWidth: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    textAlign: "center",
+  };
+  const buttonBox = {
+    display: "flex",
+    gap: "11px",
   };
   const button = {
+    width: "100px",
     textTransform: "none",
     borderRadius: "10px",
     // background: "#E84855",
@@ -131,12 +114,15 @@ export default function AuthModal(props) {
     color: "#FCFCFC",
   };
   const textbutton = {
+    width: "100px",
     textTransform: "none",
     fontFamily: "Poppins",
     borderRadius: "10px",
     fontStyle: "normal",
     fontWeight: "600",
+    padding: "8px 24px",
     fontSize: "15px",
+    border: "2px solid"
     // color: "#818181",
   };
 
@@ -149,55 +135,19 @@ export default function AuthModal(props) {
           </IconButton>
         </Box>
         <Box component="img" src={logo} alt="Logo" sx={logoStyle} />
-        {stepCount === 0 ? (
-          <Box sx={contenido}>
-            <Box sx={textFieldBox}>
-              <TextField
-                fullWidth
-                required
-                type="email"
-                id="email"
-                label="Email"
-                sx={textField}
-                value={currentValueEmail}
-                onChange={(e) => setCurrentValueEmail(e.target.value)}
-              />
-            </Box>
-            <Box sx={textFieldBox}>
-              <TextField
-                fullWidth
-                required
-                type="password"
-                id="constraseña"
-                label="Constraseña"
-                sx={textField}
-                value={currentValuePass}
-                onChange={(e) => setCurrentValuePass(e.target.value)}
-              />
-            </Box>
-            <Typography
-              component={Link}
-              to="../restablecer"
-              sx={ingresar_contrasena_olvidar_text}
-            >
-              ¿Olvidaste tu contraseña?
-            </Typography>
-            <Button sx={button} variant="contained">
-              Iniciar Sesión
+        <Box sx={contenido}>
+          <Typography sx={titleStyle}>
+            ¿Estás seguro de vaciar el carrito?
+          </Typography>
+          <Box sx={buttonBox}>
+            <Button sx={button} variant="contained" onClick={handleCloseModal}>
+              Cancelar
             </Button>
-            <Button sx={textbutton} variant="text" onClick={handleRegistrarse}>
-              Regístrate
+            <Button sx={textbutton} variant="text">
+              Vaciar
             </Button>
           </Box>
-        ) : (
-          <InfoPerfil
-            confirmText="Registrar"
-            backButton
-            setStepCount={setStepCount}
-          >
-            ¡Rellena los campos y recibe las mejores ofertas de sushi!
-          </InfoPerfil>
-        )}
+        </Box>
       </Box>
     </Modal>
   );

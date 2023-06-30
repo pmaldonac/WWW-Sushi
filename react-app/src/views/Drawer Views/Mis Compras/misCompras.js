@@ -1,3 +1,4 @@
+import React, { useState, useMemo, useEffect } from "react";
 import {
   List,
   ListItemButton,
@@ -8,6 +9,7 @@ import {
   ListSubheader,
   Paper,
   Card,
+  Button,
 } from "@mui/material";
 import MuiLink from "@mui/material/Link";
 import Box from "@mui/material/Box";
@@ -24,7 +26,6 @@ import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlin
 import DomainOutlinedIcon from "@mui/icons-material/DomainOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 
-import DeleteIcon from '@mui/icons-material/Delete';
 import HeadsetMicOutlinedIcon from "@mui/icons-material/HeadsetMicOutlined";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import BentoIcon from "@mui/icons-material/Bento";
@@ -40,75 +41,52 @@ import Modal from "@mui/material/Modal";
 import Slide from "@mui/material/Slide";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import { sushis } from "../../../controller/testData";
+import { pedidos } from "../../../controller/testData";
+import { headCellsPedidos } from "../../../controller/listas";
 import { littleSizeFunc } from "../../../controller/windowSize";
+import CustomTable from "../common/customTable";
 
-export default function Carta() {
+export default function MisCompras() {
   const littleSize = littleSizeFunc();
+  const [currentPedidos, setCurrentPedidos] = useState([]);
+
+  useEffect(() => {
+    pedidos.forEach((compra) => {
+      compra.id = typeof compra.id === "string" ? compra.id : `#${compra.id}`;
+      compra.estado =
+        compra.estado === 0
+          ? "Preparando"
+          : compra.estado === 1
+          ? "En camino"
+          : compra.estado === 2
+          ? "Entregado"
+          : compra.estado === 3
+          ? "Cancelado"
+          : compra.estado;
+      compra.total =
+        typeof compra.total === "string" ? compra.total : `$${compra.total}`;
+    });
+    setCurrentPedidos(pedidos);
+  }, []);
 
   /* CSS */
-  const cartaStyle = {
-    height: "fit-content",
-    width: "fit-content",
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: littleSize ? "center" : "flex-start",
-    alignItems: "center",
-    gap: "33px 50px",
-  };
-  const card = {
-    background: "#eb5e69",
-    height: littleSize ? "30vh" : "300px",
-    width: littleSize ? "50vw" : "255px",
-    borderRadius: "10px",
+  const contenido = {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    // gap: '11px',
-  };
-  const imageBox = {
-    height: "255px",
-    width: "100%",
-    background: "#262626",
-    borderRadius: "10px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  };
-  const imgStyle = {
     height: "100%",
-    width: "auto",
-    alignSelf: "center",
-  };
-  const titleBox = {
     width: "100%",
-    color: "#FFFFFF",
-    display: "flex",
-    flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    padding: "3px 3px 3px 11px",
-  };
-  const icon = {
-    color: "#FFFFFF",
+    gap: "44px",
   };
 
   return (
-    <Box sx={cartaStyle}>
-      {sushis.map((sushi) => (
-        <Card sx={card}>
-          <Card sx={imageBox}>
-            <Box component="img" src={sushi.img} alt="Logo" sx={imgStyle} />
-          </Card>
-          <Box sx={titleBox}>
-            <Typography>{sushi.title}</Typography>
-            <IconButton>
-              <AddCircleIcon sx={icon} />
-            </IconButton>
-          </Box>
-        </Card>
-      ))}
+    <Box sx={contenido}>
+      <CustomTable
+        headCells={headCellsPedidos}
+        rows={currentPedidos}
+        setRows={setCurrentPedidos}
+        variant="cliente"
+      />
     </Box>
   );
 }

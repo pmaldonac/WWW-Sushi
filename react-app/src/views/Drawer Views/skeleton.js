@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import {
   List,
   ListItemButton,
@@ -8,6 +10,7 @@ import {
   ListSubheader,
   Paper,
   Card,
+  Collapse,
 } from "@mui/material";
 import MuiLink from "@mui/material/Link";
 import Box from "@mui/material/Box";
@@ -17,13 +20,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Fab from "@mui/material/Fab";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import CssBaseline from "@mui/material/CssBaseline";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined";
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
 import DomainOutlinedIcon from "@mui/icons-material/DomainOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import HeadsetMicOutlinedIcon from "@mui/icons-material/HeadsetMicOutlined";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import BentoIcon from "@mui/icons-material/Bento";
@@ -38,33 +41,46 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Modal from "@mui/material/Modal";
 import Slide from "@mui/material/Slide";
 
-import { Outlet, Link, useLocation } from "react-router-dom";
-
-import React, { useState } from "react";
-
 import { littleSizeFunc } from "../../controller/windowSize";
 import logo from "../../imgs/logo_text.png";
 import tabla from "../../imgs/tabla.png";
 
 import AnimatePetals from "../animations/sakura";
 import AuthModal from "./Auth/authModal";
-import RegistrarModal from "./Auth/registrarModal";
+import RegistrarModal from "./common/infoPerfil";
 
 const transition = "500ms";
 
 export default function Skeleton() {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const path = pathname.replace("%20", " ").split("/");
   path.shift();
-  const [open, setOpen] = React.useState(true);
+  const [openMenu, setOpenMenu] = useState(true);
   const [sectionClicked, setSectionClicked] = useState(path[0]);
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [openRegistrarModal, setOpenRegistrarModal] = useState(false);
 
   const littleSize = littleSizeFunc();
 
-  const handleSwitchDrawer = () => {
-    setOpen(!open);
+  useEffect(() => {
+    if (sectionClicked === "Haz tu pedido") {
+      navigate("Carrito");
+    }else{
+      navigate(sectionClicked);
+    }
+  }, [sectionClicked]);
+
+  const sectionTitleClick = (event, section) => {
+    setSectionClicked(section);
+  };
+
+  const menuClick = (event) => {
+    setOpenMenu(!openMenu);
+  };
+
+  const menuSectionClick = (event, section) => {
+    setSectionClicked("Carta");
   };
 
   const sectionClick = (event, section) => {
@@ -105,25 +121,17 @@ export default function Skeleton() {
     padding: "0px 1vw",
     gap: "11px",
   };
-  const toolbar = {
-    height: "fit-content",
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#E84855",
-  };
   const appBarButtonsBox = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
     width: "50%",
     gap: "11px",
+    padding: "0 1vw",
   };
   const appBarButton = {
-    minWidth: "40px",
-    minHeight: "40px",
+    minWidth: "30px",
+    minHeight: "30px",
     height: "fit-content",
     width: "fit-content",
     background: "#FAC5C9",
@@ -133,73 +141,92 @@ export default function Skeleton() {
     },
   };
   const icons = {
-    minWidth: "30px",
-    minHeight: "30px",
-    height: "3vmax",
-    width: "3vmax",
+    minWidth: "20px",
+    minHeight: "20px",
+    height: "2vmax",
+    width: "2vmax",
     padding: "0.2vmax",
   };
   const logoStyle = {
     width: "auto",
     minWidth: "150px",
-    maxWidth: "300px",
+    maxWidth: "250px",
     height: "auto",
     padding: "1vh 0vw",
   };
   const centerDiv = {
+    transition: transition,
     height: "100%",
     width: "100%",
+    overflow: "auto",
     display: "flex",
   };
   const drawer = {
     background: "#eb5e69",
-    // flex: "0 0 20%",
-    // zIndex: 1050,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-    overflow: "auto",
+    justifyContent: "flex-start",
+    overflowY: "auto",
     width: "20vw",
-    minWidth: "115px",
+    minWidth: "130px",
+    padding: "0",
+    height: "100%",
     transition: transition,
-    // gridColumn: "1/span 2",
   };
   const drawerList = {
     width: "100%",
-    height: "100%",
-    display: "grid",
     background: "#ed6f79",
-    gridTemplateColumns: "1fr 1fr",
-    gridTemplateRows: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 10fr 1fr",
-    transition: transition,
-  };
-  const drawerTitle = {
-    gridColumn: "1/span 2",
-    background: "#eb5e69",
-    width: "100%",
     height: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "11px",
-    gridColumn: "1 /span 2",
+    transition: transition,
+    padding: "0",
+  };
+  const drawerListMenu = {
     width: "100%",
-    height: "auto",
+    background: "#ed6f79",
+    height: "fit-content",
+    transition: transition,
+    padding: "0",
+  };
+  const arrowMenuIcon = {
+    width: "auto",
+    height: "3vh",
+    transform: openMenu ? "rotate(90deg) scaleX(-1)" : "rotate(90deg)",
+    transition: transition, // smooth transition
   };
   const drawerListTile = {
-    gridColumn: "1 /span 2",
+    transition: transition, // smooth transition
     width: "100%",
-    height: "auto",
     padding: "0vh 0vw",
   };
   const drawerListTileButton = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "inherit",
-    gap: "0vh 1.5vw",
+    width: "100%",
+    height: "100%",
+    gap: "11px",
     padding: "1vh 2vw",
     transition: transition,
+    color: "#ed939a",
+    "&:hover": {
+      background: "#ed939a",
+    },
+    "&.Mui-selected": {
+      background: "#ed939a",
+      "&:hover": {
+        background: "#ed939a",
+      },
+    },
+  };
+  const drawerListTileButton2 = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    gap: "11px",
+    padding: "1vh 1vw",
+    transition: transition,
+    background: "#eb5e69",
     color: "#ed939a",
     "&:hover": {
       background: "#ed939a",
@@ -274,6 +301,21 @@ export default function Skeleton() {
     width: "3vmax",
   };
 
+  var drawerTitleListValues = [
+    {
+      title: "Haz tu pedido",
+      icon: <RiceBowlIcon sx={drawerListTileButtonIconIcon} />,
+    },
+    {
+      title: "Mis compras",
+      icon: <RamenDiningIcon sx={drawerListTileButtonIconIcon} />,
+    },
+    {
+      title: "Editar Perfil",
+      icon: <KebabDiningIcon sx={drawerListTileButtonIconIcon} />,
+    },
+  ];
+
   var drawerListValues = [
     {
       title: "Rolls",
@@ -302,47 +344,61 @@ export default function Skeleton() {
   ];
 
   const list = () => (
-    <List
-      sx={drawerList}
-      subheader={
-        <ListSubheader sx={drawerTitle}>
+    <List disablePadding sx={drawerList}>
+      <ListItem
+        sx={drawerListTileButton2}
+        component={ListItemButton}
+        onClick={(event) => menuClick(event)}
+      >
+        <ListItemIcon sx={drawerListTileButtonIcon}>
+          <MenuBookIcon sx={drawerListTileButtonIconIcon} />
+        </ListItemIcon>
+        <ListItemText primary="Carta" sx={drawerListTileButtonText} />
+        <ListItemIcon sx={drawerListTileButtonIcon}>
+          <ArrowForwardIosIcon sx={arrowMenuIcon} />
+        </ListItemIcon>
+      </ListItem>
+      <Collapse in={openMenu} timeout="auto">
+        {drawerListValues.map((value) => (
+          <List disablePadding sx={drawerListMenu}>
+            <ListItem sx={drawerListTile}>
+              <ListItemButton
+                sx={drawerListTileButton}
+                selected={sectionClicked === value.title}
+                key={value.title}
+                onClick={(event) => menuSectionClick(event, value.title)}
+              >
+                <ListItemIcon sx={drawerListTileButtonIcon}>
+                  {value.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={value.title}
+                  sx={drawerListTileButtonText}
+                  disableTypography
+                />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        ))}
+      </Collapse>
+      {drawerTitleListValues.map((value) => (
+        <ListItem
+          sx={drawerListTileButton2}
+          component={ListItemButton}
+          selected={sectionClicked === value.title}
+          key={value.title}
+          onClick={(event) => sectionClick(event, value.title)}
+        >
           <ListItemIcon sx={drawerListTileButtonIcon}>
-            <MenuBookIcon sx={drawerListTileButtonIconIcon} />
+            {value.icon}
           </ListItemIcon>
-
           <ListItemText
-            primary="Carta"
+            primary={value.title}
             sx={drawerListTileButtonText}
             // disableTypography
           />
-        </ListSubheader>
-      }
-    >
-      {drawerListValues.map((value) => (
-        // <ListItem sx={drawerListTile} component={Link} to={`${value.title}`}>
-        <ListItem sx={drawerListTile}>
-          <ListItemButton
-            sx={drawerListTileButton}
-            selected={sectionClicked === value.title}
-            key={value.title}
-            onClick={(event) => sectionClick(event, value.title)}
-          >
-            <ListItemIcon sx={drawerListTileButtonIcon}>
-              {value.icon}
-            </ListItemIcon>
-            <ListItemText
-              primary={value.title}
-              sx={drawerListTileButtonText}
-              disableTypography
-            />
-          </ListItemButton>
         </ListItem>
       ))}
-      {/* <ListItem sx={versionTile}> 
-          <ListItemText sx={versionText}>
-            V 1.2.0
-          </ListItemText>
-        </ListItem> */}
     </List>
   );
 
@@ -355,7 +411,7 @@ export default function Skeleton() {
       <Card elevation={3} sx={appBar}>
         <Box component="img" src={logo} alt="Logo" sx={logoStyle} />
         <Box sx={appBarButtonsBox}>
-          <IconButton sx={appBarButton}>
+          <IconButton sx={appBarButton} onClick={(e)=> sectionClick(e,"Carrito")}>
             <ShoppingCartIcon sx={icons} />
           </IconButton>
           <IconButton sx={appBarButton} onClick={handleAuth}>
@@ -372,7 +428,6 @@ export default function Skeleton() {
         </Box>
       </Box>
       <AuthModal openModal={openAuthModal} setOpenModal={setOpenAuthModal} />
-      {/* <RegistrarModal openModal={openAuthModal} setOpenModal={openAuthModal} /> */}
       {/* <Fab sx={fabButton} onClick={handleOpenSupp}>
         <PersonIcon sx={fabButtonIcon} />
       </Fab> */}

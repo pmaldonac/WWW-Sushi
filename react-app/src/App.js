@@ -2,7 +2,7 @@
 
 import "./App.css";
 import { Helmet } from "react-helmet";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 
 import Skeleton from "./views/Drawer Views/skeleton";
 import Carta from "./views/Drawer Views/Carta/carta";
@@ -14,6 +14,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Poppins from "./fonts/Poppins-Regular.ttf";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import AnimatePetals from "./views/animations/sakura";
+import Carrito from "./views/Drawer Views/Carrito/carrito";
+import MisCompras from "./views/Drawer Views/Mis Compras/misCompras";
+import EditarPerfil from "./views/Drawer Views/Editar Perfil/editarPerfil";
 
 function App() {
   // var axios = new Axios_API();
@@ -21,7 +24,7 @@ function App() {
     palette: {
       primary: {
         light: "#FCFBFB",
-        main: "#1876D1",
+        main: "#E84855",
         darker: "#053e85",
       },
       neutral: {
@@ -57,7 +60,13 @@ function App() {
       path: "/",
       element: <Skeleton />,
       children: [
-        { index: true, element: <Carta /> },
+        { index: true, element: <Navigate to="/Carta" replace /> },
+        { path: "Carta", element: <Carta /> },
+
+        { path: "Carrito", element: <Carrito /> },
+        { path: "Mis Compras", element: <MisCompras /> },
+        { path: "Editar Perfil", element: <EditarPerfil /> },
+
         // { path: "Carta", element: <Carta /> },
       ]
     //     {

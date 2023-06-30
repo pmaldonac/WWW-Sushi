@@ -21,8 +21,8 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { littleSizeFunc } from "../../../controller/windowSize";
 import logo from "../../../imgs/logo_compacto.png";
-import CustomSelect from "../common/customSelect";
-import StrongMeter from "../common/strongMeter";
+import CustomSelect from "./customSelect";
+import StrongMeter from "./strongMeter";
 
 import {
   listaSexo,
@@ -33,8 +33,8 @@ import { Fn } from "../../../controller/utils";
 
 const transition = "500ms";
 
-export default function RegistrarModal(props) {
-  const { setStepCount } = props;
+export default function InfoPerfil(props) {
+  const { setStepCount, confirmText, backButton } = props;
   const [continueValue, setContinueValue] = useState(false);
   const [securityValue, setSecurityValue] = useState(0);
 
@@ -77,17 +77,17 @@ export default function RegistrarModal(props) {
         valueDireccion &&
         valueRegion &&
         valueComuna &&
-        errorNombres &&
-        errorApellidos &&
-        errorRut &&
-        errorSexo &&
-        errorCorreo &&
-        errorPass &&
-        errorPassValidation &&
-        errorTelefono &&
-        errorDireccion &&
-        errorRegion &&
-        errorComuna
+        !errorNombres &&
+        !errorApellidos &&
+        !errorRut &&
+        !errorSexo &&
+        !errorCorreo &&
+        !errorPass &&
+        !errorPassValidation &&
+        !errorTelefono &&
+        !errorDireccion &&
+        !errorRegion &&
+        !errorComuna
     );
   }, [
     valueApellidos,
@@ -114,7 +114,7 @@ export default function RegistrarModal(props) {
   };
 
   const handleBack = () => {
-    setStepCount(0)
+    setStepCount(0);
   };
 
   const handleNotEmpty = (value, setValue, setError, error) => {
@@ -262,7 +262,7 @@ export default function RegistrarModal(props) {
     borderRadius: "6px",
     borderRadius: "10px",
     background: "#FFFFFF",
-    ".css-183emvd-MuiInputBase-root-MuiOutlinedInput-root": {
+    "& .MuiOutlinedInput-root": {
       borderRadius: "10px",
     },
   };
@@ -272,12 +272,15 @@ export default function RegistrarModal(props) {
   };
   const textFieldTelLeft = {
     width: "58px",
-    borderRadius: "4.34415px",
-    ".css-183emvd-MuiInputBase-root-MuiOutlinedInput-root": {
+    borderRadius: "10px",
+    borderBottomRightRadius: "0%",
+    borderTopRightRadius: "0%",
+    background: "#FFFFFF",
+    "& .MuiOutlinedInput-root": {
       borderRadius: "10px",
       borderBottomRightRadius: "0%",
       borderTopRightRadius: "0%",
-      ".css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input": {
+      "& .MuiOutlinedInput-input": {
         paddingLeft: "0px",
         paddingRight: "0px",
       },
@@ -285,9 +288,11 @@ export default function RegistrarModal(props) {
   };
   const textFieldTelRight = {
     width: "calc(100% - 58px)",
-    borderRadius: "4.34415px",
+    borderRadius: "10px",
+    borderBottomLeftRadius: "0%",
+    borderTopLeftRadius: "0%",
     background: "#FFFFFF",
-    ".css-183emvd-MuiInputBase-root-MuiOutlinedInput-root": {
+    "& .MuiOutlinedInput-root": {
       borderRadius: "10px",
       borderBottomLeftRadius: "0%",
       borderTopLeftRadius: "0%",
@@ -300,16 +305,17 @@ export default function RegistrarModal(props) {
     width: "200px",
     textTransform: "none",
     borderRadius: "10px",
-    background: "#E84855",
+    // background: "#E84855",
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "15px",
     padding: "8px 24px",
     margin: "2vh 2vw",
-    "&:hover": {
-      background: "#E84855",
-    },
+    color: "#FCFCFC",
+    // "&:hover": {
+    //   background: "#E84855",
+    // },
   };
   const textbutton = {
     textTransform: "none",
@@ -318,19 +324,17 @@ export default function RegistrarModal(props) {
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "15px",
-    color: "#E84855",
+    // color: "#E84855",
     padding: "8px 24px",
     margin: "2vh 2vw",
-    "&:hover": {
-      background: "#FAF2F3",
-    },
+    // "&:hover": {
+    // background: "#FAF2F3",
+    // },
   };
 
   return (
     <Box sx={contenido}>
-      <Typography sx={titleStyle}>
-        ¡Rellena los campos y recibe las mejores ofertas de sushi!
-      </Typography>
+      <Typography sx={titleStyle}>{props.children}</Typography>
       <Box sx={columnas}>
         <Box sx={col}>
           <Box sx={textFieldBox} component={FormGroup}>
@@ -504,11 +508,13 @@ export default function RegistrarModal(props) {
         </Box>
       </Box>
       <Box sx={buttonBox}>
-        <Button sx={textbutton} variant="text" onClick={handleBack}>
-          Volver
-        </Button>
+        {backButton ? (
+          <Button sx={textbutton} variant="text" onClick={handleBack}>
+            Volver
+          </Button>
+        ) : null}
         <Button sx={button} variant="contained" disabled={!continueValue}>
-          Regístrar
+          {confirmText}
         </Button>
       </Box>
     </Box>

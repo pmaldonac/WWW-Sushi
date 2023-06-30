@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, Link, useOutletContext, useNavigate } from "react-router-dom";
+import isEmpty from "validator/lib/isEmpty";
 import {
   IconButton,
   Button,
@@ -7,6 +8,7 @@ import {
   Box,
   Modal,
   TextField,
+  FormHelperText,
 } from "@mui/material";
 
 /* ICONS */
@@ -14,15 +16,14 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { littleSizeFunc } from "../../../controller/windowSize";
 import logo from "../../../imgs/logo_compacto.png";
-import InfoPerfil from "../common/infoPerfil";
 
 const transition = "500ms";
 
-export default function AuthModal(props) {
+export default function CancelModal(props) {
   const { openModal, setOpenModal } = props;
   const [continueValue, setContinueValue] = useState(false);
-  const [currentValueEmail, setCurrentValueEmail] = useState("");
-  const [currentValuePass, setCurrentValuePass] = useState("");
+  const [currentRazon, setCurrentRazon] = useState("");
+  const [errorRazon, setErrorRazon] = useState("");
   const [stepCount, setStepCount] = useState(0);
 
   const littleSize = littleSizeFunc();
@@ -33,15 +34,27 @@ export default function AuthModal(props) {
     setContinueValue(false);
     setOpenModal(false);
     setStepCount(0);
+    setErrorRazon("");
+    setCurrentRazon("");
   };
 
-  const handleContinue = () => {
-    setOpenModal(false);
+  const handleAnular = () => {
+    if (currentRazon){
+      // TODO: back enviar razon
+      setOpenModal(false);
+    } else{
+      setErrorRazon("Ingrese el motivo de anulación")
+    }
   };
 
-  const handleRegistrarse = () => {
-    setStepCount(stepCount + 1);
-  };
+  const handleRazon = (value) => {
+    setCurrentRazon(value);
+    if (isEmpty(value)) {
+      setErrorRazon("Ingrese el motivo de anulación");
+    } else {
+      setErrorRazon("");
+    }
+  }
 
   /* CSS */
   const datosBox = {
@@ -87,6 +100,18 @@ export default function AuthModal(props) {
     alignItems: "center",
     gap: "11px",
   };
+  const titleStyle = {
+    transition: transition, // smooth transition
+    fontFamily: "Poppins",
+    fontStyle: "normal",
+    fontWeight: "900",
+    fontSize: "18px",
+    maxWidth: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    textAlign: "center",
+  };
   const textFieldBox = {
     display: "flex",
     flexDirection: "column",
@@ -119,7 +144,12 @@ export default function AuthModal(props) {
     lineHeight: "150%",
     color: "#818181",
   };
+  const buttonBox = {
+    display: "flex",
+    gap: "11px",
+  };
   const button = {
+    width: "100px",
     textTransform: "none",
     borderRadius: "10px",
     // background: "#E84855",
@@ -131,12 +161,15 @@ export default function AuthModal(props) {
     color: "#FCFCFC",
   };
   const textbutton = {
+    width: "100px",
     textTransform: "none",
     fontFamily: "Poppins",
     borderRadius: "10px",
     fontStyle: "normal",
     fontWeight: "600",
+    padding: "8px 24px",
     fontSize: "15px",
+    border: "2px solid"
     // color: "#818181",
   };
 
@@ -149,55 +182,34 @@ export default function AuthModal(props) {
           </IconButton>
         </Box>
         <Box component="img" src={logo} alt="Logo" sx={logoStyle} />
-        {stepCount === 0 ? (
-          <Box sx={contenido}>
-            <Box sx={textFieldBox}>
-              <TextField
-                fullWidth
-                required
-                type="email"
-                id="email"
-                label="Email"
-                sx={textField}
-                value={currentValueEmail}
-                onChange={(e) => setCurrentValueEmail(e.target.value)}
-              />
-            </Box>
-            <Box sx={textFieldBox}>
-              <TextField
-                fullWidth
-                required
-                type="password"
-                id="constraseña"
-                label="Constraseña"
-                sx={textField}
-                value={currentValuePass}
-                onChange={(e) => setCurrentValuePass(e.target.value)}
-              />
-            </Box>
-            <Typography
-              component={Link}
-              to="../restablecer"
-              sx={ingresar_contrasena_olvidar_text}
-            >
-              ¿Olvidaste tu contraseña?
-            </Typography>
-            <Button sx={button} variant="contained">
-              Iniciar Sesión
+        <Box sx={contenido}>
+          <Typography sx={titleStyle}>
+            ¿Estás seguro que quieres anular la compra?
+          </Typography>
+          <Box sx={textFieldBox}>
+            <TextField
+              fullWidth
+              required
+              multiline
+              minRows={5}
+              type="text"
+              id="razon"
+              label="Ingrese el motivo de la anulación"
+              sx={textField}
+              value={currentRazon}
+              onChange={(e) => handleRazon(e.target.value)}
+            />
+            <FormHelperText error>{errorRazon}</FormHelperText>
+          </Box>
+          <Box sx={buttonBox}>
+            <Button sx={button} variant="contained" onClick={handleCloseModal}>
+              Cancelar
             </Button>
-            <Button sx={textbutton} variant="text" onClick={handleRegistrarse}>
-              Regístrate
+            <Button sx={textbutton} variant="text" onClick={handleAnular}>
+              Anular
             </Button>
           </Box>
-        ) : (
-          <InfoPerfil
-            confirmText="Registrar"
-            backButton
-            setStepCount={setStepCount}
-          >
-            ¡Rellena los campos y recibe las mejores ofertas de sushi!
-          </InfoPerfil>
-        )}
+        </Box>
       </Box>
     </Modal>
   );

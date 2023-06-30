@@ -69,3 +69,26 @@ export const listaComunas = [
     };
   })
 );
+
+export const headCellsPedidos = [
+  {
+    id: "id",
+    label: "Número de orden",
+  },
+  {
+    id: "descripcion",
+    label: "Descripción",
+  },
+  {
+    id: "total",
+    label: "Total",
+  },
+  {
+    id: "estado",
+    label: "Estado",
+  },
+  {
+    id: "acciones",
+    label: "",
+  },
+];
