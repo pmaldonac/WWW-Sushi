@@ -99,7 +99,7 @@ export default function Carta() {
       {sushis.map((sushi) => (
         <Card sx={card}>
           <Card sx={imageBox}>
-            <Box component="img" src={sushi.img} alt="Logo" sx={imgStyle} />
+            <Box loading="lazy" component="img" src={sushi.img} alt="Logo" sx={imgStyle} />
           </Card>
           <Box sx={titleBox}>
             <Typography>{sushi.title}</Typography>

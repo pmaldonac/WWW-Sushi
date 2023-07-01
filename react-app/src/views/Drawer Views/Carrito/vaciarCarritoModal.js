@@ -134,7 +134,7 @@ export default function VaciarCarritoModal(props) {
             <CloseIcon />
           </IconButton>
         </Box>
-        <Box component="img" src={logo} alt="Logo" sx={logoStyle} />
+        <Box loading="lazy" component="img" src={logo} alt="Logo" sx={logoStyle} />
         <Box sx={contenido}>
           <Typography sx={titleStyle}>
             ¿Estás seguro de vaciar el carrito?

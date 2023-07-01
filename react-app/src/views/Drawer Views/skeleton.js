@@ -409,7 +409,7 @@ export default function Skeleton() {
         <AnimatePetals />
       </Box> */}
       <Card elevation={3} sx={appBar}>
-        <Box component="img" src={logo} alt="Logo" sx={logoStyle} />
+        <Box loading="lazy" component="img" src={logo} alt="Logo" sx={logoStyle} />
         <Box sx={appBarButtonsBox}>
           <IconButton sx={appBarButton} onClick={(e)=> sectionClick(e,"Carrito")}>
             <ShoppingCartIcon sx={icons} />

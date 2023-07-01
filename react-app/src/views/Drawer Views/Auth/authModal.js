@@ -148,7 +148,7 @@ export default function AuthModal(props) {
             <CloseIcon />
           </IconButton>
         </Box>
-        <Box component="img" src={logo} alt="Logo" sx={logoStyle} />
+        <Box loading="lazy" component="img" src={logo} alt="Logo" sx={logoStyle} />
         {stepCount === 0 ? (
           <Box sx={contenido}>
             <Box sx={textFieldBox}>
