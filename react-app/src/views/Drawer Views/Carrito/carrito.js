@@ -3,12 +3,16 @@ import {
   IconButton,
   Card,
   Button,
+  Tooltip,
+  Collapse,
+  List,
 } from "@mui/material";
 import MuiLink from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import DeleteIcon from '@mui/icons-material/Delete';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { carrito } from "../../../controller/testData";
 import { littleSizeFunc } from "../../../controller/windowSize";
 import CancelModal from "../Mis Compras/cancelModal";
@@ -17,10 +21,19 @@ import VaciarCarritoModal from "./vaciarCarritoModal";
 export default function Carrito() {
   const littleSize = littleSizeFunc();
   const [openVaciarModal, setOpenVaciarModal] = useState(false);
+  const [cardExpanded, setCardExpanded] = useState(null);
+
+  const handleExpandCard = (e, index) => {
+    if (cardExpanded === index) {
+      setCardExpanded(null);
+    } else {
+      setCardExpanded(index);
+    }
+  };
 
   const handleVaciar = () => {
     setOpenVaciarModal(true);
-  }
+  };
 
   /* CSS */
   const contenido = {
@@ -30,7 +43,7 @@ export default function Carrito() {
     width: "100%",
     justifyContent: "space-between",
     gap: "44px",
-  }
+  };
   const cartaStyle = {
     // width: "fit-content",
     // height: "100%",
@@ -51,8 +64,18 @@ export default function Carrito() {
     alignItems: "center",
     // gap: '11px',
   };
+  const imageCollapse = {
+    transition: "500ms",
+    height: "250px",
+    width: "100%",
+    borderRadius: "10px",
+    display: "flex",
+    alignItems: "center",
+    background: "#262626",
+    justifyContent: "center",
+  };
   const imageBox = {
-    height: "255px",
+    height: "250px",
     width: "100%",
     background: "#262626",
     borderRadius: "10px",
@@ -65,7 +88,32 @@ export default function Carrito() {
     width: "auto",
     alignSelf: "center",
   };
-  const titleBox = {
+  const ingredienteCollapse = {
+    transition: "500ms",
+    width: "100%",
+    borderRadius: "10px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+  const ingredienteBox = {
+    height: "250px",
+    width: "100%",
+    borderRadius: "10px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    color: "#FFFFFF",
+    padding: "20px 3px 20px 3px",
+    justifyContent: "flex-end",
+    gap: "5%",
+  };
+  const retractButton = {
+    height: "20%",
+    width: "100%",
+    color: "#FFFFFF",
+  };
+  const footerBox = {
     width: "100%",
     color: "#FFFFFF",
     display: "flex",
@@ -74,12 +122,26 @@ export default function Carrito() {
     alignItems: "center",
     padding: "3px 3px 3px 11px",
   };
+  const titleBox = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    padding: "3px 0px",
+  };
+  const title = {
+    fontWeight: "bold",
+    // fontSize: "16px",
+    letterSpacing: "1px",
+    lineHeight: "170%",
+  };
   const icon = {
+    height: "38px",
+    width: "38px",
     color: "#FFFFFF",
   };
   const buttonBox = {
     display: "flex",
-    justifyContent: littleSize ? "center" :"flex-end",
+    justifyContent: littleSize ? "center" : "flex-end",
     gap: "11px",
   };
   const button = {
@@ -112,13 +174,62 @@ export default function Carrito() {
   return (
     <Box sx={contenido}>
       <Box sx={cartaStyle}>
-        {carrito.map((sushi) => (
+        {carrito.map((sushi, index) => (
           <Card sx={card}>
-            <Card sx={imageBox}>
-              <Box loading="lazy" component="img" src={sushi.img} alt="Logo" sx={imgStyle} />
-            </Card>
-            <Box sx={titleBox}>
-              <Typography>{sushi.title}</Typography>
+            <Tooltip
+              arrow
+              disableInteractive
+              title="Click para ver detalles"
+              placement="top-start"
+              enterDelay={500}
+              followCursor
+            >
+              <Collapse
+                collapsedSize="10%"
+                easing="500ms"
+                sx={imageCollapse}
+                in={cardExpanded !== index}
+                timeout="auto"
+              >
+                <Card sx={imageBox} onClick={(e) => handleExpandCard(e, index)}>
+                  <Box
+                    loading="lazy"
+                    component="img"
+                    src={sushi.img}
+                    alt="Logo"
+                    sx={imgStyle}
+                  />
+                </Card>
+              </Collapse>
+            </Tooltip>
+            <Collapse
+              easing="500ms"
+              sx={ingredienteCollapse}
+              in={cardExpanded === index}
+              timeout="auto"
+            >
+              <Box
+                sx={ingredienteBox}
+                onClick={(e) => handleExpandCard(e, index)}
+              >
+                <List>
+                  {sushi.ingredientes.split(",").map((ingrediente) => (
+                    <Typography>- {ingrediente}</Typography>
+                  ))}
+                </List>
+                <Button
+                  sx={retractButton}
+                  onClick={(e) => handleExpandCard(e, index)}
+                >
+                  <KeyboardArrowDownIcon />
+                </Button>
+              </Box>
+            </Collapse>
+            <Box sx={footerBox}>
+              <Box sx={titleBox}>
+                <Typography sx={title}>{sushi.title}</Typography>
+                <Typography>{sushi.precio}</Typography>
+              </Box>
               <IconButton>
                 <DeleteIcon sx={icon} />
               </IconButton>

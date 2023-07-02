@@ -1,3 +1,4 @@
+import React, { useState, useMemo, useEffect } from "react";
 import {
   List,
   ListItemButton,
@@ -8,43 +9,31 @@ import {
   ListSubheader,
   Paper,
   Card,
+  Tooltip,
+  Collapse,
+  Button,
 } from "@mui/material";
 import MuiLink from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Fab from "@mui/material/Fab";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import CssBaseline from "@mui/material/CssBaseline";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined";
-import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
-import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
-import DomainOutlinedIcon from "@mui/icons-material/DomainOutlined";
-import PersonIcon from "@mui/icons-material/Person";
 
-import DeleteIcon from '@mui/icons-material/Delete';
-import HeadsetMicOutlinedIcon from "@mui/icons-material/HeadsetMicOutlined";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import BentoIcon from "@mui/icons-material/Bento";
-import KebabDiningIcon from "@mui/icons-material/KebabDining";
-import RiceBowlIcon from "@mui/icons-material/RiceBowl";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
-import SetMealIcon from "@mui/icons-material/SetMeal";
-import RamenDiningIcon from "@mui/icons-material/RamenDining";
-import TapasIcon from "@mui/icons-material/Tapas";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import Modal from "@mui/material/Modal";
-import Slide from "@mui/material/Slide";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import { sushis } from "../../../controller/testData";
 import { littleSizeFunc } from "../../../controller/windowSize";
 
 export default function Carta() {
+  const [cardExpanded, setCardExpanded] = useState(null);
   const littleSize = littleSizeFunc();
+
+  const handleExpandCard = (e, index) => {
+    if (cardExpanded === index) {
+      setCardExpanded(null);
+    } else {
+      setCardExpanded(index);
+    }
+  };
 
   /* CSS */
   const cartaStyle = {
@@ -65,10 +54,19 @@ export default function Carta() {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    // gap: '11px',
+  };
+  const imageCollapse = {
+    transition: "500ms",
+    height: "250px",
+    width: "100%",
+    borderRadius: "10px",
+    display: "flex",
+    alignItems: "center",
+    background: "#262626",
+    justifyContent: "center",
   };
   const imageBox = {
-    height: "255px",
+    height: "250px",
     width: "100%",
     background: "#262626",
     borderRadius: "10px",
@@ -81,7 +79,32 @@ export default function Carta() {
     width: "auto",
     alignSelf: "center",
   };
-  const titleBox = {
+  const ingredienteCollapse = {
+    transition: "500ms",
+    width: "100%",
+    borderRadius: "10px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+  const ingredienteBox = {
+    height: "250px",
+    width: "100%",
+    borderRadius: "10px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    color: "#FFFFFF",
+    padding: "20px 3px 20px 3px",
+    justifyContent: "flex-end",
+    gap: "5%",
+  };
+  const retractButton = {
+    height: "20%",
+    width: "100%",
+    color: "#FFFFFF",
+  };
+  const footerBox = {
     width: "100%",
     color: "#FFFFFF",
     display: "flex",
@@ -90,19 +113,79 @@ export default function Carta() {
     alignItems: "center",
     padding: "3px 3px 3px 11px",
   };
+
+  const titleBox = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  };
+  const title = {
+    fontWeight: "bold",
+    letterSpacing: "1px",
+    lineHeight: "170%",
+  };
   const icon = {
+    height: "38px",
+    width: "38px",
     color: "#FFFFFF",
   };
 
   return (
     <Box sx={cartaStyle}>
-      {sushis.map((sushi) => (
+      {sushis.map((sushi, index) => (
         <Card sx={card}>
-          <Card sx={imageBox}>
-            <Box loading="lazy" component="img" src={sushi.img} alt="Logo" sx={imgStyle} />
-          </Card>
-          <Box sx={titleBox}>
-            <Typography>{sushi.title}</Typography>
+          {/* <Card sx={pestanaStyle}></Card> */}
+          <Tooltip
+            arrow
+            disableInteractive
+            title="Click para ver detalles"
+            placement="top-start"
+            enterDelay={500}
+            followCursor
+          >
+            <Collapse
+              collapsedSize="10%"
+              easing="500ms"
+              sx={imageCollapse}
+              in={cardExpanded !== index}
+              timeout="auto"
+            >
+              <Card sx={imageBox} onClick={(e) => handleExpandCard(e, index)}>
+                <Box
+                  loading="lazy"
+                  component="img"
+                  src={sushi.img}
+                  alt="Logo"
+                  sx={imgStyle}
+                />
+              </Card>
+            </Collapse>
+          </Tooltip>
+          <Collapse
+            easing="500ms"
+            sx={ingredienteCollapse}
+            in={cardExpanded === index}
+            timeout="auto"
+          >
+            <Box sx={ingredienteBox}>
+              <List>
+                {sushi.ingredientes.split(",").map((ingrediente) => (
+                  <Typography>- {ingrediente}</Typography>
+                ))}
+              </List>
+              <Button
+                sx={retractButton}
+                onClick={(e) => handleExpandCard(e, index)}
+              >
+                <KeyboardArrowDownIcon />
+              </Button>
+            </Box>
+          </Collapse>
+          <Box sx={footerBox}>
+            <Box sx={titleBox}>
+              <Typography sx={title}>{sushi.title}</Typography>
+              <Typography>{sushi.precio}</Typography>
+            </Box>
             <IconButton>
               <AddCircleIcon sx={icon} />
             </IconButton>
