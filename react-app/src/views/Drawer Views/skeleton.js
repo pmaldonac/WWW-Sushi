@@ -7,43 +7,33 @@ import {
   ListItemIcon,
   ListItem,
   IconButton,
-  ListSubheader,
-  Paper,
   Card,
   Collapse,
+  SvgIcon,
 } from "@mui/material";
 import MuiLink from "@mui/material/Link";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Fab from "@mui/material/Fab";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
 import CssBaseline from "@mui/material/CssBaseline";
-import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined";
-import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
-import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
-import DomainOutlinedIcon from "@mui/icons-material/DomainOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import HeadsetMicOutlinedIcon from "@mui/icons-material/HeadsetMicOutlined";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import BentoIcon from "@mui/icons-material/Bento";
-import KebabDiningIcon from "@mui/icons-material/KebabDining";
-import RiceBowlIcon from "@mui/icons-material/RiceBowl";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
-import SetMealIcon from "@mui/icons-material/SetMeal";
-import RamenDiningIcon from "@mui/icons-material/RamenDining";
-import TapasIcon from "@mui/icons-material/Tapas";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import Modal from "@mui/material/Modal";
-import Slide from "@mui/material/Slide";
+
 
 import { littleSizeFunc } from "../../controller/windowSize";
 import logo from "../../imgs/logo_text.png";
 import tabla from "../../imgs/tabla.png";
+
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import { ReactComponent as RollsIcon } from "../../imgs/svg/Rolls.svg";
+import { ReactComponent as SpecialRollIcon } from "../../imgs/svg/Special Roll.svg";
+import { ReactComponent as TablasIcon } from "../../imgs/svg/Tablas.svg";
+import { ReactComponent as TempuraIcon } from "../../imgs/svg/Tempura.svg";
+import { ReactComponent as VeggieRollIcon } from "../../imgs/svg/Veggie Roll.svg";
+import { ReactComponent as PostresIcon } from "../../imgs/svg/Postres.svg";
+
 
 import AnimatePetals from "../animations/sakura";
 import AuthModal from "./Auth/authModal";
@@ -66,7 +56,7 @@ export default function Skeleton() {
   useEffect(() => {
     if (sectionClicked === "Haz tu pedido") {
       navigate("Carrito");
-    }else{
+    } else {
       navigate(sectionClicked);
     }
   }, [sectionClicked]);
@@ -134,7 +124,6 @@ export default function Skeleton() {
     minHeight: "30px",
     height: "fit-content",
     width: "fit-content",
-    background: "#FAC5C9",
     color: "#FFFFFF",
     "&:hover": {
       background: "#FC9FA6",
@@ -143,8 +132,8 @@ export default function Skeleton() {
   const icons = {
     minWidth: "20px",
     minHeight: "20px",
-    height: "2vmax",
-    width: "2vmax",
+    height: "5vh",
+    width: "auto",
     padding: "0.2vmax",
   };
   const logoStyle = {
@@ -191,7 +180,7 @@ export default function Skeleton() {
     width: "auto",
     height: "3vh",
     transform: openMenu ? "rotate(90deg) scaleX(-1)" : "rotate(90deg)",
-    transition: transition, // smooth transition
+    transition: transition, // smooth transition ease
   };
   const drawerListTile = {
     transition: transition, // smooth transition
@@ -253,7 +242,7 @@ export default function Skeleton() {
     justifyContent: "center",
     alignItems: "center",
     width: "auto",
-    height: "3vh",
+    height: "5vh",
   };
   const drawerListTileButtonText = {
     transition: transition, // smooth transition
@@ -302,53 +291,77 @@ export default function Skeleton() {
   };
 
   var drawerTitleListValues = [
-    {
-      title: "Haz tu pedido",
-      icon: <RiceBowlIcon sx={drawerListTileButtonIconIcon} />,
-    },
+    // {
+    //   title: "Haz tu pedido",
+    //   icon: <RiceBowlIcon sx={drawerListTileButtonIconIcon} />,
+    // },
     {
       title: "Mis compras",
-      icon: <RamenDiningIcon sx={drawerListTileButtonIconIcon} />,
+      icon: <ShoppingBagIcon sx={drawerListTileButtonIconIcon} />,
     },
     {
       title: "Editar Perfil",
-      icon: <KebabDiningIcon sx={drawerListTileButtonIconIcon} />,
+      icon: <ManageAccountsIcon sx={drawerListTileButtonIconIcon} />,
     },
   ];
 
   var drawerListValues = [
     {
       title: "Rolls",
-      icon: <SetMealIcon sx={drawerListTileButtonIconIcon} />,
+      icon: (
+        <SvgIcon sx={drawerListTileButtonIconIcon}>
+          <RollsIcon />
+        </SvgIcon>
+      ),
     },
     {
       title: "Tempura y Panko Rolls",
-      icon: <RiceBowlIcon sx={drawerListTileButtonIconIcon} />,
+      icon: (
+        <SvgIcon sx={drawerListTileButtonIconIcon}>
+          <TempuraIcon />
+        </SvgIcon>
+      ),
     },
     {
       title: "Rolls Especiales",
-      icon: <RamenDiningIcon sx={drawerListTileButtonIconIcon} />,
+      icon: (
+        <SvgIcon sx={drawerListTileButtonIconIcon}>
+          <SpecialRollIcon />
+        </SvgIcon>
+      ),
     },
     {
       title: "Veggie Rolls",
-      icon: <KebabDiningIcon sx={drawerListTileButtonIconIcon} />,
+      icon: (
+        <SvgIcon sx={drawerListTileButtonIconIcon}>
+          <VeggieRollIcon />
+        </SvgIcon>
+      ),
     },
     {
       title: "Tablas",
-      icon: <BentoIcon sx={drawerListTileButtonIconIcon} />,
+      icon: (
+        <SvgIcon sx={drawerListTileButtonIconIcon}>
+          <TablasIcon />
+        </SvgIcon>
+      ),
     },
     {
       title: "Postres y Bebidas",
-      icon: <TapasIcon sx={drawerListTileButtonIconIcon} />,
+      icon: (
+        <SvgIcon sx={drawerListTileButtonIconIcon}>
+          <PostresIcon />
+        </SvgIcon>
+      ),
     },
   ];
 
-  const list = () => (
+  const cartaList = () => (
     <List disablePadding sx={drawerList}>
       <ListItem
         sx={drawerListTileButton2}
         component={ListItemButton}
-        onClick={(event) => menuClick(event)}
+        onClick={(e) => menuClick(e)}
       >
         <ListItemIcon sx={drawerListTileButtonIcon}>
           <MenuBookIcon sx={drawerListTileButtonIconIcon} />
@@ -366,7 +379,7 @@ export default function Skeleton() {
                 sx={drawerListTileButton}
                 selected={sectionClicked === value.title}
                 key={value.title}
-                onClick={(event) => menuSectionClick(event, value.title)}
+                onClick={(e) => menuSectionClick(e, value.title)}
               >
                 <ListItemIcon sx={drawerListTileButtonIcon}>
                   {value.icon}
@@ -405,13 +418,19 @@ export default function Skeleton() {
   return (
     <Box sx={inicio}>
       <CssBaseline />
-      {/* <Box sx={background}>
-        <AnimatePetals />
-      </Box> */}
       <Card elevation={3} sx={appBar}>
-        <Box loading="lazy" component="img" src={logo} alt="Logo" sx={logoStyle} />
+        <Box
+          loading="lazy"
+          component="img"
+          src={logo}
+          alt="Logo"
+          sx={logoStyle}
+        />
         <Box sx={appBarButtonsBox}>
-          <IconButton sx={appBarButton} onClick={(e)=> sectionClick(e,"Carrito")}>
+          <IconButton
+            sx={appBarButton}
+            onClick={(e) => sectionClick(e, "Carrito")}
+          >
             <ShoppingCartIcon sx={icons} />
           </IconButton>
           <IconButton sx={appBarButton} onClick={handleAuth}>
@@ -420,7 +439,7 @@ export default function Skeleton() {
         </Box>
       </Card>
       <Box sx={centerDiv}>
-        <Box sx={drawer}>{list()}</Box>
+        <Box sx={drawer}>{cartaList()}</Box>
         <Box sx={ladoDerecho}>
           <Box sx={contenido}>
             <Outlet />
@@ -428,12 +447,6 @@ export default function Skeleton() {
         </Box>
       </Box>
       <AuthModal openModal={openAuthModal} setOpenModal={setOpenAuthModal} />
-      {/* <Fab sx={fabButton} onClick={handleOpenSupp}>
-        <PersonIcon sx={fabButtonIcon} />
-      </Fab> */}
-      {/* <Modal open={openSupp} onClose={handleCloseSupp} sx={modal}> */}
-      {/* <SupportPopUp setOpenSupp={setOpenSupp} /> */}
-      {/* </Modal> */}
     </Box>
   );
 }

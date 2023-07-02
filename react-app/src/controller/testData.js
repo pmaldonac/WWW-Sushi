@@ -22,11 +22,11 @@ export const carrito = [
     { title: "Naguri Roll", img: roll1, precio: "$6.990", ingredientes: "Salmón, Alga Nori, Cebollin, Philadelphia"},
     { title: "Fukusuke Roll", img: roll8, precio: "$6.990", ingredientes: "Camaron, Alga Nori, Cebollin, Philadelphia" },
     { title: "Ebi Roll", img: roll3, precio: "$5.990", ingredientes: "Camaron, Alga Nori, Cebollin, Philadelphia" },
-    { title: "Tako Roll", img: roll4, precio: "$4.990", ingredientes: "Pulpo, Alga Nori, Cebollin, Philadelphia" },
-    { title: "Sake Roll", img: roll5, precio: "$6.990", ingredientes: "Salmón, Alga Nori, Cebollin, Philadelphia" },
-    { title: "Ebu Roll", img: roll6, precio: "$11.990", ingredientes: "Salmón, Alga Nori, Cebollin, Philadelphia" },
-    { title: "UwU Roll", img: roll7, precio: "$8.990", ingredientes: "Salmón, Alga Nori, Cebollin, Philadelphia" },
-    { title: "Fukusuke Roll", img: roll8, precio: "$6.990", ingredientes: "Salmón, Alga Nori, Cebollin, Philadelphia" },
+    // { title: "Tako Roll", img: roll4, precio: "$4.990", ingredientes: "Pulpo, Alga Nori, Cebollin, Philadelphia" },
+    // { title: "Sake Roll", img: roll5, precio: "$6.990", ingredientes: "Salmón, Alga Nori, Cebollin, Philadelphia" },
+    // { title: "Ebu Roll", img: roll6, precio: "$11.990", ingredientes: "Salmón, Alga Nori, Cebollin, Philadelphia" },
+    // { title: "UwU Roll", img: roll7, precio: "$8.990", ingredientes: "Salmón, Alga Nori, Cebollin, Philadelphia" },
+    // { title: "Fukusuke Roll", img: roll8, precio: "$6.990", ingredientes: "Salmón, Alga Nori, Cebollin, Philadelphia" },
 ];
 
 export const pedidos = [

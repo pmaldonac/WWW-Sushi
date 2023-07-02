@@ -9,19 +9,18 @@ import {
   Modal,
   TextField,
   FormHelperText,
-  SvgIcon,
 } from "@mui/material";
 
 /* ICONS */
 import CloseIcon from "@mui/icons-material/Close";
 
 import { littleSizeFunc } from "../../../controller/windowSize";
-import { ReactComponent as SushiTriste } from "../../../imgs/svg/Sushi triste.svg";
+import logo from "../../../imgs/logo_compacto.png";
 
 const transition = "500ms";
 
-export default function CancelModal(props) {
-  const { openModal, setOpenModal } = props;
+export default function DeleteModal(props) {
+  const { openModal, setOpenModal, rollName } = props;
   const [continueValue, setContinueValue] = useState(false);
   const [currentRazon, setCurrentRazon] = useState("");
   const [errorRazon, setErrorRazon] = useState("");
@@ -39,22 +38,8 @@ export default function CancelModal(props) {
     setCurrentRazon("");
   };
 
-  const handleAnular = () => {
-    if (currentRazon){
-      // TODO: back enviar razon
-      setOpenModal(false);
-    } else{
-      setErrorRazon("Ingrese el motivo de anulación")
-    }
-  };
-
-  const handleRazon = (value) => {
-    setCurrentRazon(value);
-    if (isEmpty(value)) {
-      setErrorRazon("Ingrese el motivo de anulación");
-    } else {
-      setErrorRazon("");
-    }
+  const handleDelete = () => {
+    setOpenModal(false);
   }
 
   /* CSS */
@@ -78,9 +63,19 @@ export default function CancelModal(props) {
     alignItems: "center",
     gap: "11px",
   };
+  const closeButtonBox = {
+    transition: transition,
+    position: "absolute",
+    right: "2vmin",
+    top: "2vmin",
+  };
   const logoStyle = {
-    height:"200px",
-    width:"auto",
+    transition: transition,
+    minWidth: stepCount > 0 ? "100px" : "150px",
+    maxWidth: stepCount > 0 ? "250px" : "350px",
+    width: stepCount > 0 ? "10vw" : "20vw",
+    height: "auto",
+    padding: stepCount > 0 ? "4vh 2vw 2vh 2vw" : "4vh 2vw",
   };
   const contenido = {
     width: "fit-content",
@@ -167,34 +162,16 @@ export default function CancelModal(props) {
   return (
     <Modal open={openModal} onClose={handleCloseModal}>
       <Box sx={datosBox}>
-        <SvgIcon sx={logoStyle}>
-          <SushiTriste />
-        </SvgIcon>
         <Box sx={contenido}>
           <Typography sx={titleStyle}>
-            ¿Estás seguro que quieres anular la compra?
+            ¿Eliminar {rollName}?
           </Typography>
-          <Box sx={textFieldBox}>
-            <TextField
-              fullWidth
-              required
-              multiline
-              minRows={5}
-              type="text"
-              id="razon"
-              label="Ingrese el motivo de la anulación"
-              sx={textField}
-              value={currentRazon}
-              onChange={(e) => handleRazon(e.target.value)}
-            />
-            <FormHelperText error>{errorRazon}</FormHelperText>
-          </Box>
           <Box sx={buttonBox}>
             <Button sx={button} variant="contained" onClick={handleCloseModal}>
               Cancelar
             </Button>
-            <Button sx={textbutton} variant="text" onClick={handleAnular}>
-              Anular
+            <Button sx={textbutton} variant="text" onClick={handleDelete}>
+              Eliminar
             </Button>
           </Box>
         </Box>

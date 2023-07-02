@@ -7,6 +7,7 @@ import {
   Box,
   Modal,
   TextField,
+  SvgIcon,
 } from "@mui/material";
 
 /* ICONS */
@@ -14,6 +15,8 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { littleSizeFunc } from "../../../controller/windowSize";
 import logo from "../../../imgs/logo_compacto.png";
+
+import { ReactComponent as SushiTriste } from "../../../imgs/svg/Sushi triste.svg";
 
 const transition = "500ms";
 
@@ -69,12 +72,12 @@ export default function VaciarCarritoModal(props) {
     top: "2vmin",
   };
   const logoStyle = {
-    transition: transition,
-    minWidth: "100px",
-    maxWidth: "250px",
-    width: "10vw",
-    height: "auto",
-    padding: "4vh 2vw",
+    height: "100px",
+    width: "auto",
+    "& .svg": {
+      height: "100px",
+      width: "auto",
+    },
   };
   const contenido = {
     width: "fit-content",
@@ -122,7 +125,7 @@ export default function VaciarCarritoModal(props) {
     fontWeight: "600",
     padding: "8px 24px",
     fontSize: "15px",
-    border: "2px solid"
+    border: "2px solid",
     // color: "#818181",
   };
 
@@ -134,7 +137,9 @@ export default function VaciarCarritoModal(props) {
             <CloseIcon />
           </IconButton>
         </Box>
-        <Box loading="lazy" component="img" src={logo} alt="Logo" sx={logoStyle} />
+        <SvgIcon sx={logoStyle}>
+          <SushiTriste />
+        </SvgIcon>
         <Box sx={contenido}>
           <Typography sx={titleStyle}>
             ¿Estás seguro de vaciar el carrito?

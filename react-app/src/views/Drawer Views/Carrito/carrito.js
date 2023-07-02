@@ -17,11 +17,14 @@ import { carrito } from "../../../controller/testData";
 import { littleSizeFunc } from "../../../controller/windowSize";
 import CancelModal from "../Mis Compras/cancelModal";
 import VaciarCarritoModal from "./vaciarCarritoModal";
+import DeleteModal from "./deleteModal";
 
 export default function Carrito() {
   const littleSize = littleSizeFunc();
   const [openVaciarModal, setOpenVaciarModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [cardExpanded, setCardExpanded] = useState(null);
+  const [currentRollName, setCurrentRollName] = useState("");
 
   const handleExpandCard = (e, index) => {
     if (cardExpanded === index) {
@@ -35,22 +38,27 @@ export default function Carrito() {
     setOpenVaciarModal(true);
   };
 
+  const handleDelete = (e, rollName) => {
+    setCurrentRollName(rollName);
+    setOpenDeleteModal(true);
+  };
+
   /* CSS */
   const contenido = {
     display: "flex",
     flexDirection: "column",
-    height: "fit-content",
+    height: "100%",
     width: "100%",
     justifyContent: "space-between",
     gap: "44px",
   };
   const cartaStyle = {
     // width: "fit-content",
-    // height: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: littleSize ? "center" : "flex-start",
+    justifyContent: "center",
     alignItems: "center",
     gap: "33px 50px",
   };
@@ -139,6 +147,15 @@ export default function Carrito() {
     width: "38px",
     color: "#FFFFFF",
   };
+  const totalText = {
+    display: "flex",
+    alignItems: "center",
+    height: "100%",
+    fontFamily: "Poppins",
+    fontStyle: "normal",
+    fontWeight: "600",
+    fontSize: "20px",
+  };
   const buttonBox = {
     display: "flex",
     justifyContent: littleSize ? "center" : "flex-end",
@@ -179,7 +196,7 @@ export default function Carrito() {
             <Tooltip
               arrow
               disableInteractive
-              title="Click para ver detalles"
+              title="Ingredientes"
               placement="top-start"
               enterDelay={500}
               followCursor
@@ -213,9 +230,14 @@ export default function Carrito() {
                 onClick={(e) => handleExpandCard(e, index)}
               >
                 <List>
-                  {sushi.ingredientes.split(",").map((ingrediente) => (
-                    <Typography>- {ingrediente}</Typography>
-                  ))}
+                  <Typography>Ingredientes:</Typography>
+                  <ul>
+                    {sushi.ingredientes.split(",").map((ingrediente) => (
+                      <Typography>
+                        <li>{ingrediente}</li>
+                      </Typography>
+                    ))}
+                  </ul>
                 </List>
                 <Button
                   sx={retractButton}
@@ -231,13 +253,14 @@ export default function Carrito() {
                 <Typography>{sushi.precio}</Typography>
               </Box>
               <IconButton>
-                <DeleteIcon sx={icon} />
+                <DeleteIcon sx={icon} onClick={(e)=>handleDelete(e,sushi.title )} />
               </IconButton>
             </Box>
           </Card>
         ))}
       </Box>
       <Box sx={buttonBox}>
+        <Typography sx={totalText}>Total: 23.970</Typography>
         <Button sx={textbutton} variant="text" onClick={handleVaciar}>
           Vaciar Carrito
         </Button>
@@ -245,6 +268,11 @@ export default function Carrito() {
           Ir a pagar
         </Button>
       </Box>
+      <DeleteModal
+        rollName={currentRollName}
+        openModal={openDeleteModal}
+        setOpenModal={setOpenDeleteModal}
+      />
       <VaciarCarritoModal
         openModal={openVaciarModal}
         setOpenModal={setOpenVaciarModal}
