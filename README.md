@@ -1,6 +1,6 @@
 # Fukusuke Sushi
 
-Propósito de los componentes correspondientes al [diagrama de despliegue](./docs/diagrama-despliegue.png):
+Propósito de los componentes correspondientes al [diagrama de despliegue](./Hito1/docs/diagrama-despliegue.png):
 
 - **React.js:** utilizada para crear la interfaz de usuario con la cual el cliente accederá a la aplicación de venta de Sushi.
 
@@ -14,5 +14,7 @@ Propósito de los componentes correspondientes al [diagrama de despliegue](./doc
 
 - **Node.js:** herramienta que permitirá construir y sostener el backend de la aplicación, estableviendo y gestionando múltiples conexiones a la base de datos al mismo tiempo.
 
-- **PostgreSQL:** base de datos relacional para el sistema. En ella se guardará los datos necesarios para el correcto funcionamiento de la aplicación.
+- **MongoDB:** base de datos no relacional para el sistema. En ella se guardará los datos necesarios para el correcto funcionamiento de la aplicación.
+
+- **GraphQL:** Lenguaje de consultas para el sistema. Utilizado en backend para solicitar datos.
 
