@@ -14,17 +14,17 @@ import {
 import MuiLink from "@mui/material/Link";
 import Box from "@mui/material/Box";
 
-import { pedidos } from "../../../controller/testData";
-import { headCellsPedidos } from "../../../controller/listas";
+import { ordenes } from "../../../controller/testData";
+import { headCellsOrdenes } from "../../../controller/listas";
 import { littleSizeFunc } from "../../../controller/windowSize";
 import CustomTable from "../common/customTable";
 
-export default function MisCompras() {
+export default function Pedidos() {
   const littleSize = littleSizeFunc();
   const [currentPedidos, setCurrentPedidos] = useState([]);
 
   useEffect(() => {
-    pedidos.forEach((compra) => {
+    ordenes.forEach((compra) => {
       compra.id = typeof compra.id === "string" ? compra.id : `#${compra.id}`;
       compra.estado =
         compra.estado === 0
@@ -39,7 +39,7 @@ export default function MisCompras() {
       compra.total =
         typeof compra.total === "string" ? compra.total : `$${compra.total}`;
     });
-    setCurrentPedidos(pedidos);
+    setCurrentPedidos(ordenes);
   }, []);
 
   /* CSS */
@@ -48,18 +48,43 @@ export default function MisCompras() {
     flexDirection: "column",
     height: "100%",
     width: "100%",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     gap: "44px",
+  };
+  const buttonBox = {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    padding: "11px 0px",
+  };
+  const button = {
+    textTransform: "none",
+    borderRadius: "10px",
+    background: "#eb5e69",
+    fontFamily: "Poppins",
+    fontStyle: "normal",
+    fontWeight: "600",
+    fontSize: "15px",
+    padding: "8px 24px",
+    "&:hover": {
+      background: "#eb5e69",
+    },
   };
 
   return (
     <Box sx={contenido}>
       <CustomTable
-        headCells={headCellsPedidos}
+        wide={false}
+        headCells={headCellsOrdenes}
         rows={currentPedidos}
         setRows={setCurrentPedidos}
-        variant="cliente"
+        variant="delivery"
       />
+      {/* <Box sx={buttonBox}>
+        <Button sx={button} variant="contained">
+          Imprimir seleccion
+        </Button>
+      </Box> */}
     </Box>
   );
 }

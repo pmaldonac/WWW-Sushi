@@ -28,13 +28,14 @@ import {
   listaSexo,
   listaRegiones,
   listaComunas,
+  listaCargos,
 } from "../../../controller/listas";
 import { Fn } from "../../../controller/utils";
 
 const transition = "500ms";
 
 export default function InfoPerfil(props) {
-  const { setStepCount, confirmText, backButton } = props;
+  const { setStepCount, confirmText, backButton, cliente = true } = props;
   const [continueValue, setContinueValue] = useState(false);
   const [securityValue, setSecurityValue] = useState(0);
 
@@ -49,6 +50,7 @@ export default function InfoPerfil(props) {
   const [valueDireccion, setValueDireccion] = useState("");
   const [valueRegion, setValueRegion] = useState("");
   const [valueComuna, setValueComuna] = useState("");
+  const [valueCargo, setValueCargo] = useState("");
 
   const [errorNombres, setErrorNombres] = useState("");
   const [errorApellidos, setErrorApellidos] = useState("");
@@ -61,6 +63,7 @@ export default function InfoPerfil(props) {
   const [errorDireccion, setErrorDireccion] = useState("");
   const [errorRegion, setErrorRegion] = useState("");
   const [errorComuna, setErrorComuna] = useState("");
+  const [errorCargo, setErrorCargo] = useState("");
 
   const littleSize = littleSizeFunc();
 
@@ -111,6 +114,7 @@ export default function InfoPerfil(props) {
 
   const handleRegistrar = () => {
     setOpenModal(false);
+    // TODO: POST
   };
 
   const handleBack = () => {
@@ -227,7 +231,7 @@ export default function InfoPerfil(props) {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "stretch",
     flexWrap: "wrap",
     gap: "5vw",
     overflow: "auto",
@@ -511,6 +515,20 @@ export default function InfoPerfil(props) {
             </Box>
             <FormHelperText error>{errorTelefono}</FormHelperText>
           </Box>
+          {cliente ? null : (
+            <Box sx={textFieldBox} component={FormGroup}>
+              <CustomSelect
+                req={true}
+                label="Cargo"
+                fontWeightValue={400}
+                value={valueCargo}
+                setValue={setValueCargo}
+                errorText={valueCargo ? "" : errorCargo}
+              >
+                {listaCargos}
+              </CustomSelect>
+            </Box>
+          )}
         </Box>
       </Box>
       <Box sx={buttonBox}>
@@ -519,7 +537,7 @@ export default function InfoPerfil(props) {
             Volver
           </Button>
         ) : null}
-        <Button sx={button} variant="contained" disabled={!continueValue}>
+        <Button sx={button} variant="contained" disabled={!continueValue} onClick={handleRegistrar}>
           {confirmText}
         </Button>
       </Box>

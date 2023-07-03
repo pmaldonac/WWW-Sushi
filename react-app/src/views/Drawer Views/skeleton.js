@@ -97,7 +97,7 @@ export default function Skeleton() {
   };
 
   const menuSectionClick = (event, section) => {
-    setSectionClicked("Carta");
+    setSectionClicked(section);
     if (littleSize) {
       setOpenDrawer(false);
     }
@@ -159,7 +159,7 @@ export default function Skeleton() {
     width: "fit-content",
     color: "#FFFFFF",
     "&:hover": {
-      background: "#FC9FA6", // TODO:  Delivery: #ffc56e, Admin: #757575, Dueño: #666666
+      background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
     },
   };
   const icons = {
@@ -171,7 +171,7 @@ export default function Skeleton() {
   };
   const logoStyle = {
     width: "auto",
-    minWidth: littleSize ? "25px" :"150px",
+    minWidth: littleSize ? "25px" : "150px",
     maxWidth: littleSize ? "75px" : "250px",
     height: "auto",
     padding: "1vh 0vw",
@@ -188,12 +188,10 @@ export default function Skeleton() {
     width: littleSize ? "80vw" : "20vw",
     minWidth: "130px",
     padding: "0",
-    background: "#eb5e69", // TODO: Delivery: #ffc56e, Admin: #383838, Dueño: #666666
     height: "100%",
     zIndex: 100,
   };
   const drawer = {
-    background: "#eb5e69", 
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
@@ -206,14 +204,14 @@ export default function Skeleton() {
   };
   const drawerList = {
     width: "100%",
-    background: "#ed6f79", // TODO: Delivery: #e69720, Admin: #757575, Dueño: #666666
+    background: "#ed6f79", // TODO: Delivery: #ffc56e, Admin: #757575, Dueño: #0a403d
     height: "100%",
     transition: transition,
     padding: "0",
   };
   const drawerListMenu = {
     width: "100%",
-    background: "#ed6f79", // TODO: Delivery: #e69720, Admin: #ffc56e, Dueño: #666666
+    background: "#ed6f79", // TODO: Delivery: #ffc56e, Admin: #757575, Dueño: #0a403d
     height: "fit-content",
     transition: transition,
     padding: "0",
@@ -238,14 +236,14 @@ export default function Skeleton() {
     gap: "11px",
     padding: "1vh 2vw",
     transition: transition,
-    color: "#ed939a",
+    color: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
     "&:hover": {
-      background: "#ed939a",
+      background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
     },
     "&.Mui-selected": {
-      background: "#ed939a",
+      background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
       "&:hover": {
-        background: "#ed939a",
+        background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
       },
     },
   };
@@ -258,14 +256,14 @@ export default function Skeleton() {
     padding: "1vh 1vw",
     transition: transition,
     background: "#eb5e69",
-    color: "#ed939a",
+    color: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
     "&:hover": {
-      background: "#ed939a",
+      background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
     },
     "&.Mui-selected": {
-      background: "#ed939a",
+      background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
       "&:hover": {
-        background: "#ed939a",
+        background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
       },
     },
   };
@@ -332,7 +330,7 @@ export default function Skeleton() {
     width: "3vmax",
   };
 
-  var drawerTitleListValues = [
+  var drawerTitleListValuesCliente = [
     // {
     //   title: "Haz tu pedido",
     //   icon: <RiceBowlIcon sx={drawerListTileButtonIconIcon} />,
@@ -345,9 +343,27 @@ export default function Skeleton() {
       title: "Editar Perfil",
       icon: <ManageAccountsIcon sx={drawerListTileButtonIconIcon} />,
     },
+    {
+      title: "Pedidos",
+      icon: <ManageAccountsIcon sx={drawerListTileButtonIconIcon} />,
+    },
   ];
 
-  var drawerListValues = [
+  var drawerTitleListValuesDelivery = [
+    {
+      title: "Pedidos",
+      icon: <ManageAccountsIcon sx={drawerListTileButtonIconIcon} />, // TODO: Cambiar icono
+    },
+  ];
+
+  var drawerTitleListValuesAdmin = [
+    {
+      title: "Administrar Pedidos",
+      icon: <ManageAccountsIcon sx={drawerListTileButtonIconIcon} />, // TODO: Cambiar icono
+    },
+  ];
+
+  var drawerListValuesMenu = [
     {
       title: "Rolls",
       icon: (
@@ -398,6 +414,18 @@ export default function Skeleton() {
     },
   ];
 
+  var drawerListValuesAdmin = [
+    {
+      title: "Administrar Usuarios",
+    },
+    {
+      title: "Administrar Productos",
+    },
+    {
+      title: "Administrar Clientes",
+    },
+  ];
+
   const cartaList = () => (
     <List disablePadding sx={drawerList}>
       <ListItem
@@ -414,7 +442,7 @@ export default function Skeleton() {
         </ListItemIcon>
       </ListItem>
       <Collapse in={openMenu} timeout="auto">
-        {drawerListValues.map((value) => (
+        {drawerListValuesMenu.map((value) => (
           <List disablePadding sx={drawerListMenu}>
             <ListItem sx={drawerListTile}>
               <ListItemButton
@@ -436,7 +464,7 @@ export default function Skeleton() {
           </List>
         ))}
       </Collapse>
-      {drawerTitleListValues.map((value) => (
+      {drawerTitleListValuesCliente.map((value) => (
         <ListItem
           sx={drawerListTileButton2}
           component={ListItemButton}
@@ -457,8 +485,65 @@ export default function Skeleton() {
     </List>
   );
 
+  const adminList = () => (
+    <List disablePadding sx={drawerList}>
+      <ListItem
+        sx={drawerListTileButton2}
+        component={ListItemButton}
+        onClick={(e) => menuClick(e)}
+      >
+        <ListItemIcon sx={drawerListTileButtonIcon}>
+          <MenuBookIcon sx={drawerListTileButtonIconIcon} />
+        </ListItemIcon>
+        <ListItemText primary="Administración" sx={drawerListTileButtonText} />
+        <ListItemIcon sx={drawerListTileButtonIcon}>
+          <ArrowForwardIosIcon sx={arrowMenuIcon} /> {/* TODO: cambiar icono */}
+        </ListItemIcon>
+      </ListItem>
+      <Collapse in={openMenu} timeout="auto">
+        {drawerListValuesAdmin.map((value) => (
+          <List disablePadding sx={drawerListMenu}>
+            <ListItem sx={drawerListTile}>
+              <ListItemButton
+                sx={drawerListTileButton}
+                selected={sectionClicked === value.title}
+                key={value.title}
+                onClick={(e) => menuSectionClick(e, value.title)}
+              >
+                <ListItemIcon sx={drawerListTileButtonIcon}>
+                  {value.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={value.title}
+                  sx={drawerListTileButtonText}
+                  disableTypography
+                />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        ))}
+      </Collapse>
+      {drawerTitleListValuesAdmin.map((value) => (
+        <ListItem
+          sx={drawerListTileButton2}
+          component={ListItemButton}
+          selected={sectionClicked === value.title}
+          key={value.title}
+          onClick={(event) => sectionClick(event, value.title)}
+        >
+          <ListItemText
+            primary={value.title}
+            sx={drawerListTileButtonText}
+            // disableTypography
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
+
   return (
     <Box sx={inicio}>
+      <AnimatePetals />
       <CssBaseline />
       <Card elevation={3} sx={appBar}>
         {littleSize ? (
@@ -502,7 +587,7 @@ export default function Skeleton() {
           timeout="auto"
           orientation="horizontal"
         >
-          <Box sx={drawer}>{cartaList()}</Box>
+          <Box sx={drawer}>{adminList()}</Box>
         </Collapse>
         <Box sx={ladoDerecho}>
           <Box sx={contenido}>

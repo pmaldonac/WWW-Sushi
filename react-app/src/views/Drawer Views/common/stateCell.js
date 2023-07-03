@@ -1,16 +1,30 @@
-import React from "react";
-import {Typography, Box } from "@mui/material";
+import React, { useState, useMemo, useEffect } from "react";
+import { Typography, Box, Select, MenuItem, FormControl } from "@mui/material";
+import { listaEstadoPedido } from "../../../controller/listas";
+import CustomSelect from "./customSelect";
 
 export default function StateCell(props) {
-  const { state } = props;
-
+  const { variant, state } = props;
+  const [currentEstado, sertCurrentEstado] = useState("Preparand"); // TODO: fetch
   let pointColor = "#FFFFF";
 
-  if (/entregado/i.test(state) || /validado/i.test(state) || /resuelto/i.test(state)) {
+  const handleChange = (event) => {
+    sertCurrentEstado(event.target.value);
+  };
+
+  if (
+    /entregado/i.test(state) ||
+    /validado/i.test(state) ||
+    /resuelto/i.test(state)
+  ) {
     pointColor = "#6DCDAA";
   } else if (/cancelado/i.test(state)) {
     pointColor = "#DE5C5C";
-  } else if (/preparando/i.test(state) || /pendiente/i.test(state) || /abierto/i.test(state)) {
+  } else if (
+    /preparando/i.test(state) ||
+    /pendiente/i.test(state) ||
+    /abierto/i.test(state)
+  ) {
     pointColor = "#F7BA60";
   } else if (/en camino/i.test(state) || /procesando/i.test(state)) {
     pointColor = "#1876D1";
@@ -48,7 +62,17 @@ export default function StateCell(props) {
     width: "fit-content",
   };
 
-  return (
+  return variant === "delivery" ? (
+    <CustomSelect
+      small
+      label=""
+      fontWeightValue={400}
+      value={currentEstado}
+      setValue={sertCurrentEstado}
+    >
+      {listaEstadoPedido}
+    </CustomSelect>
+  ) : (
     <Box sx={stateBox}>
       <Box sx={colorPoint} />
       <Typography sx={text}>{state}</Typography>

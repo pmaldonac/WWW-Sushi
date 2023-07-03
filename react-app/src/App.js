@@ -16,6 +16,11 @@ import AnimatePetals from "./views/animations/sakura";
 import Carrito from "./views/Drawer Views/Carrito/carrito";
 import MisCompras from "./views/Drawer Views/Mis Compras/misCompras";
 import EditarPerfil from "./views/Drawer Views/Editar Perfil/editarPerfil";
+import Pedidos from "./views/Drawer Views/Pedidos/pedidos";
+import AdminUsuarios from "./views/Drawer Views/Administracion/administracionUsuarios";
+import AdminProductos from "./views/Drawer Views/Administracion/administracionProductos";
+import AdminClientes from "./views/Drawer Views/Administracion/administracionClientes";
+import AdminPedidos from "./views/Drawer Views/Administracion/administrarPedidos";
 
 
 function App() {
@@ -24,8 +29,7 @@ function App() {
     palette: {
       primary: {
         light: "#FCFBFB",
-        main: "#E84855",
-        darker: "#053e85",
+        main: "#E84855", // TODO:  Delivery: #E89005, Admin: #262626, Dueño: #08A89E
       },
       neutral: {
         light: "#D9D9D9",
@@ -67,6 +71,14 @@ function App() {
         { path: "Mis Compras", element: <MisCompras /> },
         { path: "Editar Perfil", element: <EditarPerfil /> },
 
+        { path: "Pedidos", element: <Pedidos /> },
+
+        { path: "Administrar Usuarios", element: <AdminUsuarios /> },
+        { path: "Administrar Productos", element: <AdminProductos /> },
+        { path: "Administrar Clientes", element: <AdminClientes /> },
+        { path: "Administrar Pedidos", element: <AdminPedidos /> },
+
+
         // { path: "Carta", element: <Carta /> },
       ]
     //     {
@@ -89,7 +101,6 @@ function App() {
   return (
     
     <ThemeProvider theme={theme}>
-      <AnimatePetals />
       <RouterProvider router={router} />
     </ThemeProvider>
   );

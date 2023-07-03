@@ -39,4 +39,14 @@ export const pedidos = [
     { id: 6758, descripcion: "Naguri Roll, Sake Roll", total: 22000, estado: 2 },
 ];
 
+export const ordenes = [
+    { id: 12312, cliente: "Rudolf Hartmann", telefono: "+569454654", direccion: "Quito 272, Vina del mar", descripcion: "Naguri Roll, Tako Roll", observaciones: "Salsa teriyaki", total: 23000, estado: 0 },
+    { id: 3425, cliente: "Rudolf Hartmann", telefono: "+569454654", direccion: "Quito 272, Vina del mar", descripcion: "Sake Roll, Tori Roll", observaciones: "Salsa teriyaki", total: 18000, estado: 1 },
+    { id: 4123, cliente: "Rudolf Hartmann", telefono: "+569454654", direccion: "Quito 272, Vina del mar", descripcion: "Naguri Roll, Ebu Roll", observaciones: "Salsa teriyaki", total: 21000, estado: 2 },
+    { id: 123, cliente: "Rudolf Hartmann", telefono: "+569454654", direccion: "Quito 272, Vina del mar", descripcion: "Fukusuke Roll, Tako Roll", observaciones: "Salsa teriyaki", total: 22000, estado: 3 },
+    { id: 745, cliente: "Rudolf Hartmann", telefono: "+569454654", direccion: "Quito 272, Vina del mar", descripcion: "Ebi Roll, Ebu Roll", observaciones: "Salsa teriyaki", total: 21000, estado: 2 },
+    { id: 746, cliente: "Rudolf Hartmann", telefono: "+569454654", direccion: "Quito 272, Vina del mar", descripcion: "Tori Roll, Tori Roll", observaciones: "Salsa teriyaki", total: 26000, estado: 2 },
+    { id: 6758, cliente: "Rudolf Hartmann", telefono: "+569454654", direccion: "Quito 272, Vina del mar", descripcion: "Naguri Roll, Sake Roll", observaciones: "Salsa teriyaki", total: 22000, estado: 2 },
+];
+
 

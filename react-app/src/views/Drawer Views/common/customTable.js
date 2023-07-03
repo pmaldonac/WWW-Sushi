@@ -16,9 +16,16 @@ import {
   Card,
   SvgIcon,
   Modal,
+  Checkbox,
+  IconButton,
+  Collapse,
 } from "@mui/material";
 
 /* ICONS */
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { ReactComponent as SushiTriste } from "../../../imgs/svg/Sushi triste.svg";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import SearchIcon from "@mui/icons-material/Search";
 import { ReactComponent as EmptyFileIcon } from "../../../imgs/svg/emptyFile.svg";
 
@@ -87,6 +94,7 @@ export default function CustomTable(props) {
     setLineaSeleccionada,
   } = props;
   const [searchColor, setSearchColor] = useState("#D9D9D9");
+  const [rowExpanded, setRowExpanded] = useState(null);
   const [labelMarginSearch, setLabelMarginSearch] = useState(30);
   const [focusedSearch, setFocusedSearch] = useState(false);
   const [currentValueSearch, setCurrentValueSearch] = useState("");
@@ -98,13 +106,13 @@ export default function CustomTable(props) {
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
-  const littleSize = littleSizeFunc()
+  const littleSize = littleSizeFunc();
 
   if (rows) {
     for (var i = 0; i < rows.length; i++) {
       let estado = rows[i]["estado"];
       if (typeof estado === "string") {
-        rows[i]["estado"] = <StateCell state={`${estado}`} />;
+        rows[i]["estado"] = <StateCell variant={variant} state={`${estado}`} />;
       }
       rows[i]["acciones"] = (
         <ActionButtonsCell
@@ -153,7 +161,6 @@ export default function CustomTable(props) {
     }
   }, [currentValueSearch]);
 
-
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -179,6 +186,16 @@ export default function CustomTable(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const handleRowClick = (event, index) => {
+    if (rowExpanded === index) {
+      setRowExpanded(null);
+    } else {
+      setRowExpanded(index);
+    }
+  };
+
+  const handleDeleteRow = (event, index) => {}; // TODO: DELETE
 
   /* CSS */
   const contenido = {
@@ -226,7 +243,6 @@ export default function CustomTable(props) {
     flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
-    // gap: "1vh",
     transition: transition,
   };
   const tableCard = {
@@ -248,7 +264,7 @@ export default function CustomTable(props) {
     transition: transition,
   };
   const titleRow = {
-    background: "#E84855",
+    background: "#E84855", // TODO:  Delivery: #E89005, Admin: #262626, Dueño: #08A89E
     color: "#FCFBFB",
     height: "fit-content",
   };
@@ -308,10 +324,6 @@ export default function CustomTable(props) {
       display: "flex",
       flexWrap: "wrap",
       justifyContent: littleSize ? "center" : "flex-end",
-      ".css-12ovgqq-MuiInputBase-root-MuiTablePagination-select": {
-        // marginLeft: littleSize ? "" : "8px",
-        // marginRight: "40px",
-      },
     },
   };
   const emptyRow = {
@@ -331,6 +343,15 @@ export default function CustomTable(props) {
     height: "150px",
     width: "auto",
   };
+  const checkBoxTitle = {
+    color: "#FCFCFC",
+    "&.Mui-checked": {
+      color: "#FCFCFC",
+    },
+  };
+  const deleteIcon = {
+    color: "red",
+  }
 
   return (
     <Box sx={contenido}>
@@ -388,29 +409,84 @@ export default function CustomTable(props) {
               </TableHead>
               <TableBody sx={tableBody}>
                 {visibleRows.length > 0 ? (
-                  visibleRows.map((r) => (
-                    <TableRow>
-                      {headCells.map((title) => (
-                        <TableCell sx={cell}>
-                          {typeof r[`${title.id}`] === "string" || "numeric" ? (
-                            <Typography sx={cellText}>
-                              {r[`${title.id}`]}
-                            </Typography>
-                          ) : (
-                            r[`${title.id}`]
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
+                  visibleRows.map((r, index) => (
+                    <React.Fragment>
+                      <TableRow>
+                        {headCells.map((title) => (
+                          <TableCell sx={cell}>
+                            {title.id === "expand" ? (
+                              <IconButton
+                                onClick={(e) => handleRowClick(e, index)}
+                              >
+                                {rowExpanded === index ? (
+                                  <KeyboardArrowUpIcon />
+                                ) : (
+                                  <KeyboardArrowDownIcon />
+                                )}
+                              </IconButton>
+                            ) : title.id === "delete" ? (
+                              <IconButton
+                                sx={deleteIcon}
+                                onClick={(e) => handleDeleteRow(e, index)}
+                              >
+                                <DeleteForeverIcon />
+                              </IconButton>
+                            ) : typeof r[`${title.id}`] === "string" ||
+                              "numeric" ? (
+                              <Typography sx={cellText}>
+                                {r[`${title.id}`]}
+                              </Typography>
+                            ) : (
+                              r[`${title.id}`]
+                            )}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                      {variant === "delivery" ? (
+                        <TableRow>
+                          <TableCell
+                            style={{
+                              paddingBottom: 0,
+                              paddingTop: 0,
+                              paddingLeft: 100,
+                            }}
+                            align="start"
+                            colSpan={headCells.length}
+                          >
+                            <Collapse
+                              in={rowExpanded === index}
+                              timeout="auto"
+                              unmountOnExit
+                            >
+                              <Typography>
+                                Detalles del pedido: {r["descripcion"]}
+                              </Typography>
+                              <Typography>
+                                Observaciones:{" "}
+                                {r["observaciones"]
+                                  ? r["observaciones"]
+                                  : "No hay observaciones"}
+                              </Typography>
+                            </Collapse>
+                          </TableCell>
+                        </TableRow>
+                      ) : null}
+                    </React.Fragment>
                   ))
                 ) : (
                   <TableRow>
                     <TableCell align="center" colSpan={headCells.length}>
                       <Box sx={emptyRow}>
-                        <SvgIcon sx={emptyIcon}>
-                          <EmptyFileIcon />
-                        </SvgIcon>
-                        No hay compras registradas
+                        {variant === "cliente" ? (
+                          <SvgIcon sx={emptyIcon}>
+                            <SushiTriste />
+                          </SvgIcon>
+                        ) : (
+                          <SvgIcon sx={emptyIcon}>
+                            <EmptyFileIcon />
+                          </SvgIcon>
+                        )}
+                        No hay datos
                       </Box>
                     </TableCell>
                   </TableRow>
