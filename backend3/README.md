@@ -3,7 +3,7 @@
 ```
 $ npm install
 o 
-$ yarn intall
+$ yarn install
 ```
 
 ### Crear archivo con extensión .env
@@ -21,4 +21,4 @@ PORT_API = 8090
 ```
 npm start
 ```
-Apollo-Server estará corriendo en el siguiente link http://localhost:8090/graphq 
+Apollo-Server estará corriendo en el siguiente link http://localhost:8090/graphql 

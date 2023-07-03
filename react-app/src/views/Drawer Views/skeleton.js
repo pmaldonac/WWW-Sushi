@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
+import { useQuery, gql } from "@apollo/client";
 import {
   List,
   ListItemButton,
@@ -11,7 +12,6 @@ import {
   Collapse,
   SvgIcon,
 } from "@mui/material";
-import MuiLink from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import PersonIcon from "@mui/icons-material/Person";
@@ -20,20 +20,19 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-
 import { littleSizeFunc } from "../../controller/windowSize";
-import logo from "../../imgs/logo_text.png";
-import tabla from "../../imgs/tabla.png";
+import logoText from "../../imgs/logo_text.png";
+import logo from "../../imgs/logo_compacto.png";
 
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { ReactComponent as RollsIcon } from "../../imgs/svg/Rolls.svg";
 import { ReactComponent as SpecialRollIcon } from "../../imgs/svg/Special Roll.svg";
 import { ReactComponent as TablasIcon } from "../../imgs/svg/Tablas.svg";
 import { ReactComponent as TempuraIcon } from "../../imgs/svg/Tempura.svg";
 import { ReactComponent as VeggieRollIcon } from "../../imgs/svg/Veggie Roll.svg";
 import { ReactComponent as PostresIcon } from "../../imgs/svg/Postres.svg";
-
+import MenuIcon from "@mui/icons-material/Menu";
 
 import AnimatePetals from "../animations/sakura";
 import AuthModal from "./Auth/authModal";
@@ -41,7 +40,24 @@ import RegistrarModal from "./common/infoPerfil";
 
 const transition = "500ms";
 
+const GET_PRODUCTOS = gql`
+  query getProductos {
+    Producto {
+      _id
+      nombre
+      foto
+      disponibilidad
+      precio
+      ingredientes
+      descuento
+      tipo_producto
+    }
+  }
+`;
+
 export default function Skeleton() {
+  // const { data, loading, error } = useQuery(GET_LOCATIONS);
+  const littleSize = littleSizeFunc();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const path = pathname.replace("%20", " ").split("/");
@@ -49,9 +65,16 @@ export default function Skeleton() {
   const [openMenu, setOpenMenu] = useState(true);
   const [sectionClicked, setSectionClicked] = useState(path[0]);
   const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(!littleSize);
   const [openRegistrarModal, setOpenRegistrarModal] = useState(false);
 
-  const littleSize = littleSizeFunc();
+  useEffect(() => {
+    if (littleSize) {
+      setOpenDrawer(false);
+    } else {
+      setOpenDrawer(true);
+    }
+  }, [littleSize]);
 
   useEffect(() => {
     if (sectionClicked === "Haz tu pedido") {
@@ -65,16 +88,26 @@ export default function Skeleton() {
     setSectionClicked(section);
   };
 
+  const drawerClick = (e) => {
+    setOpenDrawer(!openDrawer);
+  };
+
   const menuClick = (event) => {
     setOpenMenu(!openMenu);
   };
 
   const menuSectionClick = (event, section) => {
     setSectionClicked("Carta");
+    if (littleSize) {
+      setOpenDrawer(false);
+    }
   };
 
   const sectionClick = (event, section) => {
     setSectionClicked(section);
+    if (littleSize) {
+      setOpenDrawer(false);
+    }
   };
 
   const handleAuth = (event) => {
@@ -107,7 +140,7 @@ export default function Skeleton() {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#E84855",
+    backgroundColor: "#E84855", // TODO:  Delivery: #E89005, Admin: #262626, Dueño: #08A89E
     padding: "0px 1vw",
     gap: "11px",
   };
@@ -126,7 +159,7 @@ export default function Skeleton() {
     width: "fit-content",
     color: "#FFFFFF",
     "&:hover": {
-      background: "#FC9FA6",
+      background: "#FC9FA6", // TODO:  Delivery: #ffc56e, Admin: #757575, Dueño: #666666
     },
   };
   const icons = {
@@ -138,8 +171,8 @@ export default function Skeleton() {
   };
   const logoStyle = {
     width: "auto",
-    minWidth: "150px",
-    maxWidth: "250px",
+    minWidth: littleSize ? "25px" :"150px",
+    maxWidth: littleSize ? "75px" : "250px",
     height: "auto",
     padding: "1vh 0vw",
   };
@@ -150,13 +183,22 @@ export default function Skeleton() {
     overflow: "auto",
     display: "flex",
   };
+  const drawerCollapse = {
+    position: littleSize ? "absolute" : "",
+    width: littleSize ? "80vw" : "20vw",
+    minWidth: "130px",
+    padding: "0",
+    background: "#eb5e69", // TODO: Delivery: #ffc56e, Admin: #383838, Dueño: #666666
+    height: "100%",
+    zIndex: 100,
+  };
   const drawer = {
-    background: "#eb5e69",
+    background: "#eb5e69", 
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
     overflowY: "auto",
-    width: "20vw",
+    width: littleSize ? "80vw" : "20vw",
     minWidth: "130px",
     padding: "0",
     height: "100%",
@@ -164,14 +206,14 @@ export default function Skeleton() {
   };
   const drawerList = {
     width: "100%",
-    background: "#ed6f79",
+    background: "#ed6f79", // TODO: Delivery: #e69720, Admin: #757575, Dueño: #666666
     height: "100%",
     transition: transition,
     padding: "0",
   };
   const drawerListMenu = {
     width: "100%",
-    background: "#ed6f79",
+    background: "#ed6f79", // TODO: Delivery: #e69720, Admin: #ffc56e, Dueño: #666666
     height: "fit-content",
     transition: transition,
     padding: "0",
@@ -260,7 +302,7 @@ export default function Skeleton() {
   const ladoDerecho = {
     height: "87vh",
     width: "100%",
-    maxWidth: "80vw",
+    maxWidth: littleSize ? "100vw" : "80vw",
     overflow: "auto",
     transition: transition,
   };
@@ -419,13 +461,28 @@ export default function Skeleton() {
     <Box sx={inicio}>
       <CssBaseline />
       <Card elevation={3} sx={appBar}>
-        <Box
-          loading="lazy"
-          component="img"
-          src={logo}
-          alt="Logo"
-          sx={logoStyle}
-        />
+        {littleSize ? (
+          <IconButton sx={appBarButton} onClick={drawerClick}>
+            <MenuIcon sx={icons} />
+          </IconButton>
+        ) : null}
+        {littleSize ? (
+          <Box
+            loading="lazy"
+            component="img"
+            src={logo}
+            alt="Logo"
+            sx={logoStyle}
+          />
+        ) : (
+          <Box
+            loading="lazy"
+            component="img"
+            src={logoText}
+            alt="Logo"
+            sx={logoStyle}
+          />
+        )}
         <Box sx={appBarButtonsBox}>
           <IconButton
             sx={appBarButton}
@@ -439,7 +496,14 @@ export default function Skeleton() {
         </Box>
       </Card>
       <Box sx={centerDiv}>
-        <Box sx={drawer}>{cartaList()}</Box>
+        <Collapse
+          sx={drawerCollapse}
+          in={openDrawer}
+          timeout="auto"
+          orientation="horizontal"
+        >
+          <Box sx={drawer}>{cartaList()}</Box>
+        </Collapse>
         <Box sx={ladoDerecho}>
           <Box sx={contenido}>
             <Outlet />

@@ -247,7 +247,7 @@ export default function InfoPerfil(props) {
     flexDirection: "column",
     justifyContent: "flex-end",
     flexWrap: "nowrap",
-    minWidth: "250px",
+    minWidth: littleSize ? "200px" : "250px",
     width: "20vw",
     maxWidth: "450px",
     gap: "3px",
@@ -299,7 +299,13 @@ export default function InfoPerfil(props) {
     },
   };
   const buttonBox = {
+    minWidth: "200px",
+    width: "fit-content",
     display: "flex",
+    flexWrap: "wrap-reverse",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "5px",
   };
   const button = {
     width: "200px",

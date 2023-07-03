@@ -8,7 +8,6 @@ import Skeleton from "./views/Drawer Views/skeleton";
 import Carta from "./views/Drawer Views/Carta/carta";
 // import Clientes from "./views/Drawer Views/Clientes/clientes";
 
-import Axios_API from "./controller/axios";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Poppins from "./fonts/Poppins-Regular.ttf";
@@ -17,6 +16,7 @@ import AnimatePetals from "./views/animations/sakura";
 import Carrito from "./views/Drawer Views/Carrito/carrito";
 import MisCompras from "./views/Drawer Views/Mis Compras/misCompras";
 import EditarPerfil from "./views/Drawer Views/Editar Perfil/editarPerfil";
+
 
 function App() {
   // var axios = new Axios_API();
@@ -87,6 +87,7 @@ function App() {
   ]);
 
   return (
+    
     <ThemeProvider theme={theme}>
       <AnimatePetals />
       <RouterProvider router={router} />

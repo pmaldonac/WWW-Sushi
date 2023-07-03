@@ -26,6 +26,7 @@ import { ReactComponent as EmptyFileIcon } from "../../../imgs/svg/emptyFile.svg
 import StateCell from "../common/stateCell";
 import ActionButtonsCell from "../common/actionButttonsCell";
 import CancelModal from "../Mis Compras/cancelModal";
+import { littleSizeFunc } from "../../../controller/windowSize";
 const transition = "500ms";
 
 const states = {
@@ -81,7 +82,7 @@ export default function CustomTable(props) {
     rows,
     setRows,
     search = false,
-    wide = false,
+    wide = true,
     variant,
     setLineaSeleccionada,
   } = props;
@@ -96,6 +97,8 @@ export default function CustomTable(props) {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const littleSize = littleSizeFunc()
 
   if (rows) {
     for (var i = 0; i < rows.length; i++) {
@@ -181,7 +184,7 @@ export default function CustomTable(props) {
   const contenido = {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     height: "100%",
     gap: "1vh",
     transition: transition,
@@ -297,17 +300,17 @@ export default function CustomTable(props) {
   const tableFooterBox = {
     width: "100%",
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: littleSize ? "center" : "flex-end",
   };
   const tableFooter = {
     width: "100%",
     ".MuiTablePagination-toolbar": {
       display: "flex",
       flexWrap: "wrap",
-      justifyContent: "flex-end",
+      justifyContent: littleSize ? "center" : "flex-end",
       ".css-12ovgqq-MuiInputBase-root-MuiTablePagination-select": {
-        marginLeft: "8px",
-        marginRight: "40px",
+        // marginLeft: littleSize ? "" : "8px",
+        // marginRight: "40px",
       },
     },
   };

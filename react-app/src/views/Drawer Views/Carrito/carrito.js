@@ -53,28 +53,27 @@ export default function Carrito() {
     gap: "44px",
   };
   const cartaStyle = {
-    // width: "fit-content",
-    height: "100%",
+    height: "fit-content",
+    width: "fit-content",
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
+    justifyContent: littleSize ? "center" : "flex-start",
     alignItems: "center",
-    gap: "33px 50px",
+    gap: littleSize ? "11px 25px" : "33px 50px",
   };
   const card = {
     background: "#eb5e69",
     height: littleSize ? "30vh" : "300px",
-    width: littleSize ? "50vw" : "255px",
+    width: littleSize ? "40vw" : "255px",
     borderRadius: "10px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    // gap: '11px',
   };
   const imageCollapse = {
     transition: "500ms",
-    height: "250px",
+    height: littleSize ? "22.5vh" : "250px",
     width: "100%",
     borderRadius: "10px",
     display: "flex",
@@ -83,7 +82,7 @@ export default function Carrito() {
     justifyContent: "center",
   };
   const imageBox = {
-    height: "250px",
+    height: littleSize ? "22.5vh" : "250px",
     width: "100%",
     background: "#262626",
     borderRadius: "10px",
@@ -92,7 +91,7 @@ export default function Carrito() {
     justifyContent: "center",
   };
   const imgStyle = {
-    height: "100%",
+    height: littleSize ? "80%" : "100%",
     width: "auto",
     alignSelf: "center",
   };
@@ -105,18 +104,23 @@ export default function Carrito() {
     justifyContent: "center",
   };
   const ingredienteBox = {
-    height: "250px",
+    height: littleSize ? "22.5vh" : "250px",
     width: "100%",
     borderRadius: "10px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     color: "#FFFFFF",
-    padding: "20px 3px 20px 3px",
+    padding: littleSize ? "1vh 3px 1vh 3px" : "20px 3px 20px 3px",
     justifyContent: "flex-end",
-    gap: "5%",
+    gap: littleSize ? "0px" : "5%",
+  };
+  const ingredientesText = {
+    fontSize: littleSize ? "12px" : "16px",
+    lineHeight: littleSize ? "120%" : "",
   };
   const retractButton = {
+    minHeight: "20px",
     height: "20%",
     width: "100%",
     color: "#FFFFFF",
@@ -134,17 +138,19 @@ export default function Carrito() {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    padding: "3px 0px",
   };
   const title = {
+    fontSize: littleSize ? "80%" : "16px",
     fontWeight: "bold",
-    // fontSize: "16px",
     letterSpacing: "1px",
-    lineHeight: "170%",
+    lineHeight: littleSize ? "100%" : "170%",
+  };
+  const precio = {
+    fontSize: littleSize ? "80%" : "16px",
   };
   const icon = {
-    height: "38px",
-    width: "38px",
+    height: littleSize ? "30px" : "38px",
+    width: littleSize ? "30px" : "38px",
     color: "#FFFFFF",
   };
   const totalText = {
@@ -230,10 +236,10 @@ export default function Carrito() {
                 onClick={(e) => handleExpandCard(e, index)}
               >
                 <List>
-                  <Typography>Ingredientes:</Typography>
+                  <Typography sx={ingredientesText}>Ingredientes:</Typography>
                   <ul>
                     {sushi.ingredientes.split(",").map((ingrediente) => (
-                      <Typography>
+                      <Typography sx={ingredientesText}>
                         <li>{ingrediente}</li>
                       </Typography>
                     ))}
@@ -250,10 +256,13 @@ export default function Carrito() {
             <Box sx={footerBox}>
               <Box sx={titleBox}>
                 <Typography sx={title}>{sushi.title}</Typography>
-                <Typography>{sushi.precio}</Typography>
+                <Typography sx={precio}>{sushi.precio}</Typography>
               </Box>
               <IconButton>
-                <DeleteIcon sx={icon} onClick={(e)=>handleDelete(e,sushi.title )} />
+                <DeleteIcon
+                  sx={icon}
+                  onClick={(e) => handleDelete(e, sushi.title)}
+                />
               </IconButton>
             </Box>
           </Card>
