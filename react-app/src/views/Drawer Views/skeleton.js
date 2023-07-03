@@ -363,6 +363,13 @@ export default function Skeleton() {
     },
   ];
 
+  var drawerTitleListValuesDueno = [
+    {
+      title: "Reportes",
+      icon: <ManageAccountsIcon sx={drawerListTileButtonIconIcon} />, // TODO: Cambiar icono
+    },
+  ];
+
   var drawerListValuesMenu = [
     {
       title: "Rolls",
@@ -485,6 +492,29 @@ export default function Skeleton() {
     </List>
   );
 
+  const deliveryList = () => (
+    <List disablePadding sx={drawerList}>
+      {drawerTitleListValuesCliente.map((value) => (
+        <ListItem
+          sx={drawerListTileButton2}
+          component={ListItemButton}
+          selected={sectionClicked === value.title}
+          key={value.title}
+          onClick={(event) => sectionClick(event, value.title)}
+        >
+          <ListItemIcon sx={drawerListTileButtonIcon}>
+            {value.icon}
+          </ListItemIcon>
+          <ListItemText
+            primary={value.title}
+            sx={drawerListTileButtonText}
+            // disableTypography
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
+
   const adminList = () => (
     <List disablePadding sx={drawerList}>
       <ListItem
@@ -541,6 +571,29 @@ export default function Skeleton() {
     </List>
   );
 
+  const duenoList = () => (
+    <List disablePadding sx={drawerList}>
+      {drawerTitleListValuesDueno.map((value) => (
+        <ListItem
+          sx={drawerListTileButton2}
+          component={ListItemButton}
+          selected={sectionClicked === value.title}
+          key={value.title}
+          onClick={(event) => sectionClick(event, value.title)}
+        >
+          <ListItemIcon sx={drawerListTileButtonIcon}>
+            {value.icon}
+          </ListItemIcon>
+          <ListItemText
+            primary={value.title}
+            sx={drawerListTileButtonText}
+            // disableTypography
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
+
   return (
     <Box sx={inicio}>
       <AnimatePetals />
@@ -587,7 +640,7 @@ export default function Skeleton() {
           timeout="auto"
           orientation="horizontal"
         >
-          <Box sx={drawer}>{adminList()}</Box>
+          <Box sx={drawer}>{duenoList()}</Box>
         </Collapse>
         <Box sx={ladoDerecho}>
           <Box sx={contenido}>

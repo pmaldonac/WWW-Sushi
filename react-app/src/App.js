@@ -21,6 +21,7 @@ import AdminUsuarios from "./views/Drawer Views/Administracion/administracionUsu
 import AdminProductos from "./views/Drawer Views/Administracion/administracionProductos";
 import AdminClientes from "./views/Drawer Views/Administracion/administracionClientes";
 import AdminPedidos from "./views/Drawer Views/Administracion/administrarPedidos";
+import Reportes from "./views/Drawer Views/Reportes/reportes";
 
 
 function App() {
@@ -77,6 +78,9 @@ function App() {
         { path: "Administrar Productos", element: <AdminProductos /> },
         { path: "Administrar Clientes", element: <AdminClientes /> },
         { path: "Administrar Pedidos", element: <AdminPedidos /> },
+
+        { path: "Reportes", element: <Reportes /> },
+
 
 
         // { path: "Carta", element: <Carta /> },
