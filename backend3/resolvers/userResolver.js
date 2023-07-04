@@ -1,6 +1,7 @@
 const Usuario = require("../models/user")
 
 const resolvers = {
+    
     Query: {
         async getUsuarios(obj){
             try{

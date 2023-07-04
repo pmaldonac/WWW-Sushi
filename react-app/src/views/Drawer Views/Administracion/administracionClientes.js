@@ -1,29 +1,45 @@
 import React, { useState, useMemo, useEffect } from "react";
-import {
-  List,
-  ListItemButton,
-  ListItemText,
-  ListItemIcon,
-  ListItem,
-  IconButton,
-  ListSubheader,
-  Paper,
-  Card,
-  Button,
-} from "@mui/material";
+import { useQuery, gql } from "@apollo/client";
+import { UserContext } from "../../../App";
+import { Button, Box } from "@mui/material";
 import MuiLink from "@mui/material/Link";
-import Box from "@mui/material/Box";
 
 import { ordenes } from "../../../controller/testData";
-import { headCellsClientes } from "../../../controller/listas";
+import { headCellsClientes, cargoValues} from "../../../controller/listas";
 import { littleSizeFunc } from "../../../controller/windowSize";
 import CustomTable from "../common/customTable";
 import AnadirClienteModal from "./anadirClienteModal";
 
+const GET_CLIENTES = gql`
+  query Query {
+    getClientes {
+      comuna
+      correo
+      direccion
+      nombre
+      region
+      rut
+      sexo
+      telefono
+      usuario {
+        rol
+      }
+    }
+  }
+`;
+
 export default function AdminClientes() {
+  const { data, loading, error } = useQuery(GET_CLIENTES);
+
   const littleSize = littleSizeFunc();
-  const [currentPedidos, setCurrentPedidos] = useState([]);
+  const [clientes, setClientes] = useState([]);
   const [openNuevoModal, setOpenNuevoModal] = useState(false);
+
+  useEffect(() => {
+    if (!loading && data) {
+      setClientes(data.getClientes);
+    }
+  }, [loading]);
 
   const handleNuevoModal = () => {
     setOpenNuevoModal(true);
@@ -59,16 +75,12 @@ export default function AdminClientes() {
       <CustomTable
         wide={false}
         headCells={headCellsClientes}
-        rows={currentPedidos}
-        setRows={setCurrentPedidos}
+        rows={clientes}
+        setRows={setClientes}
         variant="admin"
       />
       <Box sx={buttonBox}>
-        <Button
-          sx={button}
-          variant="contained"
-          onClick={handleNuevoModal}
-        >
+        <Button sx={button} variant="contained" onClick={handleNuevoModal}>
           Nuevo Cliente
         </Button>
       </Box>

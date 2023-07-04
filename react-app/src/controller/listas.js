@@ -23,6 +23,15 @@ const romanTable = {
   XX: 20,
 };
 
+export const cargoValues = {
+  0: "Dueño",
+  1: "Administrador",
+  2: "Delivery",
+  3: "Cliente",
+ 
+};
+
+
 export const listaSexo = [
   { id: "Femenino", value: "Femenino" },
   { id: "Masculino", value: "Masculino" },
@@ -170,10 +179,6 @@ export const headCellsUsuarios = [
     label: "Nombre",
   },
   {
-    id: "apellido",
-    label: "Apellido",
-  },
-  {
     id: "rut",
     label: "RUT",
   },
@@ -205,10 +210,6 @@ export const headCellsClientes = [
     label: "Nombre",
   },
   {
-    id: "apellido",
-    label: "Apellido",
-  },
-  {
     id: "rut",
     label: "RUT",
   },
@@ -236,15 +237,11 @@ export const headCellsClientes = [
 
 export const headCellsProductos = [
   {
-    id: "id",
-    label: "Código",
-  },
-  {
     id: "nombre",
     label: "Nombre",
   },
   {
-    id: "descripcion",
+    id: "ingredientes",
     label: "Descripción",
   },
   {

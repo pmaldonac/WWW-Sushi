@@ -154,7 +154,7 @@ export default function InfoPerfil(props) {
   const handleCloseModal = () => {
     setContinueValue(false);
     setOpenModal(false);
-    setStepCount(0);
+    cliente ? setStepCount(0) : null;
   };
 
   const handleRegistrar = () => {
@@ -166,9 +166,7 @@ export default function InfoPerfil(props) {
           clienteInput: {
             comuna: valueComuna,
             correo: valueCorreo,
-            provincia: "Valparaiso", // TODO: no tengo la wa
             direccion: valueDireccion,
-            fecha_nacimiento: "1987-12-12", // TODO: no tengo la wa
             nombre: `${valueNombres} ${valueApellidos}`,
             region: valueRegion,
             rut: valueRut,
@@ -183,8 +181,7 @@ export default function InfoPerfil(props) {
         },
       });
     } else {
-      // TODO: corregir con el back
-      addUsuario({
+      addCliente({
         variables: {
           clienteInput: {
             comuna: valueComuna,
@@ -195,11 +192,10 @@ export default function InfoPerfil(props) {
             rut: valueRut,
             sexo: valueSexo,
             telefono: valueTelefono,
-            cargo: valueCargo,
           },
           userInput: {
             password: valuePass,
-            rol: "3",
+            rol: `${valueCargo}`,
             username: valueCorreo,
           },
         },

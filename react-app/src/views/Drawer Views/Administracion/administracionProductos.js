@@ -1,29 +1,41 @@
 import React, { useState, useMemo, useEffect } from "react";
-import {
-  List,
-  ListItemButton,
-  ListItemText,
-  ListItemIcon,
-  ListItem,
-  IconButton,
-  ListSubheader,
-  Paper,
-  Card,
-  Button,
-} from "@mui/material";
+import { useQuery, gql } from "@apollo/client";
+import { UserContext } from "../../../App";
+import { Button, Box } from "@mui/material";
 import MuiLink from "@mui/material/Link";
-import Box from "@mui/material/Box";
 
-import { ordenes } from "../../../controller/testData";
 import { headCellsProductos } from "../../../controller/listas";
 import { littleSizeFunc } from "../../../controller/windowSize";
 import CustomTable from "../common/customTable";
 import AnadirProductoModal from "./anadirProductoModal";
 
+const GET_PRODUCTOS = gql`
+  query Query {
+    getProductos {
+      _id
+      descuento
+      disponibilidad
+      foto
+      ingredientes
+      nombre
+      precio
+    }
+  }
+`;
+
 export default function AdminProductos() {
+  const { data, loading, error } = useQuery(GET_PRODUCTOS);
   const littleSize = littleSizeFunc();
   const [currentPedidos, setCurrentPedidos] = useState([]);
   const [openNuevoModal, setOpenNuevoModal] = useState(false);
+
+  
+  useEffect(() => {
+    if (!loading && data) {
+      setCurrentPedidos(data.getProductos);
+    } 
+  }, [loading]);
+
 
   const handleNuevoModal = () => {
     setOpenNuevoModal(true);

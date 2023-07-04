@@ -97,6 +97,7 @@ export default function AnadirPersonaModal(props) {
         <InfoPerfil
           confirmText="Añadir Cliente"
           setStepCount={setStepCount}
+          setOpenModal={setOpenModal}
         >
         </InfoPerfil>
       </Box>

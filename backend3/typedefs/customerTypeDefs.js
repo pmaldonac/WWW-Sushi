@@ -6,9 +6,9 @@ const typeDefs =  gql`
         nombre: String!
         direccion: String!
         comuna: String!
-        provincia: String!
+        provincia: String
         region: String!
-        fecha_nacimiento: String!
+        fecha_nacimiento: String
         sexo: String!
         correo: String!
         telefono: String!
@@ -19,9 +19,9 @@ const typeDefs =  gql`
         nombre: String!
         direccion: String!
         comuna: String!
-        provincia: String!
+        provincia: String
         region: String!
-        fecha_nacimiento: String!
+        fecha_nacimiento: String
         sexo: String!
         correo: String!
         telefono: String!

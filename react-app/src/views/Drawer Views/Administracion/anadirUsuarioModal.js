@@ -98,6 +98,7 @@ export default function AnadirPersonaModal(props) {
           confirmText="Añadir Usuario"
           setStepCount={setStepCount}
           cliente={false}
+          setOpenModal={setOpenModal}
         >
           ¡Rellena los campos y recibe las mejores ofertas de sushi!
         </InfoPerfil>

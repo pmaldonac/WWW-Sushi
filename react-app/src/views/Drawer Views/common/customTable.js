@@ -116,13 +116,15 @@ export default function CustomTable(props) {
       if (typeof estado === "string") {
         rows[i]["estado"] = <StateCell variant={variant} state={`${estado}`} />;
       }
-      rows[i]["acciones"] = (
-        <ActionButtonsCell
-          variant={variant}
-          linea={rows[i]}
-          setOpenDeleteModal={setOpenDeleteModal}
-        />
-      );
+      if (variant === "cliente") {
+        rows[i]["acciones"] = (
+          <ActionButtonsCell
+            variant={variant}
+            linea={rows[i]}
+            setOpenDeleteModal={setOpenDeleteModal}
+          />
+        );
+      }
     }
   }
 

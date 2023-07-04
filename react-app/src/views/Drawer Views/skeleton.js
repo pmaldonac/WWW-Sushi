@@ -75,7 +75,7 @@ export default function Skeleton(props) {
   // const { data, loading, error } = useQuery(GET_CARRO, {
   //   variables: { idUsuario: user.id },
   // });
-  const carritoCount = 0
+  const carritoCount = 0;
 
   // const carritoCount = loading
   //   ? 0
@@ -197,7 +197,7 @@ export default function Skeleton(props) {
   };
 
   const handleLogOut = (event) => {
-    navigate("Carta");
+    navigate("/");
     handleCloseProfileMenu();
     setUser({
       id: null,
@@ -738,9 +738,11 @@ export default function Skeleton(props) {
             open={Boolean(anchorEl)}
             onClose={handleCloseProfileMenu}
           >
-            <MenuItem onClick={(e) => sectionClick("Editar Perfil")}>
-              Editar Perfil
-            </MenuItem>
+            {user.rol === 3 ? (
+              <MenuItem onClick={(e) => sectionClick("Editar Perfil")}>
+                Editar Perfil
+              </MenuItem>
+            ) : null}
             <MenuItem onClick={handleLogOut}>Cerrar Sesión</MenuItem>
           </Menu>
         </Box>

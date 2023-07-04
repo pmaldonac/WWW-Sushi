@@ -101,7 +101,7 @@ function App() {
           ? [
               {
                 index: true,
-                element: <Navigate to="/AdminUsuarios" replace />,
+                element: <Navigate to="/Administrar Usuarios" replace />,
               },
               { path: "Administrar Usuarios", element: <AdminUsuarios /> },
               { path: "Administrar Productos", element: <AdminProductos /> },

@@ -11,6 +11,8 @@ import {
   Modal,
   TextField,
   FormHelperText,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 
 /* ICONS */
@@ -59,7 +61,7 @@ export default function AuthModal(props) {
   useEffect(() => {
     if (!loading && data) {
       if (data.loginUsuario.status === 200) {
-        navigate("/")
+        navigate("/");
         setOpenModal(false);
         setUser({
           id: data.loginUsuario.data._id,
@@ -75,9 +77,12 @@ export default function AuthModal(props) {
         setErrorPass(data.loginUsuario.error);
       }
     }
+    if (loading) {
+      <Backdrop sx={{ color: "#fff", zIndex: 20000 }} open={open}>
+        <CircularProgress color="inherit" />
+      </Backdrop>;
+    }
   }, [loading]);
-
-  
 
   const handleCloseModal = () => {
     setContinueValue(false);
@@ -239,13 +244,13 @@ export default function AuthModal(props) {
               />
               <FormHelperText error>{errorPass}</FormHelperText>
             </Box>
-            <Typography
+            {/* <Typography
               component={Link}
               to="../restablecer"
               sx={ingresar_contrasena_olvidar_text}
             >
               ¿Olvidaste tu contraseña?
-            </Typography>
+            </Typography> */}
             <Button sx={button} variant="contained" onClick={handleLogin}>
               Iniciar Sesión
             </Button>

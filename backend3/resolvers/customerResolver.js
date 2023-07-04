@@ -2,6 +2,17 @@ const Cliente = require("../models/customer");
 const Usuario = require("../models/user");
 
 const resolvers = {
+  Cliente: {
+    usuario: async (cliente) => {
+
+      const usuarioID = cliente.usuario; 
+      console.log(usuarioID)
+      const userd = await Usuario.findById(usuarioID);
+
+
+      return userd;
+    },
+},
   Query: {
     async getClientes(obj) {
       try {
