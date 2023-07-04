@@ -1,13 +1,39 @@
 const Carro = require("../models/cart")
 const Producto = require("../models/product")
+const Usuario= require("../models/user")
 
 
 const resolvers = {
+    Carro: {
+        producto: async (carro) => {
+    
+          const productosIds = carro.producto; 
+          const productos = [];
+    
+          for (const item of productosIds) {
+            const product = await Producto.findById(item);
+            if (product) {
+              productos.push(product)
+            }
+          }
+    
+          return productos;
+        },
+    },
+    
     Query: {
         async getCarro(obj, {id}){
             try{
                 const carro = await Carro.findById(id)
                 return carro
+            }catch(e){
+                console.error(e)
+            }
+        },
+        async getCarroUsuario(obj, {id_usuario}){
+            try{
+                const carro = await Carro.find({"usuario": id_usuario})
+                return carro[0]
             }catch(e){
                 console.error(e)
             }

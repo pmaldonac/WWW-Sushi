@@ -15,6 +15,7 @@ import {
   Button,
 } from "@mui/material";
 import MuiLink from "@mui/material/Link";
+import LoadingSkeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
@@ -25,25 +26,20 @@ import { sushis } from "../../../controller/testData";
 import { littleSizeFunc } from "../../../controller/windowSize";
 
 const GET_PRODUCTOS = gql`
-  query getProductos {
+  query Query {
     getProductos {
-      _id
-      nombre
-      foto
-      disponibilidad
-      precio
-      ingredientes
       descuento
-      tipo_producto
+      disponibilidad
+      foto
+      ingredientes
+      nombre
+      precio
     }
   }
 `;
 
 export default function Carta() {
   const { data, loading, error } = useQuery(GET_PRODUCTOS);
-  console.log(JSON.stringify(data));
-  console.log(JSON.stringify(loading));
-  console.log(JSON.stringify(error));
   const [cardExpanded, setCardExpanded] = useState(null);
   const littleSize = littleSizeFunc();
 
@@ -54,6 +50,11 @@ export default function Carta() {
       setCardExpanded(index);
     }
   };
+
+  const idExtractor = (url) => {
+    const id = url.split('d/')[1].split('/')[0]
+    return id
+  }
 
   /* CSS */
   const cartaStyle = {
@@ -115,11 +116,12 @@ export default function Carta() {
     flexDirection: "column",
     alignItems: "center",
     color: "#FFFFFF",
-    padding: littleSize ? "1vh 3px 1vh 3px" : "20px 3px 20px 3px",
+    padding: littleSize ? "1vh 3px 1vh 3px" : "20px 22px 20px 22px",
     justifyContent: "flex-end",
     gap: littleSize ? "0px" : "5%",
   };
   const ingredientesText = {
+    textAlign: "center",
     fontSize: littleSize ? "12px" : "16px",
     lineHeight: littleSize ? "120%" : "",
   };
@@ -158,73 +160,70 @@ export default function Carta() {
     color: "#FFFFFF",
   };
 
+  if (loading) {
+    return <LoadingSkeleton variant="rectangular" animation="pulse"></LoadingSkeleton>
+  }
+
   return (
     <Box sx={cartaStyle}>
-      {sushis.map((sushi, index) => (
-        <Card sx={card}>
-          {/* <Card sx={pestanaStyle}></Card> */}
-          <Tooltip
-            arrow
-            disableInteractive
-            title="Click para ver detalles"
-            placement="top-start"
-            enterDelay={500}
-            followCursor
-          >
+      {data.getProductos.map((sushi, index) =>
+        sushi.disponibilidad ? (
+          <Card sx={card}>
+            {/* <Card sx={pestanaStyle}></Card> */}
+            <Tooltip
+              arrow
+              disableInteractive
+              title="Ingredientes"
+              placement="top-start"
+              enterDelay={500}
+              followCursor
+            >
+              <Collapse
+                collapsedSize="10%"
+                easing="500ms"
+                sx={imageCollapse}
+                in={cardExpanded !== index}
+                timeout="auto"
+              >
+                <Card sx={imageBox} onClick={(e) => handleExpandCard(e, index)}>
+                  <Box
+                    loading="lazy"
+                    component="img"
+                    src={`https://drive.google.com/uc?export=view&id=${idExtractor(sushi.foto)}`}
+                    alt="Sushi"
+                    sx={imgStyle}
+                  />
+                </Card>
+              </Collapse>
+            </Tooltip>
             <Collapse
-              collapsedSize="10%"
               easing="500ms"
-              sx={imageCollapse}
-              in={cardExpanded !== index}
+              sx={ingredienteCollapse}
+              in={cardExpanded === index}
               timeout="auto"
             >
-              <Card sx={imageBox} onClick={(e) => handleExpandCard(e, index)}>
-                <Box
-                  loading="lazy"
-                  component="img"
-                  src={sushi.img}
-                  alt="Logo"
-                  sx={imgStyle}
-                />
-              </Card>
+              <Box sx={ingredienteBox}>
+                <Typography sx={ingredientesText}> {sushi.ingredientes} </Typography>
+                <Button
+                  sx={retractButton}
+                  onClick={(e) => handleExpandCard(e, index)}
+                >
+                  <KeyboardArrowDownIcon />
+                </Button>
+              </Box>
             </Collapse>
-          </Tooltip>
-          <Collapse
-            easing="500ms"
-            sx={ingredienteCollapse}
-            in={cardExpanded === index}
-            timeout="auto"
-          >
-            <Box sx={ingredienteBox}>
-              <List>
-                <Typography sx={ingredientesText}>Ingredientes:</Typography>
-                <ul>
-                  {sushi.ingredientes.split(",").map((ingrediente) => (
-                    <Typography sx={ingredientesText}>
-                      <li>{ingrediente}</li>
-                    </Typography>
-                  ))}
-                </ul>
-              </List>
-              <Button
-                sx={retractButton}
-                onClick={(e) => handleExpandCard(e, index)}
-              >
-                <KeyboardArrowDownIcon />
-              </Button>
+            <Box sx={footerBox}>
+              <Box sx={titleBox}>
+                <Typography sx={title}>{sushi.nombre}</Typography>
+                <Typography sx={precio}>${sushi.precio}</Typography>
+              </Box>
+              <IconButton>
+                <AddCircleIcon sx={icon} />
+              </IconButton>
             </Box>
-          </Collapse>
-          <Box sx={footerBox}>
-            <Box sx={titleBox}>
-              <Typography sx={title}>{sushi.title}</Typography>
-              <Typography sx={precio}>{sushi.precio}</Typography>
-            </Box>
-            <IconButton>
-              <AddCircleIcon sx={icon} />
-            </IconButton>
-          </Box>
-        </Card>
-      ))}
+          </Card>
+        ) : null
+      )}
     </Box>
   );
 }

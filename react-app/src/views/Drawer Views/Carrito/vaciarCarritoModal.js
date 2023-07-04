@@ -148,7 +148,7 @@ export default function VaciarCarritoModal(props) {
             <Button sx={button} variant="contained" onClick={handleCloseModal}>
               Cancelar
             </Button>
-            <Button sx={textbutton} variant="text">
+            <Button sx={textbutton} variant="text" onClick={handleCloseModal}>
               Vaciar
             </Button>
           </Box>

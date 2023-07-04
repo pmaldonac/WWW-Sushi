@@ -13,17 +13,7 @@ import {
 import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import {
-  List,
-  ListItemButton,
-  ListItemText,
-  ListItemIcon,
-  ListItem,
-  IconButton,
-  ListSubheader,
-  Paper,
   Card,
-  Collapse,
-  Button,
 } from "@mui/material";
 import MuiLink from "@mui/material/Link";
 import Box from "@mui/material/Box";

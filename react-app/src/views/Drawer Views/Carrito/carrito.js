@@ -1,4 +1,6 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useContext } from "react";
+import { useQuery, gql } from "@apollo/client";
+import { UserContext } from "../../../App";
 import {
   IconButton,
   Card,
@@ -6,20 +8,43 @@ import {
   Tooltip,
   Collapse,
   List,
+  Typography,
+  Box,
 } from "@mui/material";
 import MuiLink from "@mui/material/Link";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import LoadingSkeleton from "@mui/material/Skeleton";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { carrito } from "../../../controller/testData";
 import { littleSizeFunc } from "../../../controller/windowSize";
-import CancelModal from "../Mis Compras/cancelModal";
 import VaciarCarritoModal from "./vaciarCarritoModal";
 import DeleteModal from "./deleteModal";
 
-export default function Carrito() {
+const GET_CARRO = gql`
+  query Query($idUsuario: String!) {
+    getCarroUsuario(id_usuario: $idUsuario) {
+      _id
+      total
+      producto {
+        _id
+        descuento
+        disponibilidad
+        foto
+        ingredientes
+        nombre
+        precio
+      }
+    }
+  }
+`;
+
+export default function Carrito(props) {
+  const { user, setUser } = useContext(UserContext);
+  const { data, loading, error } = useQuery(GET_CARRO, {
+    variables: { idUsuario: user.id },
+  });
+
   const littleSize = littleSizeFunc();
   const [openVaciarModal, setOpenVaciarModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -41,6 +66,11 @@ export default function Carrito() {
   const handleDelete = (e, rollName) => {
     setCurrentRollName(rollName);
     setOpenDeleteModal(true);
+  };
+
+  const idExtractor = (url) => {
+    const id = url.split("d/")[1].split("/")[0];
+    return id;
   };
 
   /* CSS */
@@ -111,11 +141,12 @@ export default function Carrito() {
     flexDirection: "column",
     alignItems: "center",
     color: "#FFFFFF",
-    padding: littleSize ? "1vh 3px 1vh 3px" : "20px 3px 20px 3px",
+    padding: littleSize ? "1vh 3px 1vh 3px" : "20px 22px 20px 22px",
     justifyContent: "flex-end",
     gap: littleSize ? "0px" : "5%",
   };
   const ingredientesText = {
+    textAlign: "center",
     fontSize: littleSize ? "12px" : "16px",
     lineHeight: littleSize ? "120%" : "",
   };
@@ -194,10 +225,19 @@ export default function Carrito() {
     },
   };
 
+  if (loading) {
+    return (
+      <LoadingSkeleton
+        variant="rectangular"
+        animation="pulse"
+      ></LoadingSkeleton>
+    );
+  }
+
   return (
     <Box sx={contenido}>
       <Box sx={cartaStyle}>
-        {carrito.map((sushi, index) => (
+        {data.getCarroUsuario.producto.map((sushi, index) => (
           <Card sx={card}>
             <Tooltip
               arrow
@@ -218,7 +258,9 @@ export default function Carrito() {
                   <Box
                     loading="lazy"
                     component="img"
-                    src={sushi.img}
+                    src={`https://drive.google.com/uc?export=view&id=${idExtractor(
+                      sushi.foto
+                    )}`}
                     alt="Logo"
                     sx={imgStyle}
                   />
@@ -235,16 +277,10 @@ export default function Carrito() {
                 sx={ingredienteBox}
                 onClick={(e) => handleExpandCard(e, index)}
               >
-                <List>
-                  <Typography sx={ingredientesText}>Ingredientes:</Typography>
-                  <ul>
-                    {sushi.ingredientes.split(",").map((ingrediente) => (
-                      <Typography sx={ingredientesText}>
-                        <li>{ingrediente}</li>
-                      </Typography>
-                    ))}
-                  </ul>
-                </List>
+                <Typography sx={ingredientesText}>
+                  {" "}
+                  {sushi.ingredientes}{" "}
+                </Typography>
                 <Button
                   sx={retractButton}
                   onClick={(e) => handleExpandCard(e, index)}
@@ -255,13 +291,13 @@ export default function Carrito() {
             </Collapse>
             <Box sx={footerBox}>
               <Box sx={titleBox}>
-                <Typography sx={title}>{sushi.title}</Typography>
+                <Typography sx={title}>{sushi.nombre}</Typography>
                 <Typography sx={precio}>{sushi.precio}</Typography>
               </Box>
               <IconButton>
                 <DeleteIcon
                   sx={icon}
-                  onClick={(e) => handleDelete(e, sushi.title)}
+                  onClick={(e) => handleDelete(e, sushi.nombre)}
                 />
               </IconButton>
             </Box>
@@ -269,7 +305,7 @@ export default function Carrito() {
         ))}
       </Box>
       <Box sx={buttonBox}>
-        <Typography sx={totalText}>Total: 23.970</Typography>
+        <Typography sx={totalText}>Total: {data.getCarroUsuario.total}</Typography>
         <Button sx={textbutton} variant="text" onClick={handleVaciar}>
           Vaciar Carrito
         </Button>

@@ -3,6 +3,7 @@ import isEmail from "validator/lib/isEmail";
 import isEmpty from "validator/lib/isEmpty";
 import isMobilePhone from "validator/lib/isMobilePhone";
 import isStrongPassword from "validator/lib/isStrongPassword";
+import { gql, useMutation } from "@apollo/client";
 
 import { Outlet, Link, useOutletContext, useNavigate } from "react-router-dom";
 import {
@@ -33,9 +34,52 @@ import {
 import { Fn } from "../../../controller/utils";
 
 const transition = "500ms";
+const ADD_CLIENTE = gql`
+  mutation Mutation($clienteInput: ClienteInput!, $userInput: UsuarioInput!) {
+    addCliente(clienteInput: $clienteInput, userInput: $userInput) {
+      _id
+      usuario {
+        _id
+      }
+    }
+  }
+`;
+
+// TODO: hacer la wea en back
+const ADD_USUARIO = gql`
+  mutation Mutation($usuarioInput: UsuarioInput!, $userInput: UsuarioInput!) {
+    add(usuarioInput: $usuarioInput, userInput: $userInput) {
+      _id
+      comuna
+      correo
+      fecha_nacimiento
+      direccion
+      nombre
+      rut
+      sexo
+      region
+      telefono
+      usuario {
+        _id
+        password
+        rol
+        username
+      }
+    }
+  }
+`;
 
 export default function InfoPerfil(props) {
-  const { setStepCount, confirmText, backButton, cliente = true } = props;
+  const [addCliente, { data, loading, error }] = useMutation(ADD_CLIENTE);
+  const [addUsuario, { data2, loading2, error2 }] = useMutation(ADD_USUARIO);
+
+  const {
+    setOpenModal,
+    setStepCount,
+    confirmText,
+    backButton,
+    cliente = true,
+  } = props;
   const [continueValue, setContinueValue] = useState(false);
   const [securityValue, setSecurityValue] = useState(0);
 
@@ -110,11 +154,57 @@ export default function InfoPerfil(props) {
   const handleCloseModal = () => {
     setContinueValue(false);
     setOpenModal(false);
+    setStepCount(0);
   };
 
   const handleRegistrar = () => {
-    setOpenModal(false);
+    handleCloseModal();
     // TODO: POST
+    if (cliente) {
+      addCliente({
+        variables: {
+          clienteInput: {
+            comuna: valueComuna,
+            correo: valueCorreo,
+            provincia: "Valparaiso", // TODO: no tengo la wa
+            direccion: valueDireccion,
+            fecha_nacimiento: "1987-12-12", // TODO: no tengo la wa
+            nombre: `${valueNombres} ${valueApellidos}`,
+            region: valueRegion,
+            rut: valueRut,
+            sexo: valueSexo,
+            telefono: valueTelefono,
+          },
+          userInput: {
+            password: valuePass,
+            rol: "3",
+            username: valueCorreo,
+          },
+        },
+      });
+    } else {
+      // TODO: corregir con el back
+      addUsuario({
+        variables: {
+          clienteInput: {
+            comuna: valueComuna,
+            correo: valueCorreo,
+            direccion: valueDireccion,
+            nombre: `${valueNombres} ${valueApellidos}`,
+            region: valueRegion,
+            rut: valueRut,
+            sexo: valueSexo,
+            telefono: valueTelefono,
+            cargo: valueCargo,
+          },
+          userInput: {
+            password: valuePass,
+            rol: "3",
+            username: valueCorreo,
+          },
+        },
+      });
+    }
   };
 
   const handleBack = () => {
@@ -537,7 +627,12 @@ export default function InfoPerfil(props) {
             Volver
           </Button>
         ) : null}
-        <Button sx={button} variant="contained" disabled={!continueValue} onClick={handleRegistrar}>
+        <Button
+          sx={button}
+          variant="contained"
+          disabled={!continueValue}
+          onClick={handleRegistrar}
+        >
           {confirmText}
         </Button>
       </Box>

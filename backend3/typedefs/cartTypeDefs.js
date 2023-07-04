@@ -43,6 +43,7 @@ const typeDefs =  gql`
 
     type Query{
         getCarro(id: ID!):Carro
+        getCarroUsuario(id_usuario: String!):Carro
     }
     type Mutation{
         addCarro(input: CarroInput!): Carro

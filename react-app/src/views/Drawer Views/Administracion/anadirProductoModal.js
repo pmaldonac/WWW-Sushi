@@ -52,7 +52,6 @@ export default function AnadirProductoModal(props) {
   const handleCloseModal = () => {
     setContinueValue(false);
     setOpenModal(false);
-    setStepCount(0);
   };
 
   const handleAnadir = () => {

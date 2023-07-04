@@ -1,4 +1,4 @@
-const TipoProducto = require("../models/cart")
+const TipoProducto = require("../models/typeProduct")
 
 const resolvers = {
     Query: {

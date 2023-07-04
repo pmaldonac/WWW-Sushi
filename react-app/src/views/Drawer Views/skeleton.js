@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
+import { UserContext } from "../../App";
 import {
   List,
   ListItemButton,
@@ -11,6 +12,9 @@ import {
   Card,
   Collapse,
   SvgIcon,
+  Menu,
+  MenuItem,
+  Badge,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -55,7 +59,27 @@ const GET_PRODUCTOS = gql`
   }
 `;
 
-export default function Skeleton() {
+const GET_CARRO = gql`
+  query Query($idUsuario: String!) {
+    getCarroUsuario(id_usuario: $idUsuario) {
+      _id
+      producto {
+        _id
+      }
+    }
+  }
+`;
+
+export default function Skeleton(props) {
+  const { user, setUser } = useContext(UserContext);
+  // const { data, loading, error } = useQuery(GET_CARRO, {
+  //   variables: { idUsuario: user.id },
+  // });
+  const carritoCount = 0
+
+  // const carritoCount = loading
+  //   ? 0
+  //   : data.getCarroUsuario.producto.length;
   // const { data, loading, error } = useQuery(GET_LOCATIONS);
   const littleSize = littleSizeFunc();
   const navigate = useNavigate();
@@ -67,6 +91,48 @@ export default function Skeleton() {
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(!littleSize);
   const [openRegistrarModal, setOpenRegistrarModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const appBarColor =
+    user.rol === 2
+      ? "#E89005"
+      : user.rol === 1
+      ? "#262626"
+      : user.rol === 0
+      ? "#08A89E"
+      : "#E84855";
+  const drawerColor =
+    user.rol === 2
+      ? "#ffc56e"
+      : user.rol === 1
+      ? "#383838"
+      : user.rol === 0
+      ? "#0a403d"
+      : "#ed6f79";
+  const itemColor =
+    user.rol === 2
+      ? "#ffa724"
+      : user.rol === 1
+      ? "#4d4c4c"
+      : user.rol === 0
+      ? "#057d75"
+      : "#eb5e69";
+  const hoverColor =
+    user.rol === 2
+      ? "#ffd08a"
+      : user.rol === 1
+      ? "#757575"
+      : user.rol === 0
+      ? "#99ccc9"
+      : "#ed939a";
+
+  useEffect(() => {
+    if (user.rol === null) {
+      setOpenAuthModal(true);
+    } else {
+      setOpenAuthModal(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (littleSize) {
@@ -77,11 +143,7 @@ export default function Skeleton() {
   }, [littleSize]);
 
   useEffect(() => {
-    if (sectionClicked === "Haz tu pedido") {
-      navigate("Carrito");
-    } else {
-      navigate(sectionClicked);
-    }
+    navigate(sectionClicked);
   }, [sectionClicked]);
 
   const sectionTitleClick = (event, section) => {
@@ -97,6 +159,13 @@ export default function Skeleton() {
   };
 
   const menuSectionClick = (event, section) => {
+    setSectionClicked("Carta");
+    if (littleSize) {
+      setOpenDrawer(false);
+    }
+  };
+
+  const adminSectionClick = (event, section) => {
     setSectionClicked(section);
     if (littleSize) {
       setOpenDrawer(false);
@@ -105,13 +174,37 @@ export default function Skeleton() {
 
   const sectionClick = (event, section) => {
     setSectionClicked(section);
+    handleCloseProfileMenu(null);
     if (littleSize) {
       setOpenDrawer(false);
     }
   };
 
   const handleAuth = (event) => {
-    setOpenAuthModal(true);
+    if (user.rol === null) {
+      setOpenAuthModal(true);
+    } else {
+      handleProfileMenu(event);
+    }
+  };
+
+  const handleProfileMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseProfileMenu = (event) => {
+    setAnchorEl(null);
+  };
+
+  const handleLogOut = (event) => {
+    navigate("Carta");
+    handleCloseProfileMenu();
+    setUser({
+      id: null,
+      rol: null,
+      username: null,
+      password: null,
+    });
   };
 
   const inicio = {
@@ -140,7 +233,7 @@ export default function Skeleton() {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#E84855", // TODO:  Delivery: #E89005, Admin: #262626, Dueño: #08A89E
+    backgroundColor: appBarColor,
     padding: "0px 1vw",
     gap: "11px",
   };
@@ -159,7 +252,7 @@ export default function Skeleton() {
     width: "fit-content",
     color: "#FFFFFF",
     "&:hover": {
-      background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
+      background: hoverColor,
     },
   };
   const icons = {
@@ -204,14 +297,14 @@ export default function Skeleton() {
   };
   const drawerList = {
     width: "100%",
-    background: "#ed6f79", // TODO: Delivery: #ffc56e, Admin: #757575, Dueño: #0a403d
+    background: drawerColor, // TODO: Delivery: #ffc56e, Admin: #757575, Dueño: #0a403d
     height: "100%",
     transition: transition,
     padding: "0",
   };
   const drawerListMenu = {
     width: "100%",
-    background: "#ed6f79", // TODO: Delivery: #ffc56e, Admin: #757575, Dueño: #0a403d
+    background: drawerColor, // TODO: Delivery: #ffc56e, Admin: #757575, Dueño: #0a403d
     height: "fit-content",
     transition: transition,
     padding: "0",
@@ -236,14 +329,14 @@ export default function Skeleton() {
     gap: "11px",
     padding: "1vh 2vw",
     transition: transition,
-    color: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
+    color: hoverColor,
     "&:hover": {
-      background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
+      background: hoverColor,
     },
     "&.Mui-selected": {
-      background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
+      background: hoverColor,
       "&:hover": {
-        background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
+        background: hoverColor,
       },
     },
   };
@@ -255,15 +348,15 @@ export default function Skeleton() {
     gap: "11px",
     padding: "1vh 1vw",
     transition: transition,
-    background: "#eb5e69",
-    color: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
+    background: itemColor,
+    color: hoverColor,
     "&:hover": {
-      background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
+      background: hoverColor,
     },
     "&.Mui-selected": {
-      background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
+      background: hoverColor,
       "&:hover": {
-        background: "#ed939a", // TODO:  Delivery: #ffd08a, Admin: #383838, Dueño: #99ccc9
+        background: hoverColor,
       },
     },
   };
@@ -331,20 +424,12 @@ export default function Skeleton() {
   };
 
   var drawerTitleListValuesCliente = [
-    // {
-    //   title: "Haz tu pedido",
-    //   icon: <RiceBowlIcon sx={drawerListTileButtonIconIcon} />,
-    // },
     {
       title: "Mis compras",
       icon: <ShoppingBagIcon sx={drawerListTileButtonIconIcon} />,
     },
     {
       title: "Editar Perfil",
-      icon: <ManageAccountsIcon sx={drawerListTileButtonIconIcon} />,
-    },
-    {
-      title: "Pedidos",
       icon: <ManageAccountsIcon sx={drawerListTileButtonIconIcon} />,
     },
   ];
@@ -471,30 +556,32 @@ export default function Skeleton() {
           </List>
         ))}
       </Collapse>
-      {drawerTitleListValuesCliente.map((value) => (
-        <ListItem
-          sx={drawerListTileButton2}
-          component={ListItemButton}
-          selected={sectionClicked === value.title}
-          key={value.title}
-          onClick={(event) => sectionClick(event, value.title)}
-        >
-          <ListItemIcon sx={drawerListTileButtonIcon}>
-            {value.icon}
-          </ListItemIcon>
-          <ListItemText
-            primary={value.title}
-            sx={drawerListTileButtonText}
-            // disableTypography
-          />
-        </ListItem>
-      ))}
+      {user.rol !== null
+        ? drawerTitleListValuesCliente.map((value) => (
+            <ListItem
+              sx={drawerListTileButton2}
+              component={ListItemButton}
+              selected={sectionClicked === value.title}
+              key={value.title}
+              onClick={(event) => sectionClick(event, value.title)}
+            >
+              <ListItemIcon sx={drawerListTileButtonIcon}>
+                {value.icon}
+              </ListItemIcon>
+              <ListItemText
+                primary={value.title}
+                sx={drawerListTileButtonText}
+                // disableTypography
+              />
+            </ListItem>
+          ))
+        : null}
     </List>
   );
 
   const deliveryList = () => (
     <List disablePadding sx={drawerList}>
-      {drawerTitleListValuesCliente.map((value) => (
+      {drawerTitleListValuesDelivery.map((value) => (
         <ListItem
           sx={drawerListTileButton2}
           component={ListItemButton}
@@ -538,7 +625,7 @@ export default function Skeleton() {
                 sx={drawerListTileButton}
                 selected={sectionClicked === value.title}
                 key={value.title}
-                onClick={(e) => menuSectionClick(e, value.title)}
+                onClick={(e) => adminSectionClick(e, value.title)}
               >
                 <ListItemIcon sx={drawerListTileButtonIcon}>
                   {value.icon}
@@ -621,16 +708,41 @@ export default function Skeleton() {
             sx={logoStyle}
           />
         )}
+
         <Box sx={appBarButtonsBox}>
-          <IconButton
-            sx={appBarButton}
-            onClick={(e) => sectionClick(e, "Carrito")}
-          >
-            <ShoppingCartIcon sx={icons} />
-          </IconButton>
+          {user.rol === 3 ? (
+            <IconButton
+              sx={appBarButton}
+              onClick={(e) => sectionClick(e, "Carrito")}
+            >
+              <Badge badgeContent={carritoCount} color="secondary">
+                <ShoppingCartIcon sx={icons} />
+              </Badge>
+            </IconButton>
+          ) : null}
           <IconButton sx={appBarButton} onClick={handleAuth}>
             <PersonIcon sx={icons} />
           </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleCloseProfileMenu}
+          >
+            <MenuItem onClick={(e) => sectionClick("Editar Perfil")}>
+              Editar Perfil
+            </MenuItem>
+            <MenuItem onClick={handleLogOut}>Cerrar Sesión</MenuItem>
+          </Menu>
         </Box>
       </Card>
       <Box sx={centerDiv}>
@@ -640,7 +752,15 @@ export default function Skeleton() {
           timeout="auto"
           orientation="horizontal"
         >
-          <Box sx={drawer}>{duenoList()}</Box>
+          {user.rol === 2 ? (
+            <Box sx={drawer}>{deliveryList()}</Box>
+          ) : user.rol === 1 ? (
+            <Box sx={drawer}>{adminList()}</Box>
+          ) : user.rol === 0 ? (
+            <Box sx={drawer}>{duenoList()}</Box>
+          ) : (
+            <Box sx={drawer}>{cartaList()}</Box>
+          )}
         </Collapse>
         <Box sx={ladoDerecho}>
           <Box sx={contenido}>

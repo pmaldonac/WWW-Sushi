@@ -37,8 +37,8 @@ export const listaEstadoPedido = [
 ];
 
 export const listaCargos = [
-  { id: "delivery", value: "Delivery" },
-  { id: "delivery", value: "Cajero" },
+  { id: "2", value: "Cajero" },
+  { id: "1", value: "Administrador" },
 ];
 
 export const listaRegiones = regiones

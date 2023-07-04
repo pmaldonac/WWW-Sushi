@@ -1,8 +1,13 @@
 // import logo from './logo.svg';
 
+import React, { createContext, useState } from "react";
 import "./App.css";
 import { Helmet } from "react-helmet";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 
 import Skeleton from "./views/Drawer Views/skeleton";
 import Carta from "./views/Drawer Views/Carta/carta";
@@ -23,19 +28,32 @@ import AdminClientes from "./views/Drawer Views/Administracion/administracionCli
 import AdminPedidos from "./views/Drawer Views/Administracion/administrarPedidos";
 import Reportes from "./views/Drawer Views/Reportes/reportes";
 
+export const UserContext = createContext(null);
 
 function App() {
+  const [user, setUser] = useState({
+    id: null,
+    rol: null,
+    username: null,
+    password: null,
+  });
   // var axios = new Axios_API();
   const theme = createTheme({
     palette: {
       primary: {
         light: "#FCFBFB",
-        main: "#E84855", // TODO:  Delivery: #E89005, Admin: #262626, Dueño: #08A89E
+        main:
+          user.rol === 2
+            ? "#E89005"
+            : user.rol === 1
+            ? "#262626"
+            : user.rol === 0
+            ? "#08A89E"
+            : "#E84855",
       },
       neutral: {
         light: "#D9D9D9",
         main: "#818181",
-        // contrastText: '#fff',
       },
     },
     text: {
@@ -64,49 +82,50 @@ function App() {
     {
       path: "/",
       element: <Skeleton />,
-      children: [
-        { index: true, element: <Navigate to="/Carta" replace /> },
-        { path: "Carta", element: <Carta /> },
+      children:
+        user.rol === 3
+          ? [
+              { index: true, element: <Navigate to="/Carta" replace /> },
+              { path: "Carta", element: <Carta /> },
 
-        { path: "Carrito", element: <Carrito /> },
-        { path: "Mis Compras", element: <MisCompras /> },
-        { path: "Editar Perfil", element: <EditarPerfil /> },
-
-        { path: "Pedidos", element: <Pedidos /> },
-
-        { path: "Administrar Usuarios", element: <AdminUsuarios /> },
-        { path: "Administrar Productos", element: <AdminProductos /> },
-        { path: "Administrar Clientes", element: <AdminClientes /> },
-        { path: "Administrar Pedidos", element: <AdminPedidos /> },
-
-        { path: "Reportes", element: <Reportes /> },
-
-
-
-        // { path: "Carta", element: <Carta /> },
-      ]
-    //     {
-    //       path: "Trabajadores",
-    //       element: <Trabajadores />,
-    //     },
-    //     {path: "/Trabajadores/Nuevo Trabajador", element: <NuevoTrabajador /> },
-    //     { path: "Clientes", element: <Clientes /> },
-    //     { path: "Empresa", element: <Empresa /> },
-    //     { path: "Mi Perfil", element: <MiPerfil /> },
-    //     { path: "*", element: null },
-    //   ],
-    // },
-    // {
-    //   path: "/auth/ingreso",
-    //   element: <SignIn />,
+              { path: "Carrito", element: <Carrito /> },
+              { path: "Mis Compras", element: <MisCompras /> },
+              { path: "Editar Perfil", element: <EditarPerfil /> },
+            ]
+          : user.rol === 2
+          ? [
+              { index: true, element: <Navigate to="/Pedidos" replace /> },
+              { path: "Pedidos", element: <Pedidos /> },
+            ]
+          : user.rol === 1
+          ? [
+              {
+                index: true,
+                element: <Navigate to="/AdminUsuarios" replace />,
+              },
+              { path: "Administrar Usuarios", element: <AdminUsuarios /> },
+              { path: "Administrar Productos", element: <AdminProductos /> },
+              { path: "Administrar Clientes", element: <AdminClientes /> },
+              { path: "Administrar Pedidos", element: <AdminPedidos /> },
+            ]
+          : user.rol === 0
+          ? [
+              { index: true, element: <Navigate to="/Reportes" replace /> },
+              { path: "Reportes", element: <Reportes /> },
+            ]
+          : [
+              { index: true, element: <Navigate to="/Carta" replace /> },
+              { path: "Carta", element: <Carta /> },
+            ],
     },
   ]);
 
   return (
-    
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <UserContext.Provider value={{ user: user, setUser: setUser }}>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </UserContext.Provider>
   );
 }
 

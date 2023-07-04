@@ -38,15 +38,11 @@ export default function AdminUsuarios() {
   const button = {
     textTransform: "none",
     borderRadius: "10px",
-    background: "#eb5e69",
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: "15px",
     padding: "8px 24px",
-    "&:hover": {
-      background: "#eb5e69",
-    },
   };
 
   return (

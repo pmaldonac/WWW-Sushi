@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Outlet, Link, useOutletContext, useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { useQuery, gql, useMutation } from "@apollo/client";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../../App";
+
 import {
   IconButton,
   Button,
@@ -7,6 +10,7 @@ import {
   Box,
   Modal,
   TextField,
+  FormHelperText,
 } from "@mui/material";
 
 /* ICONS */
@@ -18,16 +22,62 @@ import InfoPerfil from "../common/infoPerfil";
 
 const transition = "500ms";
 
+const LOGIN = gql`
+  mutation Mutation($user: String!, $passw: String!) {
+    loginUsuario(user: $user, passw: $passw) {
+      data {
+        password
+        rol
+        username
+        _id
+      }
+      error
+      status
+    }
+  }
+`;
+
 export default function AuthModal(props) {
   const { openModal, setOpenModal } = props;
+  const [login, { data, loading, error }] = useMutation(LOGIN);
+  const { user, setUser } = useContext(UserContext);
+  // const { data, loading, error } = useQuery(LOGIN, {
+  //   variables: { idUsuario: user.id },
+  // });
   const [continueValue, setContinueValue] = useState(false);
   const [currentValueEmail, setCurrentValueEmail] = useState("");
   const [currentValuePass, setCurrentValuePass] = useState("");
+
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPass, setErrorPass] = useState("");
+
   const [stepCount, setStepCount] = useState(0);
 
   const littleSize = littleSizeFunc();
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && data) {
+      if (data.loginUsuario.status === 200) {
+        navigate("/")
+        setOpenModal(false);
+        setUser({
+          id: data.loginUsuario.data._id,
+          rol: Number(data.loginUsuario.data.rol),
+          username: data.loginUsuario.data.username,
+          password: data.loginUsuario.data.password,
+        });
+      } else if (data.loginUsuario.status === 400) {
+        setErrorEmail(data.loginUsuario.error);
+        setErrorPass("");
+      } else if (data.loginUsuario.status === 401) {
+        setErrorEmail("");
+        setErrorPass(data.loginUsuario.error);
+      }
+    }
+  }, [loading]);
+
+  
 
   const handleCloseModal = () => {
     setContinueValue(false);
@@ -37,6 +87,12 @@ export default function AuthModal(props) {
 
   const handleContinue = () => {
     setOpenModal(false);
+  };
+
+  const handleLogin = (e) => {
+    login({
+      variables: { user: currentValueEmail, passw: currentValuePass },
+    });
   };
 
   const handleRegistrarse = () => {
@@ -148,7 +204,13 @@ export default function AuthModal(props) {
             <CloseIcon />
           </IconButton>
         </Box>
-        <Box loading="lazy" component="img" src={logo} alt="Logo" sx={logoStyle} />
+        <Box
+          loading="lazy"
+          component="img"
+          src={logo}
+          alt="Logo"
+          sx={logoStyle}
+        />
         {stepCount === 0 ? (
           <Box sx={contenido}>
             <Box sx={textFieldBox}>
@@ -162,6 +224,7 @@ export default function AuthModal(props) {
                 value={currentValueEmail}
                 onChange={(e) => setCurrentValueEmail(e.target.value)}
               />
+              <FormHelperText error>{errorEmail}</FormHelperText>
             </Box>
             <Box sx={textFieldBox}>
               <TextField
@@ -174,6 +237,7 @@ export default function AuthModal(props) {
                 value={currentValuePass}
                 onChange={(e) => setCurrentValuePass(e.target.value)}
               />
+              <FormHelperText error>{errorPass}</FormHelperText>
             </Box>
             <Typography
               component={Link}
@@ -182,7 +246,7 @@ export default function AuthModal(props) {
             >
               ¿Olvidaste tu contraseña?
             </Typography>
-            <Button sx={button} variant="contained">
+            <Button sx={button} variant="contained" onClick={handleLogin}>
               Iniciar Sesión
             </Button>
             <Button sx={textbutton} variant="text" onClick={handleRegistrarse}>
@@ -194,6 +258,7 @@ export default function AuthModal(props) {
             confirmText="Registrar"
             backButton
             setStepCount={setStepCount}
+            setOpenModal={setOpenModal}
           >
             ¡Rellena los campos y recibe las mejores ofertas de sushi!
           </InfoPerfil>

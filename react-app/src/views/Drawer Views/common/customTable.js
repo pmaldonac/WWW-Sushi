@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useContext } from "react";
+import { UserContext } from "../../../App";
 import {
   InputAdornment,
   TableBody,
@@ -84,6 +85,7 @@ function stableSort(array, comparator) {
 }
 
 export default function CustomTable(props) {
+  const { user } = useContext(UserContext);
   const {
     headCells,
     rows,
@@ -264,7 +266,14 @@ export default function CustomTable(props) {
     transition: transition,
   };
   const titleRow = {
-    background: "#E84855", // TODO:  Delivery: #E89005, Admin: #262626, Dueño: #08A89E
+    background:
+      user.rol === 2
+        ? "#E89005"
+        : user.rol === 1
+        ? "#262626"
+        : user.rol === 0
+        ? "#08A89E"
+        : "#E84855",
     color: "#FCFBFB",
     height: "fit-content",
   };
@@ -351,7 +360,7 @@ export default function CustomTable(props) {
   };
   const deleteIcon = {
     color: "red",
-  }
+  };
 
   return (
     <Box sx={contenido}>
